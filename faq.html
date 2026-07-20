@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions — Intermaven Agency</title>
+  <meta name="description" content="Get answers about our engagement models, AI pipeline, pricing, and consultation process.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sansation:wght@700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070f0e;
+      --bg2: #0d1a18;
+      --bg3: #122421;
+      --ca: rgba(18,36,33,0.72);
+      --sage: #6fa29e;
+      --sage-light: #a8c9c5;
+      --lime: #d7df23;
+      --tx: #f6f8f7;
+      --mu: #9fb5b1;
+      --mu2: #657b77;
+      --b1: rgba(111,162,158,0.18);
+      --b2: rgba(111,162,158,0.3);
+      --r: 3px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--tx); font-family: 'Outfit', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Navbar (Transparent prior to scroll, 0.85 opacity after scroll) */
+    .navbar {
+      position: fixed; top: 0; left: 0; width: 100%; height: 88px; z-index: 1000;
+      background: transparent; border-bottom: 1px solid transparent;
+      display: flex; align-items: center; transition: background .3s ease, border-color .3s ease, height .3s ease;
+    }
+    body.scrolled .navbar {
+      background: rgba(7, 15, 14, 0.85); border-bottom: 1px solid var(--b1);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); height: 74px;
+    }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo img { width: 190px; height: auto; transition: transform .3s ease; transform-origin: left center; }
+    body.scrolled .nav-logo img { transform: scale(0.86); }
+    .nav-links { display: flex; align-items: center; gap: 40px; }
+    .nav-links a { font-size: 14.5px; font-weight: 500; color: #ffffff; transition: color .2s ease; padding: 4px 2px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--sage-light); }
+    .nav-signin-btn { background: var(--sage); color: #070f0e; border: 1px solid var(--sage); padding: 8px 20px; font-size: 12.5px; font-weight: 700; border-radius: 3px; cursor: pointer; }
+    .btn-primary { background: var(--lime); color: #08120f; padding: 11px 24px; border-radius: 3px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; border:none; cursor:pointer; }
+
+    /* Interior Hero Header (Landing Standard Overlay & Grid, Transparent Under Navbar, Shorter Height) */
+    .page-hero-inner {
+      position: relative; height: 380px; min-height: 340px; display: flex; align-items: center; justify-content: center;
+      overflow: hidden; background: var(--bg); text-align: center;
+    }
+    .hero-bg-container { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
+    .hero-bg-layer { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.85; filter: brightness(1.2); pointer-events: none; }
+    .hero-bg-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background:
+        linear-gradient(180deg, rgba(7, 15, 14, 0.45) 0%, rgba(7, 15, 14, 0.25) 50%, rgba(7, 15, 14, 0.85) 100%),
+        radial-gradient(circle at 50% 50%, rgba(7, 15, 14, 0.15), rgba(7, 15, 14, 0.65));
+      pointer-events: none;
+    }
+    .hero-network { position: absolute; inset: 0; z-index: 2; opacity: 0.65; pointer-events: none; }
+    .hero-network svg { width: 100%; height: 100%; }
+
+    .page-hero-content { position: relative; z-index: 4; text-align: center; max-width: 820px; padding-top: 60px; }
+    .page-hero-content h1 { font-family: 'Sansation', sans-serif; font-size: clamp(32px, 4.2vw, 48px); margin-bottom: 14px; text-wrap: balance; }
+    .page-hero-content p { color: var(--mu); font-size: 17px; max-width: 660px; margin: 0 auto; text-wrap: balance; }
+
+    section { padding: 50px 0; }
+
+    .faq-list { max-width: 820px; margin: 20px auto 0; display: flex; flex-direction: column; gap: 16px; }
+    .faq-item { background: var(--ca); border: 1px solid var(--b1); border-radius: 3px; padding: 24px; backdrop-filter: blur(12px); cursor: pointer; }
+    .faq-question { font-weight: 700; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { color: var(--mu); font-size: 15px; margin-top: 12px; line-height: 1.6; }
+
+    footer { background: var(--bg3); border-top: 1px solid var(--b1); padding: 60px 0 30px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 40px; border-bottom: 1px solid var(--b1); }
+    .footer-brand img { width: 180px; margin-bottom: 14px; }
+    .footer-brand p { color: var(--mu); font-size: 14px; line-height: 1.6; margin-bottom: 16px; max-width: 300px; }
+    .footer-col h5 { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mu2); margin-bottom: 16px; font-weight: 700; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: var(--mu); font-size: 14px; transition: color .2s; }
+    .footer-col a:hover { color: var(--lime); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; font-size: 13px; color: var(--mu2); }
+    .powered-by { font-size: 13px; color: var(--mu2); display: flex; align-items: center; gap: 14px; }
+    .powered-by a { color: var(--sage-light); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo"><img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency"></a>
+    <div class="nav-links">
+      <a href="profile.html">Profile</a>
+      <a href="services.html">Services</a>
+      <a href="showcase.html">Showcase</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <a href="appointment.html" class="btn-primary"><i class="ri-calendar-check-line"></i> Book Appointment</a>
+      <a href="admin.html" class="nav-signin-btn" style="margin-left:10px;">Sign In</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero-inner">
+  <div class="hero-bg-container">
+    <div class="hero-bg-layer" style="background-image: url('assets/header_faq.png');"></div>
+    <div class="hero-bg-overlay"></div>
+  </div>
+  <div class="container page-hero-content">
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about our free consultations, AI-assisted delivery pipeline, and credit ecosystem.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question"><span>What happens during the free initial consultation?</span> <i class="ri-add-line"></i></div>
+        <div class="faq-answer">Every engagement starts with a free, 30-minute consultation with a real tech lead or account manager. We review your vision, technical requirements, and map your project timeline before scoping.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><span>How does the AI-assisted pipeline differ from traditional agencies?</span> <i class="ri-add-line"></i></div>
+        <div class="faq-answer">AI handles repetitive tasks like component scaffolding, boilerplate generation, and asset processing. Strategic direction, UI design polish, and QA are strictly directed by seasoned human strategists.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><span>What is the difference between Done-For-You and Self-Serve?</span> <i class="ri-add-line"></i></div>
+        <div class="faq-answer">Done-For-You is a full agency engagement where our studio handles end-to-end strategy, design, and code. Self-Serve (via intermaven.io) allows founders to run on our credit system directly.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><span>How are leads and bookings managed in your system?</span> <i class="ri-add-line"></i></div>
+        <div class="faq-answer">All appointment bookings and newsletter signups double-opt-in directly into our Smart CRM backend admin, notifying assigned tech leads instantly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency">
+        <p>Brand identity, interactive design, and software ecosystems — built with two decades of craft and an AI-assisted delivery pipeline.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="services.html">Brand Identity</a></li>
+          <li><a href="services.html">Interactive Design</a></li>
+          <li><a href="services.html">Software UI/UX</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="showcase.html">Showcase</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Legal &amp; Admin</h5>
+        <ul>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="admin.html">Sandbox Admin</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Intermaven Agency. All rights reserved.</p>
+      <div class="powered-by">
+        <span>Part of Intermaven Network</span>
+        <span>Powered by <a href="https://intermaven.io">intermaven.io</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.body.classList.toggle('scrolled', window.scrollY > 50);
+});
+</script>
+
+</body>
+</html>
