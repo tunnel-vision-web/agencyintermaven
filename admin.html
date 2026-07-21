@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="expires" content="0">
   <title>Intermaven Agency — Admin Backend &amp; Smart CRM</title>
   <meta name="description" content="Intermaven Agency Admin — Lead CRM, Team Members, Availability, Call Preparation, Projects & Testimonials CMS.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -204,7 +207,7 @@
   <div class="sidebar-menu">
     <div class="nav-item active" onclick="switchPane('dashboard', this)"><i class="ri-dashboard-3-line"></i> <span>Dashboard (Analytics)</span></div>
     <div class="nav-item" onclick="switchPane('leads', this)"><i class="ri-user-search-line"></i> <span>Lead Gen &amp; Bookings</span></div>
-    <div class="nav-item" onclick="openSmartCrmModal()"><i class="ri-contacts-book-2-line" style="color:var(--lime);"></i> <span style="color:var(--lime);">Smart CRM (intermaven.io)</span></div>
+    <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="nav-item" style="text-decoration:none;" title="Launch intermaven.io CRM — auto-login as Agency Admin with unlimited Studio Credits"><i class="ri-contacts-book-2-line" style="color:var(--lime);"></i> <span style="color:var(--lime);">Smart CRM (intermaven.io)</span></a>
     <div class="nav-item" onclick="switchPane('team', this)"><i class="ri-team-line"></i> <span>Team Members</span></div>
     <div class="nav-item" onclick="switchPane('cms-hub', this)"><i class="ri-apps-2-line"></i> <span>CMS Dashboard Hub</span></div>
   </div>
@@ -351,12 +354,15 @@
         </div>
 
         <!-- Tile 4: Smart CRM -->
-        <div class="cms-tile-card highlight-crm" onclick="openSmartCrmModal()">
+        <div class="cms-tile-card highlight-crm" style="cursor:pointer;">
           <div class="cms-tile-icon" style="color:var(--lime);"><i class="ri-contacts-book-2-line"></i></div>
           <div class="cms-tile-content">
             <h4 style="color:var(--lime);">Smart CRM (intermaven.io)</h4>
-            <p>Launch &amp; auto-login to intermaven.io CRM with free/unlimited agency credits.</p>
-            <div class="cms-tile-action" style="color:var(--lime);">Open Smart CRM Portal <i class="ri-arrow-right-line"></i></div>
+            <p>Launch &amp; auto-login to intermaven.io CRM with unlimited agency credits.</p>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
+              <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="btn-action btn-lime" style="text-align:center; font-size:12px; font-weight:700; text-decoration:none;" onclick="event.stopPropagation();"><i class="ri-external-link-line"></i> Launch intermaven.io CRM</a>
+              <button class="btn-action" onclick="openSmartCrmModal()" style="font-size:11px;"><i class="ri-contacts-book-2-line"></i> View Local CRM Portal</button>
+            </div>
           </div>
         </div>
 
@@ -2148,7 +2154,8 @@ function deleteService(id) {
 // ─── HERO SLIDES CMS HANDLERS ───
 function openHeroSlideModal(id) {
   const slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
-  const h = id ? slides.find(x => x.id === id) : null;
+  const numId = id ? Number(id) : null;
+  const h = numId ? slides.find(x => Number(x.id) === numId) : null;
 
   document.getElementById('hsId').value = h ? h.id : '';
   document.getElementById('hsTitle').value = h ? h.title : '';
