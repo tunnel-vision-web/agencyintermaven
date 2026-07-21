@@ -174,8 +174,12 @@
     <div class="nav-item" onclick="openSmartCrmModal()"><i class="ri-contacts-book-2-line"></i> <span>Smart CRM (Intermaven)</span></div>
     <div class="nav-item" onclick="switchPane('team', this)"><i class="ri-team-line"></i> <span>Team Members</span></div>
     <div class="nav-item" onclick="switchPane('cms-projects', this)"><i class="ri-folder-code-line"></i> <span>CMS — Projects</span></div>
+    <div class="nav-item" onclick="switchPane('cms-services', this)"><i class="ri-layout-grid-line"></i> <span>CMS — Services</span></div>
+    <div class="nav-item" onclick="switchPane('cms-hero', this)"><i class="ri-slideshow-3-line"></i> <span>CMS — Hero Slides</span></div>
     <div class="nav-item" onclick="switchPane('cms-testimonials', this)"><i class="ri-chat-quote-line"></i> <span>CMS — Testimonials</span></div>
+    <div class="nav-item" onclick="switchPane('cms-faqs', this)"><i class="ri-questionnaire-line"></i> <span>CMS — FAQs</span></div>
     <div class="nav-item" onclick="switchPane('cms-socials', this)"><i class="ri-share-line"></i> <span>CMS — Social Media</span></div>
+    <div class="nav-item" onclick="switchPane('cms-settings', this)"><i class="ri-settings-4-line"></i> <span>CMS — Site Settings</span></div>
   </div>
 
   <div class="sandbox-tag">
@@ -350,6 +354,92 @@
       </div>
     </div>
 
+    <!-- ── PANE 7: CMS SERVICES ── -->
+    <div class="view-pane" id="pane-cms-services">
+      <div class="table-card">
+        <div class="table-header">
+          <h3>CMS — Service Offerings &amp; Packages</h3>
+          <button class="btn-action btn-lime" onclick="openServiceModal()"><i class="ri-add-line"></i> Add Service Offering</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Service Title</th><th>Icon Class</th><th>Description</th><th>Booking Param</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="cmsServicesBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PANE 8: CMS HERO SLIDES ── -->
+    <div class="view-pane" id="pane-cms-hero">
+      <div class="table-card">
+        <div class="table-header">
+          <h3>CMS — Landing Page Hero Slides</h3>
+          <button class="btn-action btn-lime" onclick="openHeroSlideModal()"><i class="ri-add-line"></i> Add Hero Slide</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Slide Title</th><th>Lead Text</th><th>Background Image</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="cmsHeroSlidesBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PANE 9: CMS FAQS ── -->
+    <div class="view-pane" id="pane-cms-faqs">
+      <div class="table-card">
+        <div class="table-header">
+          <h3>CMS — FAQs &amp; Knowledge Base</h3>
+          <button class="btn-action btn-lime" onclick="openFaqModal()"><i class="ri-add-line"></i> Add FAQ Question</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Question</th><th>Category</th><th>Answer Preview</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="cmsFaqsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PANE 10: CMS SITE SETTINGS ── -->
+    <div class="view-pane" id="pane-cms-settings">
+      <div class="table-card">
+        <div class="table-header">
+          <h3>CMS — Global Agency Settings &amp; Branding</h3>
+        </div>
+        <form onsubmit="saveSiteSettings(event)" style="padding:20px;">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Agency Name</label>
+              <input type="text" id="settingAgencyName" required value="Intermaven Agency">
+            </div>
+            <div class="form-group">
+              <label>Contact Phone</label>
+              <input type="text" id="settingPhone" value="+1 (404) 555-0199">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Contact Email</label>
+              <input type="email" id="settingEmail" value="hello@intermaven.agency">
+            </div>
+            <div class="form-group">
+              <label>Physical Address / Headquarters</label>
+              <input type="text" id="settingAddress" value="Peachtree St NW, Atlanta GA 30309">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tagline / Hero Subheading</label>
+            <input type="text" id="settingTagline" value="Brand identity, interactive design, and software ecosystems — built with two decades of craft.">
+          </div>
+          <div style="margin-top:16px;">
+            <button type="submit" class="btn-action btn-lime"><i class="ri-save-line"></i> Save Global Settings</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
   </div><!-- /content-padding -->
 </main>
 
@@ -360,17 +450,18 @@
   <div class="wide-modal-box">
     <div class="wide-modal-header">
       <div style="display:flex; align-items:center; gap:12px;">
-        <i class="ri-contacts-book-2-line" style="color:var(--lime); font-size:22px;"></i>
+        <i class="ri-contacts-book-2-line" style="color:var(--lime); font-size:24px;"></i>
         <div>
-          <h3 style="font-size:16px; font-weight:800; color:var(--tx); display:flex; align-items:center; gap:8px;">
+          <h3 style="font-size:16px; font-weight:800; color:var(--tx); display:flex; align-items:center; gap:10px;">
             Intermaven Smart CRM Suite 
             <span class="badge badge-success" style="font-size:10px;"><i class="ri-shield-check-line"></i> Authenticated: Marcus Sterling</span>
+            <span class="badge badge-success" style="font-size:10.5px; background:rgba(215,223,35,0.18); color:var(--lime); border:1px solid var(--lime);"><i class="ri-flashlight-fill"></i> Agency Tier: Unlimited Studio Credits Active</span>
           </h3>
           <span style="font-size:11.5px; color:var(--mu);">Connected to intermaven.io backend network • Double Opt-In &amp; Lead Dispatch Active</span>
         </div>
       </div>
-      <div style="display:flex; align-items:center; gap:12px;">
-        <a href="https://intermaven.io" target="_blank" class="btn-action" style="font-size:11.5px;"><i class="ri-external-link-line"></i> Open intermaven.io in New Tab</a>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="btn-action btn-lime" style="font-size:12px; font-weight:700;"><i class="ri-external-link-line"></i> Launch &amp; Auto-Login intermaven.io CRM</a>
         <button class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:6px 12px;"><i class="ri-close-line"></i> Close CRM</button>
       </div>
     </div>
@@ -776,9 +867,95 @@
           <span>Visible in Footer Navigation across site</span>
         </label>
       </div>
+<!-- ═══════════════════════════════════════════════════════════════
+     SERVICE OFFERING MODAL
+═══════════════════════════════════════════════════════════════ -->
+<div class="admin-form-modal" id="serviceModal">
+  <div class="modal-box" style="max-width:540px;">
+    <h3 id="serviceModalTitle" style="margin-bottom:16px;">Add Service Offering</h3>
+    <form onsubmit="saveService(event)">
+      <input type="hidden" id="svcId">
+      <div class="form-group">
+        <label>Service Title</label>
+        <input type="text" id="svcTitle" required placeholder="Brand Identity &amp; Strategy">
+      </div>
+      <div class="form-group">
+        <label>Remixicon Icon Class (e.g. ri-fingerprint-line, ri-layout-4-line, ri-flow-chart)</label>
+        <input type="text" id="svcIcon" required placeholder="ri-fingerprint-line">
+      </div>
+      <div class="form-group">
+        <label>Service Description</label>
+        <textarea id="svcDesc" rows="3" required placeholder="Logos, systems, positioning and voice..."></textarea>
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>Booking Parameter (URL Slug)</label>
+          <input type="text" id="svcParam" required placeholder="branding">
+        </div>
+        <div class="form-group">
+          <label>View Similar Category</label>
+          <input type="text" id="svcCategory" required placeholder="Branding">
+        </div>
+      </div>
       <div class="modal-footer">
-        <button type="button" class="btn-action" onclick="closeSmallModal('socialModal')">Cancel</button>
-        <button type="submit" class="btn-action btn-lime">Save Social Link <i class="ri-save-line"></i></button>
+        <button type="button" class="btn-action" onclick="closeSmallModal('serviceModal')">Cancel</button>
+        <button type="submit" class="btn-action btn-lime">Save Service <i class="ri-save-line"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO SLIDE MODAL
+═══════════════════════════════════════════════════════════════ -->
+<div class="admin-form-modal" id="heroSlideModal">
+  <div class="modal-box" style="max-width:540px;">
+    <h3 id="heroModalTitle" style="margin-bottom:16px;">Add Hero Slide</h3>
+    <form onsubmit="saveHeroSlide(event)">
+      <input type="hidden" id="hsId">
+      <div class="form-group">
+        <label>Slide Title (HTML allowed e.g., Building Iconic Brands for the &lt;em&gt;AI Era&lt;/em&gt;)</label>
+        <input type="text" id="hsTitle" required placeholder="Building Iconic Brands...">
+      </div>
+      <div class="form-group">
+        <label>Lead Paragraph</label>
+        <textarea id="hsLead" rows="3" required placeholder="Intermaven Agency turns ambitious ventures..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Background Image Asset Path</label>
+        <input type="text" id="hsBg" required placeholder="assets/hero_slide1.png">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-action" onclick="closeSmallModal('heroSlideModal')">Cancel</button>
+        <button type="submit" class="btn-action btn-lime">Save Hero Slide <i class="ri-save-line"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FAQ ITEM MODAL
+═══════════════════════════════════════════════════════════════ -->
+<div class="admin-form-modal" id="faqModal">
+  <div class="modal-box" style="max-width:540px;">
+    <h3 id="faqModalTitle" style="margin-bottom:16px;">Add FAQ Question</h3>
+    <form onsubmit="saveFaq(event)">
+      <input type="hidden" id="faqId">
+      <div class="form-group">
+        <label>Question</label>
+        <input type="text" id="faqQuestion" required placeholder="How does the agency engagement timeline work?">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" id="faqCategory" required placeholder="General &amp; Engagements">
+      </div>
+      <div class="form-group">
+        <label>Detailed Answer</label>
+        <textarea id="faqAnswer" rows="4" required placeholder="All projects begin with an initial scoping session..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-action" onclick="closeSmallModal('faqModal')">Cancel</button>
+        <button type="submit" class="btn-action btn-lime">Save FAQ Item <i class="ri-save-line"></i></button>
       </div>
     </form>
   </div>
@@ -800,14 +977,156 @@ const defaultCrm = [
 ];
 
 const defaultProjects = [
-  { id: 1, title: 'TuneMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/tunemavens_thumb.png', desc: 'Sync licensing platform built for music rights holders.' },
-  { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/intermaven_thumb.png', desc: 'SaaS engine powering automated delivery and CRM workflows.' },
-  { id: 3, title: 'Atlanta TV Mount PRO', category: 'Branding & Web', badge: 'venture', thumb: 'assets/atlanta_tv_mount_thumb.png', desc: 'Live quote calculation booking web app for home services.' },
-  { id: 7, title: 'SyncMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/syncmavens_thumb.png', desc: 'Sync marketplace sub-platform, brand-extended from TuneMavens.' },
-  { id: 8, title: 'TuneStream Engine', category: 'AI & Automation', badge: 'venture', thumb: 'assets/tunestream_thumb.png', desc: 'Audio delivery engine and dynamic rights catalog distribution system.' },
-  { id: 4, title: 'Jua Capital', category: 'Branding', badge: 'client', thumb: 'assets/jua_capital.png', desc: 'Investor-grade identity system for an East African venture firm.' },
-  { id: 5, title: 'Mwanga Law', category: 'Branding', badge: 'client', thumb: 'assets/mwanga_law.png', desc: 'Distinguished legal wordmark and digital presence.' },
-  { id: 6, title: 'Afya Plus Clinics', category: 'Branding', badge: 'client', thumb: 'assets/afya_plus.png', desc: 'Healthcare brand identity and patient portal design.' }
+  {
+    id: 3,
+    title: 'Atlanta TV Mount PRO',
+    category: 'Branding & Web',
+    badge: 'venture',
+    thumb: 'assets/atlanta_tv_mount_thumb.png',
+    client: 'Atlanta TV Mount PRO Inc.',
+    budget: '$45,000',
+    roi: '340% Booking Conversion',
+    projectUrl: 'https://atlantatvmount.com/',
+    btnText: 'Launch Live Booking Web App',
+    desc: 'Live quote calculation and booking web application engineered for home services, featuring automated customer scheduling.',
+    fullDesc: '<h3>Executive Summary</h3><p>Atlanta TV Mount PRO is an automated web platform designed to streamline high-velocity home service bookings across the greater Atlanta metropolitan area.</p><h3>Key System Features</h3><ul><li><strong>Instant Online Estimator:</strong> Real-time price calculation based on screen size, mount type, and wall surface material.</li><li><strong>Automated Scheduling:</strong> Direct calendar integration with immediate SMS and email customer confirmations.</li><li><strong>Mobile-Optimized UX:</strong> Ultra-responsive mobile booking flow tailored for local search conversion.</li></ul>',
+    images: [
+      { url: 'assets/atlanta_tv_mount_thumb.png', caption: 'Focused Brand Identity & Graphical Logo Header' },
+      { url: 'assets/atlanta_tv_mount_pro.png', caption: 'Full Platform Hero Showcase & Live Booking Interface' },
+      { url: 'assets/atlanta_tv_mount_pro_feat.png', caption: 'Instant Quote Calculator & Feature Package Options' },
+      { url: 'assets/atlanta_tv_mount_pro_workflow.png', caption: 'Step-by-Step Installation Booking Workflow' },
+      { url: 'assets/atlanta_tv_mount_pro_mob.png', caption: 'Mobile-Optimized Booking Flow' }
+    ]
+  },
+  {
+    id: 1,
+    title: 'TuneMavens Platform',
+    category: 'Software & Systems',
+    badge: 'venture',
+    thumb: 'assets/tunemavens_thumb.png',
+    client: 'TuneMavens Inc.',
+    budget: '$85,000',
+    roi: '220% Revenue Acceleration',
+    projectUrl: 'https://www.tunemavens.com/',
+    btnText: 'Launch Music Platform',
+    desc: 'Sync licensing platform built for music rights holders and catalog managers.',
+    fullDesc: '<h3>Executive Summary</h3><p>TuneMavens provides music rights holders with automated catalog management, sync placement tracking, and royalty distribution workflows.</p><h3>Technical Architecture</h3><ul><li>Acoustic fingerprinting engine for automatic track detection.</li><li>Instant licensing agreement generator.</li><li>Multi-currency payout gateway.</li></ul>',
+    images: [
+      { url: 'assets/tunemavens_thumb.png', caption: 'TuneMavens Brandmark & Graphical Thumbnail' },
+      { url: 'assets/tunemavens.png', caption: 'Platform Landing Page & Catalog Search' },
+      { url: 'assets/tunemavens_feat.png', caption: 'Sync Licensing Workflows & Licensing Desk' },
+      { url: 'assets/tunemavens_workflow.png', caption: 'Rights Holder Dashboard' },
+      { url: 'assets/tunemavens_mob.png', caption: 'Mobile Catalog Browser' }
+    ]
+  },
+  {
+    id: 2,
+    title: 'Intermaven Network Suite',
+    category: 'AI & Automation',
+    badge: 'venture',
+    thumb: 'assets/intermaven_thumb.png',
+    client: 'Intermaven Agency',
+    budget: 'Internal Venture',
+    roi: '4.8x Production Velocity',
+    projectUrl: 'https://intermaven.io/',
+    btnText: 'Explore intermaven.io',
+    desc: 'SaaS engine powering automated agency delivery and Smart CRM workflows.',
+    fullDesc: '<h3>Executive Summary</h3><p>The core intelligence engine powering Intermaven Agency operations, providing client portals, CRM double opt-in validation, and AI pipeline node management.</p>',
+    images: [
+      { url: 'assets/intermaven_thumb.png', caption: 'Intermaven Brand & Network Thumbnail' },
+      { url: 'assets/intermaven.png', caption: 'Main Platform Hub' },
+      { url: 'assets/intermaven_feat.png', caption: 'Automated CRM & Node Manager' },
+      { url: 'assets/intermaven_workflow.png', caption: 'Pipeline Telemetry' },
+      { url: 'assets/intermaven_mob.png', caption: 'Mobile Ecosystem Dashboard' }
+    ]
+  },
+  {
+    id: 7,
+    title: 'SyncMavens Platform',
+    category: 'Software & Systems',
+    badge: 'venture',
+    thumb: 'assets/syncmavens_thumb.png',
+    client: 'SyncMavens Group',
+    budget: '$60,000',
+    roi: '180% Licensing Speed',
+    projectUrl: 'https://syncmavens.com/',
+    btnText: 'Launch SyncMavens',
+    desc: 'Sync marketplace sub-platform, brand-extended from TuneMavens.',
+    fullDesc: '<h3>Executive Summary</h3><p>SyncMavens facilitates rapid sync placements for TV, film, and commercial media productions.</p>',
+    images: [
+      { url: 'assets/syncmavens_thumb.png', caption: 'SyncMavens Focused Logo Banner' },
+      { url: 'assets/sync_mavens.png', caption: 'Marketplace Interface' },
+      { url: 'assets/syncmavens_feat.png', caption: 'Curated Track Playlists' },
+      { url: 'assets/syncmavens_workflow.png', caption: 'Licensing Checkout Workflow' },
+      { url: 'assets/syncmavens_mob.png', caption: 'Mobile Player' }
+    ]
+  },
+  {
+    id: 8,
+    title: 'TuneStream Engine',
+    category: 'AI & Automation',
+    badge: 'venture',
+    thumb: 'assets/tunestream_thumb.png',
+    client: 'TuneStream Co.',
+    budget: '$50,000',
+    roi: '99.9% Uptime Stream Delivery',
+    projectUrl: 'https://tunestream.co/',
+    btnText: 'Launch TuneStream',
+    desc: 'Audio delivery engine and dynamic rights catalog distribution system.',
+    fullDesc: '<h3>Executive Summary</h3><p>High-fidelity audio streaming node engineered for low-latency playback and automated metadata tagging.</p>',
+    images: [
+      { url: 'assets/tunestream_thumb.png', caption: 'TuneStream Graphical Header' },
+      { url: 'assets/tunestream.png', caption: 'Streaming Engine Portal' },
+      { url: 'assets/tunestream_feat.png', caption: 'Lossless Streaming Quality Controls' },
+      { url: 'assets/tunestream_workflow.png', caption: 'Distribution Telemetry' },
+      { url: 'assets/tunestream_mob.png', caption: 'Mobile Streamer' }
+    ]
+  },
+  {
+    id: 4,
+    title: 'Jua Capital',
+    category: 'Branding',
+    badge: 'client',
+    thumb: 'assets/jua_capital.png',
+    client: 'Jua Capital Partners',
+    budget: '$35,000',
+    roi: '$12M Fund Raising Support',
+    projectUrl: 'https://intermaven.io',
+    btnText: 'View Case Study',
+    desc: 'Investor-grade identity system for an East African venture firm.',
+    fullDesc: '<h3>Executive Summary</h3><p>Complete visual identity guidelines, investor deck design, and web portal build for Jua Capital.</p>',
+    images: [{ url: 'assets/jua_capital.png', caption: 'Identity Guidelines' }]
+  },
+  {
+    id: 5,
+    title: 'Mwanga Law',
+    category: 'Branding',
+    badge: 'client',
+    thumb: 'assets/mwanga_law.png',
+    client: 'Mwanga Law Group',
+    budget: '$28,000',
+    roi: '150% Inquiries Growth',
+    projectUrl: 'https://intermaven.io',
+    btnText: 'View Legal Portfolio',
+    desc: 'Distinguished legal wordmark and digital presence.',
+    fullDesc: '<h3>Executive Summary</h3><p>Distinguished legal brand identity, stationary suite, and client consultation web portal.</p>',
+    images: [{ url: 'assets/mwanga_law.png', caption: 'Wordmark & Stationery' }]
+  },
+  {
+    id: 6,
+    title: 'Afya Plus Clinics',
+    category: 'Branding',
+    badge: 'client',
+    thumb: 'assets/afya_plus.png',
+    client: 'Afya Plus Healthcare',
+    budget: '$40,000',
+    roi: '+4,000 Registered Patients',
+    projectUrl: 'https://intermaven.io',
+    btnText: 'Explore Clinic Portal',
+    desc: 'Healthcare brand identity and patient portal design.',
+    fullDesc: '<h3>Executive Summary</h3><p>Comprehensive patient portal UX and healthcare brand system built for multi-location clinics.</p>',
+    images: [{ url: 'assets/afya_plus.png', caption: 'Patient Portal Design' }]
+  }
 ];
 
 const defaultTestimonials = [
@@ -841,6 +1160,35 @@ const defaultSocials = [
   { id: 4, platform: 'WhatsApp', url: 'https://wa.me/10000000000', iconClass: 'ri-whatsapp-line', visible: true }
 ];
 
+const defaultServices = [
+  { id: 1, title: 'Brand Identity & Strategy', icon: 'ri-fingerprint-line', desc: 'Logos, systems, positioning and voice — brand foundations built to survive contact with the real market.', param: 'branding', category: 'Branding' },
+  { id: 2, title: 'Interactive & Web Design', icon: 'ri-layout-4-line', desc: 'Marketing sites and digital experiences designed to convert traffic into pipeline.', param: 'web', category: 'Branding & Web' },
+  { id: 3, title: 'Software UI/UX Design', icon: 'ri-smartphone-line', desc: 'Responsive interfaces for your product, dashboard, or platform — designed around real users.', param: 'uiux', category: 'Branding & Web' },
+  { id: 4, title: 'Custom Software Ecosystems', icon: 'ri-stack-line', desc: 'Multi-platform builds, from first MVP to full ecosystem — architecture built to scale.', param: 'ecosystem', category: 'Software & Systems' },
+  { id: 5, title: 'Workflow & AI Automation', icon: 'ri-flow-chart', desc: 'We map how your operation runs, then automate what is repetitive.', param: 'automation', category: 'AI & Automation' },
+  { id: 6, title: 'Digital Transformation Consulting', icon: 'ri-lightbulb-flash-line', desc: 'Expert guidance on where AI fits in your business.', param: 'consulting', category: 'AI & Automation' }
+];
+
+const defaultHeroSlides = [
+  { id: 1, title: 'Building Iconic Brands for the <em>AI Era</em>.', lead: 'Intermaven Agency turns ambitious ventures into market-ready brands — from the wordmark to the software running behind it.', bg: 'assets/hero_slide1.png' },
+  { id: 2, title: 'Accelerating Vision Through <em>AI Workflows</em>.', lead: 'We design and build on AI-assisted workflows by default — so your brand, interface, and operations move at market speed.', bg: 'assets/hero_slide2.png' },
+  { id: 3, title: 'Build & Launch on <em>Your Own Terms</em>.', lead: 'Through intermaven.io, self-serve the tools our own studio runs on — on a credit system built for speed.', bg: 'assets/hero_slide3.png' }
+];
+
+const defaultFaqs = [
+  { id: 1, question: 'How long does a typical studio project take?', category: 'General & Engagements', answer: 'Standard brand identity & web projects complete in 3 to 5 weeks. Custom software ecosystems range from 6 to 10 weeks depending on SOW scope.' },
+  { id: 2, question: 'Do we receive full ownership of source code and design files?', category: 'IP & Governance', answer: 'Yes. Upon final invoice settlement, all custom design files, Figma components, and source code are assigned 100% to your company.' },
+  { id: 3, question: 'How do Intermaven Network Credits work?', category: 'SaaS & Credits', answer: 'Intermaven Network Credits allow clients to self-serve automated CRM pipelines, AI node execution, and landing page generators on intermaven.io.' }
+];
+
+const defaultSettings = {
+  agencyName: 'Intermaven Agency',
+  phone: '+1 (404) 555-0199',
+  email: 'hello@intermaven.agency',
+  address: 'Peachtree St NW, Atlanta GA 30309',
+  tagline: 'Brand identity, interactive design, and software ecosystems — built with two decades of craft.'
+};
+
 // ─── INIT ───
 if (!localStorage.getItem('intermaven_leads')) localStorage.setItem('intermaven_leads', JSON.stringify(defaultLeads));
 if (!localStorage.getItem('intermaven_crm')) localStorage.setItem('intermaven_crm', JSON.stringify(defaultCrm));
@@ -848,6 +1196,10 @@ if (!localStorage.getItem('intermaven_projects')) localStorage.setItem('intermav
 if (!localStorage.getItem('intermaven_testimonials')) localStorage.setItem('intermaven_testimonials', JSON.stringify(defaultTestimonials));
 if (!localStorage.getItem('intermaven_team')) localStorage.setItem('intermaven_team', JSON.stringify(defaultTeamMembers));
 if (!localStorage.getItem('intermaven_socials')) localStorage.setItem('intermaven_socials', JSON.stringify(defaultSocials));
+if (!localStorage.getItem('intermaven_services')) localStorage.setItem('intermaven_services', JSON.stringify(defaultServices));
+if (!localStorage.getItem('intermaven_hero_slides')) localStorage.setItem('intermaven_hero_slides', JSON.stringify(defaultHeroSlides));
+if (!localStorage.getItem('intermaven_faqs')) localStorage.setItem('intermaven_faqs', JSON.stringify(defaultFaqs));
+if (!localStorage.getItem('intermaven_settings')) localStorage.setItem('intermaven_settings', JSON.stringify(defaultSettings));
 
 let activeLeadModalIdx = null;
 let leadsChartInst = null;
@@ -1003,6 +1355,68 @@ function renderAdmin() {
         </td>
       </tr>
     `).join('');
+  }
+
+  // ─ Services Table ─
+  const services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const servicesBody = document.getElementById('cmsServicesBody');
+  if (servicesBody) {
+    servicesBody.innerHTML = services.map(s => `
+      <tr>
+        <td><strong>${s.title}</strong></td>
+        <td><i class="${s.icon}" style="font-size:18px; color:var(--lime);"></i> <code style="font-size:11px; color:var(--mu);">${s.icon}</code></td>
+        <td style="max-width:240px; font-size:13px; color:var(--mu);">${s.desc}</td>
+        <td><code style="font-size:11px; color:var(--lime);">${s.param}</code></td>
+        <td>
+          <button class="btn-action" onclick="openServiceModal(${s.id})"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger" onclick="deleteService(${s.id})"><i class="ri-delete-bin-line"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ─ Hero Slides Table ─
+  const heroSlides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  const heroBody = document.getElementById('cmsHeroSlidesBody');
+  if (heroBody) {
+    heroBody.innerHTML = heroSlides.map(h => `
+      <tr>
+        <td><strong>${h.title}</strong></td>
+        <td style="max-width:260px; font-size:13px; color:var(--mu);">${h.lead}</td>
+        <td><code style="font-size:11px; color:var(--sage-light);">${h.bg}</code></td>
+        <td>
+          <button class="btn-action" onclick="openHeroSlideModal(${h.id})"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger" onclick="deleteHeroSlide(${h.id})"><i class="ri-delete-bin-line"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ─ FAQs Table ─
+  const faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  const faqsBody = document.getElementById('cmsFaqsBody');
+  if (faqsBody) {
+    faqsBody.innerHTML = faqs.map(f => `
+      <tr>
+        <td><strong>${f.question}</strong></td>
+        <td><span class="badge badge-info">${f.category}</span></td>
+        <td style="max-width:260px; font-size:13px; color:var(--mu);">${f.answer.slice(0, 50)}...</td>
+        <td>
+          <button class="btn-action" onclick="openFaqModal(${f.id})"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger" onclick="deleteFaq(${f.id})"><i class="ri-delete-bin-line"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ─ Global Site Settings Inputs ─
+  const settings = JSON.parse(localStorage.getItem('intermaven_settings') || '{}');
+  if (settings.agencyName) {
+    if (document.getElementById('settingAgencyName')) document.getElementById('settingAgencyName').value = settings.agencyName || '';
+    if (document.getElementById('settingPhone')) document.getElementById('settingPhone').value = settings.phone || '';
+    if (document.getElementById('settingEmail')) document.getElementById('settingEmail').value = settings.email || '';
+    if (document.getElementById('settingAddress')) document.getElementById('settingAddress').value = settings.address || '';
+    if (document.getElementById('settingTagline')) document.getElementById('settingTagline').value = settings.tagline || '';
   }
 
   // Render Charts
@@ -1467,11 +1881,151 @@ function saveSocialMedia(e) {
   renderAdmin();
 }
 
-function deleteSocialMedia(id) {
-  if (!confirm('Remove this social media account link?')) return;
-  let socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
-  socials = socials.filter(s => s.id !== id);
-  localStorage.setItem('intermaven_socials', JSON.stringify(socials));
+// ─── SERVICES CMS HANDLERS ───
+function openServiceModal(id) {
+  const services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const s = id ? services.find(x => x.id === id) : null;
+
+  document.getElementById('svcId').value = s ? s.id : '';
+  document.getElementById('svcTitle').value = s ? s.title : '';
+  document.getElementById('svcIcon').value = s ? s.icon : 'ri-fingerprint-line';
+  document.getElementById('svcDesc').value = s ? s.desc : '';
+  document.getElementById('svcParam').value = s ? s.param : '';
+  document.getElementById('svcCategory').value = s ? s.category : '';
+
+  document.getElementById('serviceModalTitle').innerText = s ? 'Edit Service Offering' : 'Add Service Offering';
+  document.getElementById('serviceModal').classList.add('open');
+}
+
+function saveService(e) {
+  e.preventDefault();
+  const id = document.getElementById('svcId').value;
+  const services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const data = {
+    id: id ? parseInt(id) : Date.now(),
+    title: document.getElementById('svcTitle').value,
+    icon: document.getElementById('svcIcon').value,
+    desc: document.getElementById('svcDesc').value,
+    param: document.getElementById('svcParam').value,
+    category: document.getElementById('svcCategory').value
+  };
+  if (id) {
+    const idx = services.findIndex(s => s.id === parseInt(id));
+    if (idx !== -1) services[idx] = data;
+  } else {
+    services.push(data);
+  }
+  localStorage.setItem('intermaven_services', JSON.stringify(services));
+  closeSmallModal('serviceModal');
+  renderAdmin();
+}
+
+function deleteService(id) {
+  if (!confirm('Remove this service offering?')) return;
+  let services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  services = services.filter(s => s.id !== id);
+  localStorage.setItem('intermaven_services', JSON.stringify(services));
+  renderAdmin();
+}
+
+// ─── HERO SLIDES CMS HANDLERS ───
+function openHeroSlideModal(id) {
+  const slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  const h = id ? slides.find(x => x.id === id) : null;
+
+  document.getElementById('hsId').value = h ? h.id : '';
+  document.getElementById('hsTitle').value = h ? h.title : '';
+  document.getElementById('hsLead').value = h ? h.lead : '';
+  document.getElementById('hsBg').value = h ? h.bg : 'assets/hero_slide1.png';
+
+  document.getElementById('heroModalTitle').innerText = h ? 'Edit Hero Slide' : 'Add Hero Slide';
+  document.getElementById('heroSlideModal').classList.add('open');
+}
+
+function saveHeroSlide(e) {
+  e.preventDefault();
+  const id = document.getElementById('hsId').value;
+  const slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  const data = {
+    id: id ? parseInt(id) : Date.now(),
+    title: document.getElementById('hsTitle').value,
+    lead: document.getElementById('hsLead').value,
+    bg: document.getElementById('hsBg').value
+  };
+  if (id) {
+    const idx = slides.findIndex(s => s.id === parseInt(id));
+    if (idx !== -1) slides[idx] = data;
+  } else {
+    slides.push(data);
+  }
+  localStorage.setItem('intermaven_hero_slides', JSON.stringify(slides));
+  closeSmallModal('heroSlideModal');
+  renderAdmin();
+}
+
+function deleteHeroSlide(id) {
+  if (!confirm('Remove this hero slide?')) return;
+  let slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  slides = slides.filter(s => s.id !== id);
+  localStorage.setItem('intermaven_hero_slides', JSON.stringify(slides));
+  renderAdmin();
+}
+
+// ─── FAQS CMS HANDLERS ───
+function openFaqModal(id) {
+  const faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  const f = id ? faqs.find(x => x.id === id) : null;
+
+  document.getElementById('faqId').value = f ? f.id : '';
+  document.getElementById('faqQuestion').value = f ? f.question : '';
+  document.getElementById('faqCategory').value = f ? f.category : 'General & Engagements';
+  document.getElementById('faqAnswer').value = f ? f.answer : '';
+
+  document.getElementById('faqModalTitle').innerText = f ? 'Edit FAQ Item' : 'Add FAQ Question';
+  document.getElementById('faqModal').classList.add('open');
+}
+
+function saveFaq(e) {
+  e.preventDefault();
+  const id = document.getElementById('faqId').value;
+  const faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  const data = {
+    id: id ? parseInt(id) : Date.now(),
+    question: document.getElementById('faqQuestion').value,
+    category: document.getElementById('faqCategory').value,
+    answer: document.getElementById('faqAnswer').value
+  };
+  if (id) {
+    const idx = faqs.findIndex(f => f.id === parseInt(id));
+    if (idx !== -1) faqs[idx] = data;
+  } else {
+    faqs.push(data);
+  }
+  localStorage.setItem('intermaven_faqs', JSON.stringify(faqs));
+  closeSmallModal('faqModal');
+  renderAdmin();
+}
+
+function deleteFaq(id) {
+  if (!confirm('Remove this FAQ item?')) return;
+  let faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  faqs = faqs.filter(f => f.id !== id);
+  localStorage.setItem('intermaven_faqs', JSON.stringify(faqs));
+  renderAdmin();
+}
+
+// ─── SITE SETTINGS HANDLERS ───
+function saveSiteSettings(e) {
+  e.preventDefault();
+  const data = {
+    agencyName: document.getElementById('settingAgencyName').value,
+    phone: document.getElementById('settingPhone').value,
+    email: document.getElementById('settingEmail').value,
+    address: document.getElementById('settingAddress').value,
+    tagline: document.getElementById('settingTagline').value
+  };
+  localStorage.setItem('intermaven_settings', JSON.stringify(data));
+  alert('✨ Global site settings saved successfully!');
   renderAdmin();
 }
 

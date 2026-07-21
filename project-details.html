@@ -876,13 +876,16 @@ const defaultFullProjects = [
   }
 ];
 
-// Always update local storage with rich screenshot dataset
-localStorage.setItem('intermaven_projects', JSON.stringify(defaultFullProjects));
-let projects = defaultFullProjects;
+// Load project dataset from localStorage or fall back to defaults
+let storedProjects = localStorage.getItem('intermaven_projects');
+let projects = storedProjects ? JSON.parse(storedProjects) : defaultFullProjects;
+if (!storedProjects) {
+  localStorage.setItem('intermaven_projects', JSON.stringify(defaultFullProjects));
+}
 
 // Parse URL parameter ?id=...
 const urlParams = new URLSearchParams(window.location.search);
-const currentId = parseInt(urlParams.get('id')) || 1;
+const currentId = parseInt(urlParams.get('id')) || 3;
 const project = projects.find(p => p.id === currentId) || projects[0];
 
 // State for carousel
@@ -914,6 +917,7 @@ function renderProjectPage() {
   const launchBtn = document.getElementById('launchBtn');
   if (project.projectUrl) {
     launchBtn.href = project.projectUrl;
+    launchBtn.innerHTML = `${project.btnText || 'Launch Live Project'} <i class="ri-external-link-line"></i>`;
     launchBtn.style.display = 'inline-flex';
   } else {
     launchBtn.style.display = 'none';
