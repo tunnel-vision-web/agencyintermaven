@@ -105,19 +105,21 @@
     .proj-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
     .proj-cat { font-size: 11px; font-weight: 700; color: var(--sage-light); text-transform: uppercase; margin-bottom: 6px; }
     .proj-body h4 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
-    .proj-body p { font-size: 13.5px; color: var(--mu); flex: 1; }
+    .proj-body p { font-size: 13.5px; color: var(--mu); flex: 1; margin-bottom: 14px; }
+    .card-actions-bar { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--b1); padding-top: 12px; margin-top: auto; }
+    .btn-details { background: var(--lime); color: #08120f; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 3px; display: inline-flex; align-items: center; gap: 5px; }
+    .btn-similar { color: var(--mu); font-size: 11.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
 
+    /* Footer */
     footer { background: var(--bg3); border-top: 1px solid var(--b1); padding: 60px 0 30px; }
     .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 40px; border-bottom: 1px solid var(--b1); }
-    .footer-brand img { width: 180px; margin-bottom: 14px; }
-    .footer-brand p { color: var(--mu); font-size: 14px; line-height: 1.6; margin-bottom: 16px; max-width: 300px; }
+    .footer-brand { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .footer-brand img { width: 180px; margin-bottom: 14px; margin-left: auto; margin-right: auto; }
+    .footer-brand p { color: var(--mu); font-size: 14px; line-height: 1.6; margin-bottom: 16px; max-width: 300px; text-align: center; margin-left: auto; margin-right: auto; }
     .footer-col h5 { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mu2); margin-bottom: 16px; font-weight: 700; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer-col a { color: var(--mu); font-size: 14px; transition: color .2s; }
-    .footer-col a:hover { color: var(--lime); }
     .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; font-size: 13px; color: var(--mu2); }
-    .powered-by { font-size: 13px; color: var(--mu2); display: flex; align-items: center; gap: 14px; }
-    .powered-by a { color: var(--sage-light); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -130,31 +132,23 @@
       <a href="services.html">Services</a>
       <a href="showcase.html" class="active">Showcase</a>
       <a href="testimonials.html">Testimonials</a>
-      <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
-    </div>
-    <div>
-      <a href="appointment.html" class="btn-primary"><i class="ri-calendar-check-line"></i> Book Appointment</a>
-      <a href="admin.html" class="nav-signin-btn" style="margin-left:10px;">Sign In</a>
+      <a href="admin.html" class="cta-nav" style="color:var(--lime);"><i class="ri-shield-user-line"></i> Admin CMS</a>
     </div>
   </div>
 </nav>
 
-<header class="page-hero-inner">
-  <div class="hero-bg-container">
-    <div class="hero-bg-layer" style="background-image: url('assets/header_showcase.png');"></div>
-    <div class="hero-bg-overlay"></div>
-  </div>
-  <div class="container page-hero-content">
-    <h1>Selected Showcase</h1>
+<header class="showcase-hero">
+  <div class="hero-bg-layer" style="background-image: url('assets/header_showcase.png');"></div>
+  <div class="container hero-content">
+    <span class="eyebrow">Complete Portfolio</span>
+    <h1>Interactive Showcase</h1>
     <p>Brands we've launched and software platforms we've built — both for client partners and within our own in-house venture network.</p>
   </div>
 </header>
 
 <section>
   <div class="container">
-    
-    <!-- Filter Category Tabs & Live Search Bar -->
     <div class="showcase-toolbar">
       <div class="filter-tabs">
         <button class="filter-btn active" onclick="filterShowcase('all', this)">All Projects</button>
@@ -162,7 +156,6 @@
         <button class="filter-btn" onclick="filterShowcase('client', this)">Client Work</button>
         <button class="filter-btn" onclick="filterShowcase('systems', this)">Software &amp; Systems</button>
         <button class="filter-btn" onclick="filterShowcase('branding', this)">Branding</button>
-        <button class="filter-btn" onclick="filterShowcase('automation', this)">AI &amp; Automation</button>
       </div>
       <div class="search-box">
         <i class="ri-search-line"></i>
@@ -171,77 +164,7 @@
     </div>
 
     <div class="pf-grid-page" id="showcaseGrid">
-      <div class="proj-card" data-category="systems venture" data-title="tunemavens platform sync licensing catalog">
-        <div class="proj-thumb">
-          <span class="proj-badge venture">In-House Venture</span>
-          <img src="assets/tunemavens.png" alt="TuneMavens screenshot">
-        </div>
-        <div class="proj-body">
-          <div class="proj-cat">Software &amp; Systems</div>
-          <h4>TuneMavens Platform</h4>
-          <p>Sync licensing and catalogue acquisition platform built for music rights holders and sync supervisors.</p>
-        </div>
-      </div>
-
-      <div class="proj-card" data-category="automation venture systems" data-title="intermaven network suite saas ecosystem">
-        <div class="proj-thumb">
-          <span class="proj-badge venture">In-House Venture</span>
-          <img src="assets/sync_mavens.png" alt="Intermaven Network Suite screenshot">
-        </div>
-        <div class="proj-body">
-          <div class="proj-cat">AI &amp; Automation</div>
-          <h4>Intermaven Network Suite</h4>
-          <p>SaaS ecosystem powering customer accounts, credits, automated delivery, and lead generation workflows.</p>
-        </div>
-      </div>
-
-      <div class="proj-card" data-category="branding venture" data-title="atlanta tv mount pro live quote booking app">
-        <div class="proj-thumb">
-          <span class="proj-badge venture">In-House Venture</span>
-          <img src="assets/atlanta_tv_mount_pro.png" alt="Atlanta TV Mount PRO website screenshot">
-        </div>
-        <div class="proj-body">
-          <div class="proj-cat">Branding &amp; Web</div>
-          <h4>Atlanta TV Mount PRO</h4>
-          <p>Full brand identity and live quote calculation booking web app for an Atlanta home services enterprise.</p>
-        </div>
-      </div>
-
-      <div class="proj-card" data-category="branding client" data-title="jua capital investor grade fintech identity">
-        <div class="proj-thumb">
-          <span class="proj-badge client">Client Work</span>
-          <img src="assets/jua_capital.png" alt="Jua Capital screenshot">
-        </div>
-        <div class="proj-body">
-          <div class="proj-cat">Branding</div>
-          <h4>Jua Capital</h4>
-          <p>Investor-grade identity system and corporate portal for an East African venture firm.</p>
-        </div>
-      </div>
-
-      <div class="proj-card" data-category="branding client" data-title="mwanga law legal wordmark stationery">
-        <div class="proj-thumb">
-          <span class="proj-badge client">Client Work</span>
-          <img src="assets/mwanga_law.png" alt="Mwanga Law screenshot">
-        </div>
-        <div class="proj-body">
-          <div class="proj-cat">Branding</div>
-          <h4>Mwanga Law</h4>
-          <p>Distinguished legal wordmark, stationery design system, and digital presence built for prestige.</p>
-        </div>
-      </div>
-
-      <div class="proj-card" data-category="branding client" data-title="afya plus clinics healthcare patient portal">
-        <div class="proj-thumb">
-          <span class="proj-badge client">Client Work</span>
-          <img src="assets/afya_plus.png" alt="Afya Plus screenshot">
-        </div>
-        <div class="proj-body">
-          <div class="proj-cat">Branding</div>
-          <h4>Afya Plus Clinics</h4>
-          <p>Healthcare brand identity and patient portal design for a rapidly growing network of medical clinics.</p>
-        </div>
-      </div>
+      <!-- Generated dynamically -->
     </div>
   </div>
 </section>
@@ -250,7 +173,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency">
+        <a href="index.html"><img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency"></a>
         <p>Brand identity, interactive design, and software ecosystems — built with two decades of craft and an AI-assisted delivery pipeline.</p>
       </div>
       <div class="footer-col">
@@ -280,15 +203,49 @@
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Intermaven Agency. All rights reserved.</p>
-      <div class="powered-by">
-        <span>Part of Intermaven Network</span>
-        <span>Powered by <a href="https://intermaven.io">intermaven.io</a></span>
-      </div>
     </div>
   </div>
 </footer>
 
 <script>
+const defaultFullProjects = [
+  { id: 1, title: 'TuneMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/tunemavens.png', desc: 'Sync licensing and catalogue acquisition platform built for music rights holders.' },
+  { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/sync_mavens.png', desc: 'SaaS engine powering automated delivery and CRM workflows across all ventures.' },
+  { id: 3, title: 'Atlanta TV Mount PRO', category: 'Branding & Web', badge: 'venture', thumb: 'assets/atlanta_tv_mount_pro.png', desc: 'Live quote calculation booking web app for an Atlanta home services enterprise.' },
+  { id: 4, title: 'Jua Capital', category: 'Branding', badge: 'client', thumb: 'assets/jua_capital.png', desc: 'Investor-grade identity system for an East African venture firm.' },
+  { id: 5, title: 'Mwanga Law', category: 'Branding', badge: 'client', thumb: 'assets/mwanga_law.png', desc: 'Distinguished wordmark and legal digital presence.' },
+  { id: 6, title: 'Afya Plus Clinics', category: 'Branding', badge: 'client', thumb: 'assets/afya_plus.png', desc: 'Healthcare brand identity and patient portal design.' }
+];
+
+function loadAndRenderShowcase() {
+  const projects = JSON.parse(localStorage.getItem('intermaven_projects') || JSON.stringify(defaultFullProjects));
+  const grid = document.getElementById('showcaseGrid');
+
+  grid.innerHTML = projects.map(item => `
+    <div class="proj-card" data-category="${item.badge} ${(item.category||'').toLowerCase()}" data-title="${item.title.toLowerCase()} ${item.desc.toLowerCase()}">
+      <div class="proj-thumb">
+        <span class="proj-badge ${item.badge}">${item.badge === 'client' ? 'Client Work' : 'In-House Venture'}</span>
+        <a href="project-details.html?id=${item.id}">
+          <img src="${item.thumb}" alt="${item.title}">
+        </a>
+      </div>
+      <div class="proj-body">
+        <div class="proj-cat">${item.category}</div>
+        <h4><a href="project-details.html?id=${item.id}">${item.title}</a></h4>
+        <p>${item.desc}</p>
+        <div class="card-actions-bar">
+          <a href="project-details.html?id=${item.id}" class="btn-details">
+            Project Page <i class="ri-arrow-right-line"></i>
+          </a>
+          <a href="similar-projects.html?category=${encodeURIComponent(item.category)}" class="btn-similar">
+            <i class="ri-node-tree"></i> View Similar
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
 window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 50);
 });
@@ -299,7 +256,7 @@ function filterShowcase(category, el) {
   const cards = document.querySelectorAll('.proj-card');
   cards.forEach(c => {
     const cats = c.dataset.category || '';
-    if (category === 'all' || cats.includes(category)) {
+    if (category === 'all' || cats.includes(category.toLowerCase())) {
       c.style.display = 'flex';
     } else {
       c.style.display = 'none';
@@ -311,7 +268,7 @@ function searchShowcase() {
   const q = document.getElementById('showcaseSearch').value.toLowerCase();
   const cards = document.querySelectorAll('.proj-card');
   cards.forEach(c => {
-    const text = (c.dataset.title || '') + ' ' + c.innerText.toLowerCase();
+    const text = (c.dataset.title || '');
     if (text.includes(q)) {
       c.style.display = 'flex';
     } else {
@@ -319,6 +276,8 @@ function searchShowcase() {
     }
   });
 }
+
+loadAndRenderShowcase();
 </script>
 
 </body>

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Details — Intermaven Agency</title>
+  <meta name="description" content="Detailed case study and project overview from Intermaven Agency showcase.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #070f0e;
+      --bg2: #0b1615;
+      --bg3: #11201e;
+      --bg4: #182e2b;
+
+      --b1: rgba(255,255,255,0.05);
+      --b2: rgba(255,255,255,0.10);
+      --b3: rgba(255,255,255,0.18);
+
+      --tx: #f6f8f7;
+      --mu: #9fb5b1;
+      --mu2: #4d6663;
+
+      --sage: #6fa29e;
+      --sage-light: #a8c9c5;
+      --sage-deep: #3f7d78;
+      --lime: #d7df23;
+      --lime-hover: #c1c81f;
+
+      --ca: rgba(255,255,255,0.04);
+      --ch: rgba(255,255,255,0.08);
+      --r: 3px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--tx);
+      font-family: 'Outfit', 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--lime);
+      color: #08120f;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(215, 223, 35, .25);
+      transition: all .2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      width: 100%;
+    }
+    .btn-primary:hover { background: var(--lime-hover); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(215, 223, 35, .4); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--tx);
+      border: 1px solid var(--b3);
+      padding: 11px 24px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      width: 100%;
+    }
+    .btn-secondary:hover { border-color: var(--sage); color: var(--sage-light); background: rgba(111,162,158,0.08); }
+
+    /* Header Nav */
+    .header-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 15, 14, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--b1);
+      padding: 18px 0;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo img { height: 36px; width: auto; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--mu); transition: color .2s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--lime); }
+
+    /* Breadcrumbs & Title */
+    .project-hero {
+      padding: 40px 0 24px 0;
+      border-bottom: 1px solid var(--b1);
+      background: linear-gradient(180deg, rgba(11,22,21,0.6) 0%, rgba(7,15,14,1) 100%);
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--mu);
+      margin-bottom: 16px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .breadcrumb a:hover { color: var(--lime); }
+    .breadcrumb i { font-size: 12px; opacity: 0.6; }
+
+    .project-header-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .project-title {
+      font-family: 'Sansation', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--tx);
+      line-height: 1.2;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .badge-pill.venture {
+      background: rgba(215, 223, 35, 0.15);
+      color: var(--lime);
+      border: 1px solid rgba(215, 223, 35, 0.35);
+    }
+    .badge-pill.client {
+      background: rgba(111, 162, 158, 0.15);
+      color: var(--sage-light);
+      border: 1px solid rgba(111, 162, 158, 0.35);
+    }
+
+    /* Main Layout Grid */
+    .project-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 36px;
+      padding: 40px 0 60px 0;
+    }
+
+    /* Left Column Carousel & Description */
+    .carousel-card {
+      background: var(--bg2);
+      border: 1px solid var(--b2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 36px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    }
+    .carousel-stage {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #040908;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .carousel-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity .4s ease, transform .4s ease;
+    }
+    .carousel-caption-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, rgba(7,15,14,0) 0%, rgba(7,15,14,0.92) 100%);
+      padding: 24px 20px 16px 20px;
+      color: var(--tx);
+    }
+    .carousel-caption-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--tx);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .carousel-caption-text i { color: var(--lime); font-size: 16px; }
+
+    .carousel-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(11, 22, 21, 0.75);
+      border: 1px solid var(--b2);
+      color: var(--tx);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all .2s ease;
+      z-index: 10;
+    }
+    .carousel-nav-btn:hover { background: var(--lime); color: #08120f; border-color: var(--lime); }
+    .carousel-nav-btn.prev { left: 16px; }
+    .carousel-nav-btn.next { right: 16px; }
+
+    .carousel-thumbs {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg3);
+      border-top: 1px solid var(--b1);
+      overflow-x: auto;
+    }
+    .thumb-item {
+      width: 80px;
+      height: 54px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all .2s ease;
+      flex-shrink: 0;
+    }
+    .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+    .thumb-item.active, .thumb-item:hover { opacity: 1; border-color: var(--lime); }
+
+    /* Rich Text Content */
+    .project-rich-box {
+      background: var(--ca);
+      border: 1px solid var(--b1);
+      border-radius: 3px;
+      padding: 32px;
+    }
+    .project-rich-box h2, .project-rich-box h3 {
+      font-family: 'Sansation', sans-serif;
+      color: var(--tx);
+      margin-top: 24px;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    .project-rich-box h2:first-child, .project-rich-box h3:first-child { margin-top: 0; }
+    .project-rich-box p {
+      color: var(--mu);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .project-rich-box ul, .project-rich-box ol {
+      margin-bottom: 16px;
+      padding-left: 20px;
+      color: var(--mu);
+    }
+    .project-rich-box ul { list-style: disc; }
+    .project-rich-box ol { list-style: decimal; }
+    .project-rich-box li { margin-bottom: 8px; font-size: 15.5px; }
+    .project-rich-box strong { color: var(--tx); }
+    .project-rich-box a { color: var(--lime); text-decoration: underline; }
+
+    /* Right Info Panel Sidebar */
+    .info-panel {
+      position: sticky;
+      top: 90px;
+      background: var(--bg2);
+      border: 1px solid var(--b2);
+      border-radius: 3px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+    .panel-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--lime);
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--b1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meta-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mu2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .meta-label i { color: var(--lime); font-size: 13px; }
+    .meta-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--tx);
+    }
+    .meta-value.highlight {
+      font-family: 'Sansation', sans-serif;
+      color: var(--lime);
+      font-size: 18px;
+    }
+
+    .panel-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+      padding-top: 18px;
+      border-top: 1px solid var(--b1);
+    }
+
+    /* Similar Projects Section */
+    .similar-section {
+      padding: 60px 0;
+      border-top: 1px solid var(--b1);
+      background: var(--bg2);
+    }
+    .similar-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .similar-title {
+      font-family: 'Sansation', sans-serif;
+      font-size: 26px;
+      text-align: left;
+    }
+    .similar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .proj-card {
+      background: var(--ca);
+      border: 1px solid var(--b1);
+      border-radius: 3px;
+      overflow: hidden;
+      transition: all .25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .proj-card:hover {
+      border-color: var(--sage);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+    .proj-thumb {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      background: #050b0a;
+    }
+    .proj-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .3s ease;
+    }
+    .proj-card:hover .proj-thumb img { transform: scale(1.05); }
+    .proj-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .proj-cat { font-size: 11px; font-weight: 700; color: var(--sage); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .proj-body h4 { font-family: 'Sansation', sans-serif; font-size: 18px; text-align: left; margin-bottom: 8px; }
+    .proj-body p { font-size: 13.5px; color: var(--mu); line-height: 1.5; margin-bottom: 16px; flex: 1; }
+    .proj-actions { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--b1); padding-top: 12px; margin-top: auto; }
+    .proj-actions a { font-size: 12.5px; font-weight: 600; color: var(--lime); display: inline-flex; align-items: center; gap: 4px; }
+    .proj-actions a:hover { text-decoration: underline; }
+
+    /* Footer */
+    footer {
+      background: #040908;
+      border-top: 1px solid var(--b1);
+      padding: 60px 0 30px 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 36px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid var(--b1);
+    }
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-brand .footer-logo-img {
+      width: 185px;
+      height: auto;
+      margin-bottom: 16px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-brand p {
+      color: var(--mu);
+      font-size: 14px;
+      max-width: 300px;
+      margin-bottom: 20px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .footer-brand .footer-socials {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+    }
+    .footer-socials a {
+      width: 38px; height: 38px; border-radius: 3px; border: 1px solid var(--b2);
+      display: flex; align-items: center; justify-content: center; color: var(--mu); transition: all .2s ease;
+    }
+    .footer-socials a:hover { border-color: var(--sage); color: var(--sage-light); }
+
+    .footer-col { text-align: left; }
+    .footer-col h5 { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mu2); font-family: 'Space Grotesk', sans-serif; margin-bottom: 18px; font-weight: 700; text-align: left; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 11px; align-items: flex-start; }
+    .footer-col a { font-size: 14px; color: var(--mu); transition: color .2s ease; }
+    .footer-col a:hover { color: var(--lime); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      font-size: 13px;
+      color: var(--mu2);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .powered-by { display: flex; align-items: center; gap: 14px; }
+    .powered-by a { color: var(--lime); font-weight: 600; }
+
+    @media (max-width: 900px) {
+      .project-layout { grid-template-columns: 1fr; }
+      .carousel-stage { height: 320px; }
+      .similar-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+<header class="header-nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency">
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="showcase.html" class="active">Showcase</a>
+      <a href="services.html">Services</a>
+      <a href="profile.html">Profile</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin.html" style="color:var(--lime); font-weight:700;"><i class="ri-shield-user-line"></i> Admin CMS</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO BREADCRUMB & TITLE ================= -->
+<section class="project-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> <i class="ri-arrow-right-s-line"></i>
+      <a href="showcase.html">Showcase</a> <i class="ri-arrow-right-s-line"></i>
+      <span id="bcProjectName" style="color:var(--tx);">Project Showcase</span>
+    </div>
+
+    <div class="project-header-meta">
+      <div>
+        <div id="pCatTag" style="font-size:12px; font-weight:700; color:var(--lime); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:6px;">Category</div>
+        <h1 class="project-title" id="pMainTitle">Project Title</h1>
+      </div>
+      <div id="pBadgeBox">
+        <span class="badge-pill venture" id="pBadgeTag">In-House Venture</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAIN CONTENT & SIDEBAR ================= -->
+<section>
+  <div class="container">
+    <div class="project-layout">
+
+      <!-- LEFT COLUMN: CAROUSEL & RICH DESCRIPTION -->
+      <div>
+        <!-- CAROUSEL -->
+        <div class="carousel-card">
+          <div class="carousel-stage">
+            <button class="carousel-nav-btn prev" onclick="prevSlide()"><i class="ri-arrow-left-s-line"></i></button>
+            <img id="carouselImage" src="" alt="Project screenshot">
+            <button class="carousel-nav-btn next" onclick="nextSlide()"><i class="ri-arrow-right-s-line"></i></button>
+
+            <div class="carousel-caption-bar">
+              <div class="carousel-caption-text" id="carouselCaption">
+                <i class="ri-information-line"></i> <span>Caption text...</span>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-thumbs" id="carouselThumbs">
+            <!-- Thumbs generated by JS -->
+          </div>
+        </div>
+
+        <!-- RICH DESCRIPTION -->
+        <div class="project-rich-box" id="projectRichDesc">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- RIGHT SIDEBAR PANEL -->
+      <aside>
+        <div class="info-panel">
+          <div class="panel-header">
+            <i class="ri-information-line"></i> Project Specifications
+          </div>
+
+          <div class="meta-item">
+            <div class="meta-label"><i class="ri-building-line"></i> Client Name</div>
+            <div class="meta-value" id="metaClient">Intermaven Partner</div>
+          </div>
+
+          <div class="meta-item">
+            <div class="meta-label"><i class="ri-grid-line"></i> Discipline &amp; Category</div>
+            <div class="meta-value" id="metaCategory">Software &amp; Systems</div>
+          </div>
+
+          <div class="meta-item">
+            <div class="meta-label"><i class="ri-coin-line"></i> Project Budget</div>
+            <div class="meta-value highlight" id="metaBudget">$45,000</div>
+          </div>
+
+          <div class="meta-item">
+            <div class="meta-label"><i class="ri-line-chart-line"></i> Measured ROI</div>
+            <div class="meta-value highlight" id="metaRoi">+340% Efficiency</div>
+          </div>
+
+          <div class="panel-actions">
+            <a href="#" id="launchBtn" target="_blank" class="btn-primary">
+              Launch Live Project <i class="ri-external-link-line"></i>
+            </a>
+            <a href="#" id="similarBtn" class="btn-secondary">
+              View Similar Projects <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIMILAR PROJECTS SECTION ================= -->
+<section class="similar-section">
+  <div class="container">
+    <div class="similar-header">
+      <div>
+        <div style="font-size:11px; font-weight:700; color:var(--lime); letter-spacing:2px; text-transform:uppercase;">Related Case Studies</div>
+        <h2 class="similar-title">Explore Similar Work</h2>
+      </div>
+      <a href="similar-projects.html" id="viewAllSimilarLink" class="btn-secondary" style="width:auto;"><i class="ri-layout-grid-line"></i> View All Similar</a>
+    </div>
+
+    <div class="similar-grid" id="similarGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Column 1: Centered horizontally -->
+      <div class="footer-brand">
+        <a href="index.html">
+          <img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency" class="footer-logo-img">
+        </a>
+        <p>Brand identity, interactive design, and software ecosystems — built with two decades of craft and an AI-assisted delivery pipeline.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+          <a href="#" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+          <a href="https://wa.me/10000000000" aria-label="WhatsApp"><i class="ri-whatsapp-line"></i></a>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="services.html#branding">Brand Identity</a></li>
+          <li><a href="services.html#web">Interactive Design</a></li>
+          <li><a href="services.html#uiux">Software UI/UX</a></li>
+          <li><a href="services.html#automation">Workflow &amp; AI Automation</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="showcase.html">Showcase</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="footer-col">
+        <h5>Community &amp; Legal</h5>
+        <ul>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="appointment.html">Book Appointment</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Intermaven Agency. All rights reserved.</p>
+      <div class="powered-by">
+        <span>Part of the Intermaven Network</span>
+        <span>Powered by <a href="https://intermaven.io">intermaven.io</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Extended project dataset defaults if localStorage is empty
+const defaultFullProjects = [
+  {
+    id: 1,
+    title: 'TuneMavens Platform',
+    category: 'Software & Systems',
+    badge: 'venture',
+    thumb: 'assets/tunemavens.png',
+    desc: 'Sync licensing and catalogue acquisition platform built for music rights holders and sync supervisors.',
+    fullDesc: `<h3>Executive Summary</h3>
+<p>TuneMavens is a proprietary sync licensing and catalogue acquisition platform designed specifically for high-volume music publishing firms and independent rights holders. Built end-to-end by Intermaven Agency, it eliminates manual royalty split reconciliation and accelerates track licensing agreements.</p>
+<h3>Core Technical Highlights</h3>
+<ul>
+  <li><strong>Acoustic Fingerprinting &amp; Metadata Indexing:</strong> Automated ID3 parsing and AI key/BPM tagging.</li>
+  <li><strong>Instant Split &amp; Clearance Engine:</strong> Automated publishing split contracts with digital signature dispatch.</li>
+  <li><strong>High-Fidelity Audio Streaming:</strong> Zero-latency preview player with dynamic waveform rendering.</li>
+</ul>
+<h3>Business Impact</h3>
+<p>By automating catalog ingestion and streamlining supervisor sync clearance, TuneMavens reduced licensing friction by over 70% while scaling track clearance throughput.</p>`,
+    client: 'TuneMavens Inc. / Internal Venture',
+    budget: '$125,000',
+    roi: '4.8x Licensing Revenue',
+    projectUrl: 'https://intermaven.io',
+    images: [
+      { url: 'assets/tunemavens.png', caption: 'TuneMavens Dashboard & Music Rights Catalogue Interface' },
+      { url: 'assets/tunemavens_preview_1784583377505.png', caption: 'License Agreement Generator & Instant Split Verification' },
+      { url: 'assets/hero_slide1.png', caption: 'Real-time Analytics & Audio Waveform Player' }
+    ]
+  },
+  {
+    id: 2,
+    title: 'Intermaven Network Suite',
+    category: 'AI & Automation',
+    badge: 'venture',
+    thumb: 'assets/sync_mavens.png',
+    desc: 'The AI-powered SaaS ecosystem behind every project on this page — credits, accounts, and automation, unified.',
+    fullDesc: `<h3>Platform Overview</h3>
+<p>The Intermaven Network Suite serves as the digital spine powering client account synchronization, automated lead routing, and project credit tracking across all agency ventures.</p>
+<h3>Ecosystem Features</h3>
+<ul>
+  <li><strong>Unified API Gateway:</strong> Single sign-on and credit balance synchronization.</li>
+  <li><strong>Autonomous CRM Pipeline:</strong> AI agents that auto-qualify client inquiries and schedule preparation meetings.</li>
+  <li><strong>Client Portal Modal Integration:</strong> Real-time project milestone tracking directly from web apps.</li>
+</ul>`,
+    client: 'Intermaven Agency',
+    budget: '$85,000',
+    roi: '+340% Workflow Efficiency',
+    projectUrl: 'https://intermaven.io',
+    images: [
+      { url: 'assets/sync_mavens.png', caption: 'Intermaven SaaS Command Center & Credit Portal' },
+      { url: 'assets/hero_slide2.png', caption: 'Automated AI Workflow Orchestrator' }
+    ]
+  },
+  {
+    id: 3,
+    title: 'Atlanta TV Mount PRO',
+    category: 'Branding & Web',
+    badge: 'venture',
+    thumb: 'assets/atlanta_tv_mount_pro.png',
+    desc: 'Full brand identity and a React/Vite booking platform with live quote estimation for a home services business.',
+    fullDesc: `<h3>Project Strategy</h3>
+<p>Atlanta TV Mount PRO required a modern, trustworthy brand system coupled with an instantaneous online booking calculator that allows homeowners to customize installation packages in real time.</p>
+<h3>Deliverables &amp; Design System</h3>
+<ul>
+  <li><strong>Wordmark &amp; Iconography:</strong> Geometric precision logo representing hardware mounting and audio-visual setups.</li>
+  <li><strong>Dynamic Cost Estimator:</strong> Real-time quote engine based on TV size, wall substrate, and wire concealment options.</li>
+  <li><strong>Automated SMS &amp; Calendar Booking:</strong> Direct Twilio &amp; Google Calendar sync for field technicians.</li>
+</ul>`,
+    client: 'Atlanta TV Mount PRO LLC',
+    budget: '$35,000',
+    roi: '3.2x Booking Conversion',
+    projectUrl: 'https://intermaven.io',
+    images: [
+      { url: 'assets/atlanta_tv_mount_pro.png', caption: 'Interactive Booking Application & Instant Estimator UI' },
+      { url: 'assets/header_services.png', caption: 'Brand Identity Guidelines & Field Service Marketing Assets' }
+    ]
+  },
+  {
+    id: 4,
+    title: 'Jua Capital',
+    category: 'Branding',
+    badge: 'client',
+    thumb: 'assets/jua_capital.png',
+    desc: 'Investor-grade identity system for an East African fintech, pairing a sunrise mark with a sharp typographic system.',
+    fullDesc: `<h3>Brand Identity Case Study</h3>
+<p>Jua Capital is an East African venture capital firm supporting high-growth tech founders. Intermaven designed a complete brand ecosystem reflecting warmth, institutional trust, and forward momentum.</p>
+<h3>Key Design Components</h3>
+<ul>
+  <li><strong>Brandmark:</strong> Abstract stylized sunrise symbolizing growth and African technology potential.</li>
+  <li><strong>Typography &amp; Color Palette:</strong> Solar amber paired with deep charcoal and sage accents.</li>
+  <li><strong>Investor Pitch Deck &amp; Portal:</strong> Custom template system for deal flow review.</li>
+</ul>`,
+    client: 'Jua Capital Partners',
+    budget: '$45,000',
+    roi: '$18M Fund I Allocation',
+    projectUrl: 'https://intermaven.io',
+    images: [
+      { url: 'assets/jua_capital.png', caption: 'Jua Capital Identity Suite & Brand Architecture' },
+      { url: 'assets/jua_capital_preview_1784583383958.png', caption: 'Corporate Web Portal & Investor Memorandum Presentation' }
+    ]
+  },
+  {
+    id: 5,
+    title: 'Mwanga Law',
+    category: 'Branding',
+    badge: 'client',
+    thumb: 'assets/mwanga_law.png',
+    desc: 'Distinguished wordmark and letterhead system built for the gravitas a new law firm\'s clients expect.',
+    fullDesc: `<h3>Client Profile</h3>
+<p>Mwanga Law required a refined legal brand identity that communicates authority, precision, and modern accessibility for corporate law and intellectual property clients.</p>
+<h3>Scope of Work</h3>
+<ul>
+  <li>Serif wordmark and debossed stationery suite.</li>
+  <li>Bespoke legal document portal and consultation scheduling.</li>
+  <li>Digital brand guidelines and corporate email signatures.</li>
+</ul>`,
+    client: 'Mwanga Law Chambers',
+    budget: '$30,000',
+    roi: '+210% Enterprise Retainers',
+    projectUrl: 'https://intermaven.io',
+    images: [
+      { url: 'assets/mwanga_law.png', caption: 'Mwanga Law Corporate Identity & Legal Stationery' },
+      { url: 'assets/header_profile.png', caption: 'Digital Portal & Executive Consultation Interface' }
+    ]
+  },
+  {
+    id: 6,
+    title: 'Afya Plus Clinics',
+    category: 'Branding',
+    badge: 'client',
+    thumb: 'assets/afya_plus.png',
+    desc: 'A clean, reassuring healthcare identity for a growing chain of community clinics.',
+    fullDesc: `<h3>Healthcare Brand Transformation</h3>
+<p>Afya Plus Clinics expanded from a single outpatient clinic to a regional network of healthcare centers. Intermaven crafted an empathetic, highly legible visual identity and patient booking UI.</p>
+<h3>Design Deliverables</h3>
+<ul>
+  <li>Medical cross &amp; heart synthesis brandmark.</li>
+  <li>Accessible high-contrast signage system for clinic environments.</li>
+  <li>Patient portal interface design for digital appointments and record access.</li>
+</ul>`,
+    client: 'Afya Plus Healthcare Group',
+    budget: '$50,000',
+    roi: '98% Patient Satisfaction Score',
+    projectUrl: 'https://intermaven.io',
+    images: [
+      { url: 'assets/afya_plus.png', caption: 'Afya Plus Clinic Branding & Patient Care Touchpoints' },
+      { url: 'assets/afya_plus_preview_1784583391712.png', caption: 'Mobile Patient Appointment & Telehealth Interface' }
+    ]
+  }
+];
+
+// Ensure local storage has hydrated data
+let projects = JSON.parse(localStorage.getItem('intermaven_projects') || 'null');
+if (!projects || !projects.length || !projects[0].images) {
+  localStorage.setItem('intermaven_projects', JSON.stringify(defaultFullProjects));
+  projects = defaultFullProjects;
+}
+
+// Parse URL parameter ?id=...
+const urlParams = new URLSearchParams(window.location.search);
+const currentId = parseInt(urlParams.get('id')) || 1;
+const project = projects.find(p => p.id === currentId) || projects[0];
+
+// State for carousel
+let currentSlideIdx = 0;
+let carouselImages = project.images && project.images.length ? project.images : [
+  { url: project.thumb || 'assets/tunemavens.png', caption: project.title + ' — Main Overview' }
+];
+
+// Render Page Content
+function renderProjectPage() {
+  document.title = `${project.title} — Intermaven Agency Showcase`;
+  document.getElementById('bcProjectName').innerText = project.title;
+  document.getElementById('pMainTitle').innerText = project.title;
+  document.getElementById('pCatTag').innerText = project.category || 'Showcase Project';
+
+  const badgeEl = document.getElementById('pBadgeTag');
+  badgeEl.innerText = project.badge === 'client' ? 'Client Work' : 'In-House Venture';
+  badgeEl.className = `badge-pill ${project.badge === 'client' ? 'client' : 'venture'}`;
+
+  // Rich Text Description
+  document.getElementById('projectRichDesc').innerHTML = project.fullDesc || `<p>${project.desc}</p>`;
+
+  // Right Panel Info
+  document.getElementById('metaClient').innerText = project.client || 'Intermaven Client';
+  document.getElementById('metaCategory').innerText = project.category || 'Digital Ecosystem';
+  document.getElementById('metaBudget').innerText = project.budget || 'Custom Quote';
+  document.getElementById('metaRoi').innerText = project.roi || 'High Return';
+
+  const launchBtn = document.getElementById('launchBtn');
+  if (project.projectUrl) {
+    launchBtn.href = project.projectUrl;
+    launchBtn.style.display = 'inline-flex';
+  } else {
+    launchBtn.style.display = 'none';
+  }
+
+  document.getElementById('similarBtn').href = `similar-projects.html?category=${encodeURIComponent(project.category)}`;
+  document.getElementById('viewAllSimilarLink').href = `similar-projects.html?category=${encodeURIComponent(project.category)}`;
+
+  // Render Carousel
+  renderCarousel();
+
+  // Render Similar Projects
+  renderSimilarProjects();
+}
+
+function renderCarousel() {
+  const imgEl = document.getElementById('carouselImage');
+  const capEl = document.getElementById('carouselCaption');
+  const thumbsEl = document.getElementById('carouselThumbs');
+
+  const cur = carouselImages[currentSlideIdx];
+  imgEl.src = cur.url;
+  imgEl.alt = cur.caption || project.title;
+  capEl.innerHTML = `<i class="ri-image-line"></i> <span>Slide ${currentSlideIdx + 1} of ${carouselImages.length}: ${cur.caption || 'Project Showcase Image'}</span>`;
+
+  thumbsEl.innerHTML = carouselImages.map((img, i) => `
+    <div class="thumb-item ${i === currentSlideIdx ? 'active' : ''}" onclick="goToSlide(${i})">
+      <img src="${img.url}" alt="Thumbnail ${i+1}">
+    </div>
+  `).join('');
+}
+
+function goToSlide(i) {
+  currentSlideIdx = i;
+  renderCarousel();
+}
+
+function prevSlide() {
+  currentSlideIdx = (currentSlideIdx - 1 + carouselImages.length) % carouselImages.length;
+  renderCarousel();
+}
+
+function nextSlide() {
+  currentSlideIdx = (currentSlideIdx + 1) % carouselImages.length;
+  renderCarousel();
+}
+
+// Render Similar Projects
+function renderSimilarProjects() {
+  const grid = document.getElementById('similarGrid');
+  const similar = projects.filter(p => p.id !== project.id && (p.category === project.category || p.badge === project.badge)).slice(0, 3);
+  const displayList = similar.length ? similar : projects.filter(p => p.id !== project.id).slice(0, 3);
+
+  grid.innerHTML = displayList.map(item => `
+    <div class="proj-card">
+      <div class="proj-thumb">
+        <span class="badge-pill ${item.badge === 'client' ? 'client' : 'venture'}" style="position:absolute; top:12px; left:12px; z-index:5;">
+          ${item.badge === 'client' ? 'Client Work' : 'Venture'}
+        </span>
+        <a href="project-details.html?id=${item.id}">
+          <img src="${item.thumb}" alt="${item.title}">
+        </a>
+      </div>
+      <div class="proj-body">
+        <div class="proj-cat">${item.category}</div>
+        <h4><a href="project-details.html?id=${item.id}">${item.title}</a></h4>
+        <p>${item.desc}</p>
+        <div class="proj-actions">
+          <a href="project-details.html?id=${item.id}">View Case Study <i class="ri-arrow-right-line"></i></a>
+          <a href="similar-projects.html?category=${encodeURIComponent(item.category)}" style="color:var(--mu); font-size:11.5px;">Similar Work</a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Keyboard arrow navigation for carousel
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') prevSlide();
+  if (e.key === 'ArrowRight') nextSlide();
+});
+
+renderProjectPage();
+</script>
+</body>
+</html>

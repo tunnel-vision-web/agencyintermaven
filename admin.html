@@ -121,13 +121,35 @@
     .admin-form-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
     .admin-form-modal.open { display: flex; }
     .modal-box { width: 100%; max-width: 580px; background: var(--bg2); border: 1px solid var(--b2); border-radius: 3px; padding: 28px; max-height: 90vh; overflow-y: auto; }
+    .modal-box.wide-modal { max-width: 780px; }
     .modal-box h3 { font-size: 20px; font-family: 'Sansation', sans-serif; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--b1); }
     .form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; text-align: left; }
     .form-group label { font-size: 11px; font-weight: 700; color: var(--mu); text-transform: uppercase; letter-spacing: .5px; }
     .form-group input, .form-group select, .form-group textarea { background: var(--bg3); border: 1px solid var(--b2); border-radius: 3px; padding: 12px; color: var(--tx); font-family: 'Outfit', sans-serif; font-size: 14px; width: 100%; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--sage); }
     .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
     .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--b1); }
+
+    /* WordPress-like Text Editor */
+    .wp-editor-box { background: var(--bg3); border: 1px solid var(--b2); border-radius: 3px; overflow: hidden; }
+    .wp-toolbar { background: var(--bg2); border-bottom: 1px solid var(--b1); padding: 8px 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .wp-btn { background: var(--bg3); border: 1px solid var(--b2); color: var(--tx); padding: 4px 10px; border-radius: 3px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+    .wp-btn:hover { border-color: var(--lime); color: var(--lime); }
+    .wp-editor-area { min-height: 140px; max-height: 220px; overflow-y: auto; padding: 14px; color: var(--tx); font-size: 14px; line-height: 1.6; }
+    .wp-editor-area:focus { outline: none; }
+    .wp-editor-area h2, .wp-editor-area h3 { font-family: 'Sansation', sans-serif; color: var(--tx); margin-top: 10px; margin-bottom: 6px; }
+    .wp-editor-area ul, .wp-editor-area ol { padding-left: 20px; margin-bottom: 10px; }
+
+    /* Drag & Drop Zone */
+    .dropzone-box { border: 2px dashed var(--b2); background: var(--bg3); border-radius: 3px; padding: 22px; text-align: center; cursor: pointer; transition: all .2s ease; margin-bottom: 12px; }
+    .dropzone-box.drag-over { border-color: var(--lime); background: rgba(215,223,35,0.08); }
+    .dropzone-box i { font-size: 32px; color: var(--lime); margin-bottom: 6px; }
+
+    /* Carousel Slides Manager */
+    .admin-carousel-item { display: flex; align-items: center; gap: 10px; background: var(--bg3); border: 1px solid var(--b1); padding: 8px 10px; border-radius: 3px; margin-top: 8px; }
+    .admin-carousel-item img { width: 54px; height: 38px; object-fit: cover; border-radius: 3px; flex-shrink: 0; }
+    .admin-carousel-item input { flex: 1; font-size: 12.5px; padding: 6px 8px; }
 
     /* Call Prep Checklist */
     .prep-checklist { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
@@ -315,7 +337,7 @@
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     EXTRA-WIDE SMART CRM MODAL (Launches Intermaven Site Tool)
+     EXTRA-WIDE SMART CRM MODAL (Authenticated Intermaven CRM Portal)
 ═══════════════════════════════════════════════════════════════ -->
 <div class="wide-modal-overlay" id="smartCrmModal">
   <div class="wide-modal-box">
@@ -323,8 +345,11 @@
       <div style="display:flex; align-items:center; gap:12px;">
         <i class="ri-contacts-book-2-line" style="color:var(--lime); font-size:22px;"></i>
         <div>
-          <h3 style="font-size:16px; font-weight:800; color:var(--tx);">Intermaven Smart CRM Tool</h3>
-          <span style="font-size:11.5px; color:var(--mu);">Launched from intermaven.io web application &amp; lead synchronization network</span>
+          <h3 style="font-size:16px; font-weight:800; color:var(--tx); display:flex; align-items:center; gap:8px;">
+            Intermaven Smart CRM Suite 
+            <span class="badge badge-success" style="font-size:10px;"><i class="ri-shield-check-line"></i> Authenticated: Marcus Sterling</span>
+          </h3>
+          <span style="font-size:11.5px; color:var(--mu);">Connected to intermaven.io backend network • Double Opt-In &amp; Lead Dispatch Active</span>
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:12px;">
@@ -332,9 +357,81 @@
         <button class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:6px 12px;"><i class="ri-close-line"></i> Close CRM</button>
       </div>
     </div>
-    <div class="wide-modal-body">
-      <!-- Embedded Intermaven Smart CRM Portal -->
-      <iframe src="https://intermaven.io" class="crm-iframe" title="Intermaven Smart CRM Suite"></iframe>
+    <div class="wide-modal-body" style="padding:20px; overflow-y:auto; background:var(--bg2);">
+      
+      <!-- Metrics Header inside CRM Portal -->
+      <div class="metrics-grid" style="margin-bottom:20px;">
+        <div class="metric-card">
+          <div class="metric-title">Total Active Leads</div>
+          <div class="metric-value">1,480</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Double Opt-In Rate</div>
+          <div class="metric-value">98.4%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Pipeline Value</div>
+          <div class="metric-value">$340,000</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Synced Workflows</div>
+          <div class="metric-value">12 Active</div>
+        </div>
+      </div>
+
+      <!-- CRM Portal Main Table -->
+      <div class="table-card" style="margin-bottom:0;">
+        <div class="table-header">
+          <h3>Smart CRM Contact Directory &amp; Opt-In Sync</h3>
+          <div style="display:flex; gap:10px;">
+            <button class="btn-action btn-lime" onclick="alert('Triggering automated CRM double opt-in sync...');"><i class="ri-refresh-line"></i> Sync Double Opt-In</button>
+            <button class="btn-action" onclick="exportLeads()"><i class="ri-download-cloud-line"></i> Export CRM CSV</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Contact Name</th>
+              <th>Email Address</th>
+              <th>Channel</th>
+              <th>Opt-In Status</th>
+              <th>Source</th>
+              <th>Date Added</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="crmModalTableBody">
+            <tr>
+              <td><strong>Julian Vance</strong></td>
+              <td>founder@juacapital.org</td>
+              <td><span class="badge badge-info"><i class="ri-mail-line"></i> EMAIL</span></td>
+              <td><span class="badge badge-success"><i class="ri-check-double-line"></i> Opted In</span></td>
+              <td>Landing Page Updates</td>
+              <td>2026-07-18</td>
+              <td><button class="btn-action" onclick="alert('Opening contact history for Julian Vance...')"><i class="ri-user-settings-line"></i> Manage</button></td>
+            </tr>
+            <tr>
+              <td><strong>Sarah Kalu</strong></td>
+              <td>techlead@afyaplus.com</td>
+              <td><span class="badge badge-warn"><i class="ri-whatsapp-line"></i> WHATSAPP</span></td>
+              <td><span class="badge badge-success"><i class="ri-check-double-line"></i> Opted In</span></td>
+              <td>Newsletter Modal</td>
+              <td>2026-07-19</td>
+              <td><button class="btn-action" onclick="alert('Opening contact history for Sarah Kalu...')"><i class="ri-user-settings-line"></i> Manage</button></td>
+            </tr>
+            <tr>
+              <td><strong>David Mwanga</strong></td>
+              <td>mwangalaw@legal.com</td>
+              <td><span class="badge badge-info"><i class="ri-mail-line"></i> EMAIL</span></td>
+              <td><span class="badge badge-success"><i class="ri-check-double-line"></i> Opted In</span></td>
+              <td>Footer Signup</td>
+              <td>2026-07-20</td>
+              <td><button class="btn-action" onclick="alert('Opening contact history for David Mwanga...')"><i class="ri-user-settings-line"></i> Manage</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 </div>
@@ -394,16 +491,20 @@
   </div>
 </div>
 
-<!-- Add/Edit Project Modal -->
+<!-- ═══════════════════════════════════════════════════════════════
+     ADD / EDIT PROJECT CMS MODAL (WordPress Editor & Drag-Drop Uploader)
+═══════════════════════════════════════════════════════════════ -->
 <div class="admin-form-modal" id="projectModal">
-  <div class="modal-box">
-    <h3 id="projModalTitle">Add Showcase Project</h3>
+  <div class="modal-box wide-modal">
+    <h3 id="projModalTitle">Edit Showcase Project Details</h3>
     <form onsubmit="saveProject(event)">
       <input type="hidden" id="pId">
+
       <div class="form-group">
         <label>Project Title</label>
         <input type="text" id="pTitle" required placeholder="TuneMavens Platform">
       </div>
+
       <div class="form-row-2">
         <div class="form-group">
           <label>Category</label>
@@ -417,17 +518,77 @@
           </select>
         </div>
       </div>
+
+      <div class="form-row-3">
+        <div class="form-group">
+          <label>Client Name</label>
+          <input type="text" id="pClient" placeholder="TuneMavens Inc.">
+        </div>
+        <div class="form-group">
+          <label>Budget</label>
+          <input type="text" id="pBudget" placeholder="$45,000">
+        </div>
+        <div class="form-group">
+          <label>Measured ROI</label>
+          <input type="text" id="pRoi" placeholder="+340% Traffic">
+        </div>
+      </div>
+
       <div class="form-group">
-        <label>Thumbnail Asset Path</label>
+        <label>Launch Project URL (Optional)</label>
+        <input type="text" id="pUrl" placeholder="https://intermaven.io">
+      </div>
+
+      <div class="form-group">
+        <label>Main Thumbnail Asset Path / Data URL</label>
         <input type="text" id="pThumb" required placeholder="assets/tunemavens.png">
       </div>
+
       <div class="form-group">
-        <label>Short Description</label>
-        <textarea id="pDesc" rows="3" required placeholder="Brief project summary..."></textarea>
+        <label>Short Summary (Shown on Cards)</label>
+        <textarea id="pDesc" rows="2" required placeholder="Brief project summary..."></textarea>
       </div>
+
+      <!-- WordPress-like Rich Text Editor -->
+      <div class="form-group">
+        <label>Detailed Case Study Description (WordPress-like Rich Text Editor)</label>
+        <div class="wp-editor-box">
+          <div class="wp-toolbar">
+            <button type="button" class="wp-btn" onclick="execWpCommand('bold')"><i class="ri-bold"></i> Bold</button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('italic')"><i class="ri-italic"></i> Italic</button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('underline')"><i class="ri-underline"></i> Underline</button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('formatBlock', 'h2')">H2</button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('formatBlock', 'h3')">H3</button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('insertUnorderedList')"><i class="ri-list-unordered"></i> Bullets</button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('insertOrderedList')"><i class="ri-list-ordered"></i> Numbered</button>
+            <button type="button" class="wp-btn" onclick="insertWpLink()"><i class="ri-link"></i> Link</button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('removeFormat')"><i class="ri-format-clear"></i> Clear</button>
+          </div>
+          <div class="wp-editor-area" id="pFullDescEditor" contenteditable="true">
+            <h3>Executive Summary</h3>
+            <p>Enter detailed project case study description here...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drag and Drop Image Uploader & Carousel Manager -->
+      <div class="form-group">
+        <label>Carousel Images &amp; Captions (Drag &amp; Drop to Upload)</label>
+        <div class="dropzone-box" id="dropzoneBox" onclick="document.getElementById('pFileInput').click()" ondragover="event.preventDefault(); this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="this.classList.remove('drag-over'); handleDropFiles(event);">
+          <i class="ri-upload-cloud-2-line"></i>
+          <div style="font-weight:700; font-size:14px; color:var(--tx);">Drag &amp; drop project images here, or click to upload</div>
+          <div style="font-size:12px; color:var(--mu); margin-top:4px;">Supports PNG, JPG, WEBP. Converted instantly for image carousel &amp; captions.</div>
+          <input type="file" id="pFileInput" multiple accept="image/*" style="display:none;" onchange="handleDropFiles(event)">
+        </div>
+
+        <div id="adminCarouselList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
       <div class="modal-footer">
         <button type="button" class="btn-action" onclick="closeSmallModal('projectModal')">Cancel</button>
-        <button type="submit" class="btn-action btn-lime">Save Project</button>
+        <button type="submit" class="btn-action btn-lime">Save Complete Project</button>
       </div>
     </form>
   </div>
@@ -836,45 +997,146 @@ function closeSmartCrmModal() {
 }
 
 // ─── CMS PROJECTS ───
+let tempCarouselImages = [];
+
 function openProjectModal(id) {
   const projects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
   const p = id ? projects.find(x => x.id === id) : null;
+
   document.getElementById('pId').value = p ? p.id : '';
   document.getElementById('pTitle').value = p ? p.title : '';
   document.getElementById('pCat').value = p ? p.category : '';
   document.getElementById('pBadge').value = p ? p.badge : 'venture';
+  document.getElementById('pClient').value = p ? (p.client || '') : '';
+  document.getElementById('pBudget').value = p ? (p.budget || '') : '';
+  document.getElementById('pRoi').value = p ? (p.roi || '') : '';
+  document.getElementById('pUrl').value = p ? (p.projectUrl || '') : '';
   document.getElementById('pThumb').value = p ? p.thumb : 'assets/';
   document.getElementById('pDesc').value = p ? p.desc : '';
-  document.getElementById('projModalTitle').innerText = p ? 'Edit Project' : 'Add Showcase Project';
+
+  // WordPress Rich Editor HTML
+  document.getElementById('pFullDescEditor').innerHTML = p ? (p.fullDesc || `<p>${p.desc}</p>`) : '<h3>Project Case Study</h3><p>Enter comprehensive description here...</p>';
+
+  // Carousel images array
+  tempCarouselImages = p && p.images && p.images.length ? JSON.parse(JSON.stringify(p.images)) : [
+    { url: p ? p.thumb : 'assets/tunemavens.png', caption: p ? p.title + ' — Main Overview' : 'Project Screenshot' }
+  ];
+
+  renderAdminCarouselList();
+
+  document.getElementById('projModalTitle').innerText = p ? 'Edit Showcase Project Details' : 'Add Showcase Project';
   document.getElementById('projectModal').classList.add('open');
 }
 
 function editProject(id) { openProjectModal(id); }
 
+function execWpCommand(cmd, value = null) {
+  document.execCommand(cmd, false, value);
+}
+
+function insertWpLink() {
+  const url = prompt('Enter link URL:');
+  if (url) execWpCommand('createLink', url);
+}
+
+function renderAdminCarouselList() {
+  const container = document.getElementById('adminCarouselList');
+  if (!container) return;
+
+  if (!tempCarouselImages.length) {
+    container.innerHTML = '<div style="font-size:12px; color:var(--mu); padding:6px 0;">No carousel images uploaded yet. Drop files above to add slides.</div>';
+    return;
+  }
+
+  container.innerHTML = tempCarouselImages.map((img, i) => `
+    <div class="admin-carousel-item">
+      <img src="${img.url}" alt="Slide ${i+1}">
+      <input type="text" value="${img.caption || ''}" placeholder="Caption for slide..." onchange="updateSlideCaption(${i}, this.value)">
+      <button type="button" class="btn-action ${img.url === document.getElementById('pThumb').value ? 'btn-lime' : ''}" onclick="setSlideAsThumb(${i})" style="font-size:11px; padding:4px 8px;">
+        ${img.url === document.getElementById('pThumb').value ? 'Main Thumb' : 'Set Thumb'}
+      </button>
+      <button type="button" class="btn-action btn-danger" onclick="removeSlide(${i})" style="padding:4px 8px;"><i class="ri-delete-bin-line"></i></button>
+    </div>
+  `).join('');
+}
+
+function updateSlideCaption(idx, text) {
+  if (tempCarouselImages[idx]) tempCarouselImages[idx].caption = text;
+}
+
+function setSlideAsThumb(idx) {
+  if (tempCarouselImages[idx]) {
+    document.getElementById('pThumb').value = tempCarouselImages[idx].url;
+    renderAdminCarouselList();
+  }
+}
+
+function removeSlide(idx) {
+  tempCarouselImages.splice(idx, 1);
+  renderAdminCarouselList();
+}
+
+function handleDropFiles(e) {
+  e.preventDefault();
+  const dt = e.dataTransfer;
+  const files = dt ? dt.files : e.target.files;
+  if (!files || !files.length) return;
+
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const dataUrl = evt.target.result;
+      tempCarouselImages.push({
+        url: dataUrl,
+        caption: file.name.split('.')[0] + ' — Screenshot'
+      });
+      if (!document.getElementById('pThumb').value || document.getElementById('pThumb').value === 'assets/') {
+        document.getElementById('pThumb').value = dataUrl;
+      }
+      renderAdminCarouselList();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 function saveProject(e) {
   e.preventDefault();
   const id = document.getElementById('pId').value;
   const projects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+
+  const mainThumb = document.getElementById('pThumb').value || (tempCarouselImages.length ? tempCarouselImages[0].url : 'assets/tunemavens.png');
+
   const data = {
     id: id ? parseInt(id) : Date.now(),
     title: document.getElementById('pTitle').value,
     category: document.getElementById('pCat').value,
     badge: document.getElementById('pBadge').value,
-    thumb: document.getElementById('pThumb').value,
-    desc: document.getElementById('pDesc').value
+    client: document.getElementById('pClient').value,
+    budget: document.getElementById('pBudget').value,
+    roi: document.getElementById('pRoi').value,
+    projectUrl: document.getElementById('pUrl').value,
+    thumb: mainThumb,
+    desc: document.getElementById('pDesc').value,
+    fullDesc: document.getElementById('pFullDescEditor').innerHTML,
+    images: tempCarouselImages.length ? tempCarouselImages : [{ url: mainThumb, caption: document.getElementById('pTitle').value }]
   };
+
   if (id) {
     const idx = projects.findIndex(p => p.id === parseInt(id));
     if (idx !== -1) projects[idx] = data;
   } else {
     projects.unshift(data);
   }
+
   localStorage.setItem('intermaven_projects', JSON.stringify(projects));
   closeSmallModal('projectModal');
   renderAdmin();
+  alert('Project saved successfully! Check project-details.html to see your live changes.');
 }
 
 function deleteProject(id) {
+  if (!confirm('Are you sure you want to delete this project?')) return;
   let p = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
   p = p.filter(x => x.id !== id);
   localStorage.setItem('intermaven_projects', JSON.stringify(p));

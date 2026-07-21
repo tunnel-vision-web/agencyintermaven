@@ -750,23 +750,27 @@ footer { background: var(--bg3); border-top: 1px solid var(--b1); padding: 70px 
 .footer-brand {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
 }
 .footer-brand .footer-logo-img {
   width: 185px;
   height: auto;
   margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .footer-brand p {
   color: var(--mu);
   font-size: 14px;
   max-width: 300px;
   margin-bottom: 20px;
-  text-align: left;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   line-height: 1.6;
 }
-.footer-brand .footer-socials { display: flex; gap: 10px; justify-content: flex-start; }
+.footer-brand .footer-socials { display: flex; gap: 10px; justify-content: center; width: 100%; }
 .footer-socials a {
   width: 38px; height: 38px; border-radius: 3px; border: 1px solid var(--b2);
   display: flex; align-items: center; justify-content: center; color: var(--mu); transition: all .2s ease;
@@ -1072,96 +1076,128 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <div class="proj-card reveal" data-tags="systems venture web">
         <div class="proj-thumb">
           <span class="proj-badge venture">In-House Venture</span>
-          <img src="assets/tunemavens.png" alt="TuneMavens platform preview">
+          <a href="project-details.html?id=1"><img src="assets/tunemavens.png" alt="TuneMavens platform preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Software &amp; Systems</div>
-          <h4>TuneMavens</h4>
+          <h4><a href="project-details.html?id=1">TuneMavens</a></h4>
           <p>Sync licensing and catalogue acquisition platform for the music industry, built end-to-end.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--b1); padding-top:12px; margin-top:auto;">
+            <a href="project-details.html?id=1" style="color:var(--lime); font-size:12.5px; font-weight:700;">Project Page <i class="ri-arrow-right-line"></i></a>
+            <a href="similar-projects.html?category=Software%20%26%20Systems" style="color:var(--mu); font-size:11.5px; font-weight:600;"><i class="ri-node-tree"></i> View Similar</a>
+          </div>
         </div>
       </div>
 
       <div class="proj-card reveal" data-tags="systems venture automation">
         <div class="proj-thumb">
           <span class="proj-badge venture">In-House Venture</span>
-          <img src="assets/sync_mavens.png" alt="Intermaven Network ecosystem preview">
+          <a href="project-details.html?id=2"><img src="assets/sync_mavens.png" alt="Intermaven Network ecosystem preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">AI &amp; Automation</div>
-          <h4>Intermaven Network Suite</h4>
+          <h4><a href="project-details.html?id=2">Intermaven Network Suite</a></h4>
           <p>The AI-powered SaaS ecosystem behind every project on this page — credits, accounts, and automation, unified.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--b1); padding-top:12px; margin-top:auto;">
+            <a href="project-details.html?id=2" style="color:var(--lime); font-size:12.5px; font-weight:700;">Project Page <i class="ri-arrow-right-line"></i></a>
+            <a href="similar-projects.html?category=AI%20%26%20Automation" style="color:var(--mu); font-size:11.5px; font-weight:600;"><i class="ri-node-tree"></i> View Similar</a>
+          </div>
         </div>
       </div>
 
       <div class="proj-card reveal" data-tags="branding web venture">
         <div class="proj-thumb">
           <span class="proj-badge venture">In-House Venture</span>
-          <img src="assets/atlanta_tv_mount_pro.png" alt="Atlanta TV Mount PRO website screenshot">
+          <a href="project-details.html?id=3"><img src="assets/atlanta_tv_mount_pro.png" alt="Atlanta TV Mount PRO website screenshot"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Branding &amp; Web</div>
-          <h4>Atlanta TV Mount PRO</h4>
+          <h4><a href="project-details.html?id=3">Atlanta TV Mount PRO</a></h4>
           <p>Full brand identity and a React/Vite booking platform with live quote estimation for a home services business.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--b1); padding-top:12px; margin-top:auto;">
+            <a href="project-details.html?id=3" style="color:var(--lime); font-size:12.5px; font-weight:700;">Project Page <i class="ri-arrow-right-line"></i></a>
+            <a href="similar-projects.html?category=Branding%20%26%20Web" style="color:var(--mu); font-size:11.5px; font-weight:600;"><i class="ri-node-tree"></i> View Similar</a>
+          </div>
         </div>
       </div>
 
       <div class="proj-card reveal" data-tags="branding client">
         <div class="proj-thumb">
           <span class="proj-badge client">Client Work</span>
-          <img src="assets/jua_capital.png" alt="Jua Capital branding preview">
+          <a href="project-details.html?id=4"><img src="assets/jua_capital.png" alt="Jua Capital branding preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Branding</div>
-          <h4>Jua Capital</h4>
+          <h4><a href="project-details.html?id=4">Jua Capital</a></h4>
           <p>Investor-grade identity system for an East African fintech, pairing a sunrise mark with a sharp typographic system.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--b1); padding-top:12px; margin-top:auto;">
+            <a href="project-details.html?id=4" style="color:var(--lime); font-size:12.5px; font-weight:700;">Project Page <i class="ri-arrow-right-line"></i></a>
+            <a href="similar-projects.html?category=Branding" style="color:var(--mu); font-size:11.5px; font-weight:600;"><i class="ri-node-tree"></i> View Similar</a>
+          </div>
         </div>
       </div>
 
       <div class="proj-card reveal" data-tags="branding client">
         <div class="proj-thumb">
           <span class="proj-badge client">Client Work</span>
-          <img src="assets/mwanga_law.png" alt="Mwanga Law branding preview">
+          <a href="project-details.html?id=5"><img src="assets/mwanga_law.png" alt="Mwanga Law branding preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Branding</div>
-          <h4>Mwanga Law</h4>
+          <h4><a href="project-details.html?id=5">Mwanga Law</a></h4>
           <p>Distinguished wordmark and letterhead system built for the gravitas a new law firm's clients expect.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--b1); padding-top:12px; margin-top:auto;">
+            <a href="project-details.html?id=5" style="color:var(--lime); font-size:12.5px; font-weight:700;">Project Page <i class="ri-arrow-right-line"></i></a>
+            <a href="similar-projects.html?category=Branding" style="color:var(--mu); font-size:11.5px; font-weight:600;"><i class="ri-node-tree"></i> View Similar</a>
+          </div>
         </div>
       </div>
 
       <div class="proj-card reveal" data-tags="branding client">
         <div class="proj-thumb">
           <span class="proj-badge client">Client Work</span>
-          <img src="assets/afya_plus.png" alt="Afya Plus Clinics branding preview">
+          <a href="project-details.html?id=6"><img src="assets/afya_plus.png" alt="Afya Plus Clinics branding preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Branding</div>
-          <h4>Afya Plus Clinics</h4>
+          <h4><a href="project-details.html?id=6">Afya Plus Clinics</a></h4>
           <p>A clean, reassuring healthcare identity for a growing chain of community clinics.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--b1); padding-top:12px; margin-top:auto;">
+            <a href="project-details.html?id=6" style="color:var(--lime); font-size:12.5px; font-weight:700;">Project Page <i class="ri-arrow-right-line"></i></a>
+            <a href="similar-projects.html?category=Branding" style="color:var(--mu); font-size:11.5px; font-weight:600;"><i class="ri-node-tree"></i> View Similar</a>
+          </div>
         </div>
       </div>
 
       <div class="proj-card reveal" data-tags="branding client">
         <div class="proj-thumb">
           <span class="proj-badge client">Client Work</span>
-          <img src="assets/imora_holdings.png" alt="Imora Holdings branding preview">
+          <a href="project-details.html?id=4"><img src="assets/imora_holdings.png" alt="Imora Holdings branding preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Branding</div>
-          <h4>Imora Holdings</h4>
+          <h4><a href="project-details.html?id=4">Imora Holdings</a></h4>
           <p>A regal, modern brand system and color palette for an Africa-based real estate holding company.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--b1); padding-top:12px; margin-top:auto;">
+            <a href="project-details.html?id=4" style="color:var(--lime); font-size:12.5px; font-weight:700;">Project Page <i class="ri-arrow-right-line"></i></a>
+            <a href="similar-projects.html?category=Branding" style="color:var(--mu); font-size:11.5px; font-weight:600;"><i class="ri-node-tree"></i> View Similar</a>
+          </div>
         </div>
       </div>
 
       <div class="proj-card reveal" data-tags="systems web venture">
         <div class="proj-thumb">
           <span class="proj-badge venture">In-House Venture</span>
-          <img src="assets/sync_mavens.png" alt="SyncMavens sub-platform preview">
+          <a href="project-details.html?id=1"><img src="assets/sync_mavens.png" alt="SyncMavens sub-platform preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Software &amp; Systems</div>
-          <h4>SyncMavens</h4>
+          <h4><a href="project-details.html?id=1">SyncMavens</a></h4>
           <p>Sync marketplace sub-platform, brand-extended from the TuneMavens family of products.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--b1); padding-top:12px; margin-top:auto;">
+            <a href="project-details.html?id=1" style="color:var(--lime); font-size:12.5px; font-weight:700;">Project Page <i class="ri-arrow-right-line"></i></a>
+            <a href="similar-projects.html?category=Software%20%26%20Systems" style="color:var(--mu); font-size:11.5px; font-weight:600;"><i class="ri-node-tree"></i> View Similar</a>
+          </div>
         </div>
       </div>
 
