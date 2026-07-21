@@ -204,7 +204,7 @@
   <div class="sidebar-menu">
     <div class="nav-item active" onclick="switchPane('dashboard', this)"><i class="ri-dashboard-3-line"></i> <span>Dashboard (Analytics)</span></div>
     <div class="nav-item" onclick="switchPane('leads', this)"><i class="ri-user-search-line"></i> <span>Lead Gen &amp; Bookings</span></div>
-    <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="nav-item" style="text-decoration:none;"><i class="ri-contacts-book-2-line" style="color:var(--lime);"></i> <span style="color:var(--lime);">Smart CRM (intermaven.io)</span></a>
+    <div class="nav-item" onclick="openSmartCrmModal()"><i class="ri-contacts-book-2-line" style="color:var(--lime);"></i> <span style="color:var(--lime);">Smart CRM (intermaven.io)</span></div>
     <div class="nav-item" onclick="switchPane('team', this)"><i class="ri-team-line"></i> <span>Team Members</span></div>
     <div class="nav-item" onclick="switchPane('cms-hub', this)"><i class="ri-apps-2-line"></i> <span>CMS Dashboard Hub</span></div>
   </div>
@@ -351,14 +351,14 @@
         </div>
 
         <!-- Tile 4: Smart CRM -->
-        <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="cms-tile-card highlight-crm" style="text-decoration:none;">
+        <div class="cms-tile-card highlight-crm" onclick="openSmartCrmModal()">
           <div class="cms-tile-icon" style="color:var(--lime);"><i class="ri-contacts-book-2-line"></i></div>
           <div class="cms-tile-content">
             <h4 style="color:var(--lime);">Smart CRM (intermaven.io)</h4>
             <p>Launch &amp; auto-login to intermaven.io CRM with free/unlimited agency credits.</p>
-            <div class="cms-tile-action" style="color:var(--lime);">Launch intermaven.io CRM <i class="ri-external-link-line"></i></div>
+            <div class="cms-tile-action" style="color:var(--lime);">Open Smart CRM Portal <i class="ri-arrow-right-line"></i></div>
           </div>
-        </a>
+        </div>
 
         <!-- Tile 5: Leads & Appointments -->
         <div class="cms-tile-card" onclick="switchPane('leads')">
@@ -1697,12 +1697,60 @@ function deleteCurrentLeadModal() {
   closeSmallModal('leadDetailModal');
 }
 
+// ─── MODAL HELPER ───
+function closeSmallModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) el.classList.remove('open');
+}
+
 // ─── EXTRA-WIDE SMART CRM MODAL ───
 function openSmartCrmModal() {
+  renderCrmTable();
   document.getElementById('smartCrmModal').classList.add('open');
 }
 function closeSmartCrmModal() {
   document.getElementById('smartCrmModal').classList.remove('open');
+}
+
+function renderCrmTable() {
+  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+  const body = document.getElementById('crmModalTableBody');
+  if (body) {
+    body.innerHTML = crm.map((item, idx) => `
+      <tr>
+        <td><strong>${item.name || (item.email ? item.email.split('@')[0] : 'Subscriber')}</strong></td>
+        <td>${item.email}</td>
+        <td><span class="badge ${item.channel === 'WHATSAPP' ? 'badge-warn' : 'badge-info'}"><i class="${item.channel === 'WHATSAPP' ? 'ri-whatsapp-line' : 'ri-mail-line'}"></i> ${item.channel || 'EMAIL'}</span></td>
+        <td><span class="badge ${item.doubleOptIn ? 'badge-success' : 'badge-warn'}"><i class="${item.doubleOptIn ? 'ri-check-double-line' : 'ri-time-line'}"></i> ${item.doubleOptIn ? 'Opted In' : 'Pending'}</span></td>
+        <td>${item.source || 'Landing Page'}</td>
+        <td>${item.date || '2026-07-21'}</td>
+        <td>
+          <button class="btn-action" onclick="toggleCrmOptIn(${idx})"><i class="ri-refresh-line"></i> Toggle Status</button>
+          <button class="btn-action btn-danger" onclick="deleteCrmContact(${idx})"><i class="ri-delete-bin-line"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  }
+}
+
+function toggleCrmOptIn(idx) {
+  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+  if (crm[idx]) {
+    crm[idx].doubleOptIn = !crm[idx].doubleOptIn;
+    crm[idx].status = crm[idx].doubleOptIn ? 'Subscribed' : 'Pending';
+    localStorage.setItem('intermaven_crm', JSON.stringify(crm));
+    renderCrmTable();
+    renderAdmin();
+  }
+}
+
+function deleteCrmContact(idx) {
+  if (!confirm('Remove this contact from Smart CRM?')) return;
+  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+  crm.splice(idx, 1);
+  localStorage.setItem('intermaven_crm', JSON.stringify(crm));
+  renderCrmTable();
+  renderAdmin();
 }
 
 // ─── CMS PROJECTS ───
