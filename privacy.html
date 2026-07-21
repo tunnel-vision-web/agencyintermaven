@@ -7,26 +7,108 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sansation:wght@700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
   <style>
-    :root { --bg: #070f0e; --bg2: #0d1a18; --bg3: #122421; --sage: #6fa29e; --sage-light: #a8c9c5; --lime: #d7df23; --tx: #f6f8f7; --mu: #9fb5b1; --b1: rgba(111,162,158,0.18); }
-    body { background: var(--bg); color: var(--tx); font-family: 'Outfit', sans-serif; line-height: 1.6; }
-    a { color: var(--sage-light); text-decoration: underline; }
-    .container { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
-    h1 { font-family: 'Sansation', sans-serif; font-size: 38px; margin-bottom: 20px; }
-    h2 { font-size: 22px; color: var(--lime); margin: 24px 0 10px; }
-    p { color: var(--mu); margin-bottom: 16px; }
-    .nav-back { display: inline-block; margin-bottom: 30px; font-weight: 600; }
+    :root { --bg: #070f0e; --bg2: #0d1a18; --bg3: #122421; --sage: #6fa29e; --sage-light: #a8c9c5; --lime: #d7df23; --tx: #f6f8f7; --mu: #9fb5b1; --b1: rgba(111,162,158,0.18); --b2: rgba(111,162,158,0.3); }
+    body { background: var(--bg); color: var(--tx); font-family: 'Outfit', sans-serif; line-height: 1.7; margin: 0; padding: 0; }
+    a { color: var(--sage-light); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--lime); }
+    
+    .nav-bar { background: rgba(7,15,14,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--b1); padding: 18px 0; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo img { width: 160px; height: auto; display: block; }
+    .nav-back { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; color: var(--lime); }
+    
+    .legal-hero { background: radial-gradient(circle at 50% 0%, rgba(111,162,158,0.12), transparent 70%), var(--bg2); padding: 60px 0 40px; border-bottom: 1px solid var(--b1); }
+    .legal-container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    
+    h1 { font-family: 'Sansation', sans-serif; font-size: 42px; margin: 0 0 12px; color: var(--tx); }
+    .meta-tag { font-size: 13px; color: var(--sage); font-family: 'Space Grotesk', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    
+    .legal-body { padding: 50px 0 80px; }
+    .policy-card { background: var(--bg2); border: 1px solid var(--b1); border-radius: 4px; padding: 32px; margin-bottom: 28px; }
+    h2 { font-size: 22px; color: var(--lime); margin-top: 0; margin-bottom: 14px; font-family: 'Sansation', sans-serif; display: flex; align-items: center; gap: 10px; }
+    h2 i { font-size: 20px; color: var(--sage); }
+    p { color: var(--mu); margin-bottom: 16px; font-size: 15.5px; }
+    ul { color: var(--mu); margin-bottom: 20px; padding-left: 20px; }
+    li { margin-bottom: 8px; font-size: 15px; }
+    
+    .highlight-box { background: var(--bg3); border-left: 4px solid var(--lime); padding: 20px; border-radius: 0 4px 4px 0; margin: 20px 0; }
+    .highlight-box p { margin: 0; color: var(--tx); font-weight: 500; }
+    
+    footer { background: #040908; border-top: 1px solid var(--b1); padding: 40px 0; text-align: center; color: var(--mu); font-size: 13.5px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <a href="index.html" class="nav-back">&larr; Back to Intermaven Agency</a>
-    <h1>Privacy Policy</h1>
-    <p>Last Updated: July 2026</p>
-    <h2>1. Data Collection &amp; Double Opt-In</h2>
-    <p>We collect contact information submitted via appointment bookings and newsletter signups. All newsletter signups require double opt-in confirmation before receiving updates.</p>
-    <h2>2. Smart CRM Storage</h2>
-    <p>Lead and customer data is securely processed in our Intermaven Ecosystem Smart CRM to facilitate direct consultation with assigned tech leads.</p>
+
+<div class="nav-bar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency"></a>
+    <a href="index.html" class="nav-back"><i class="ri-arrow-left-line"></i> Back to Agency Home</a>
   </div>
+</div>
+
+<header class="legal-hero">
+  <div class="legal-container">
+    <div class="meta-tag">Legal &amp; Data Governance</div>
+    <h1>Privacy Policy</h1>
+    <p style="color:var(--sage-light); font-size:16px;">Effective Date: July 2026 | Intermaven Ecosystem Standard</p>
+  </div>
+</header>
+
+<main class="legal-body">
+  <div class="legal-container">
+
+    <div class="policy-card">
+      <h2><i class="ri-shield-keyhole-line"></i> 1. Information We Collect</h2>
+      <p>Intermaven Agency ("we," "our," or "us") collects personal and technical data to facilitate strategy consultations, manage client retainers, and deliver custom digital ecosystems.</p>
+      <ul>
+        <li><strong>Direct Submissions:</strong> Contact names, corporate email addresses, phone numbers, and strategy scope requests submitted via appointment booking forms or newsletter signups.</li>
+        <li><strong>Automated Data:</strong> IP addresses, browser types, session analytics, and referral channels collected during navigation across our network applications.</li>
+        <li><strong>CRM Records:</strong> Communication history, pre-call intake notes, and assigned tech specialist details stored in our secure Smart CRM pipeline.</li>
+      </ul>
+    </div>
+
+    <div class="policy-card">
+      <h2><i class="ri-mail-check-line"></i> 2. Double Opt-In &amp; Lead Processing Protocol</h2>
+      <p>We enforce a strict double opt-in protocol for all ongoing newsletter communications and automated insights. When you submit your contact details:</p>
+      <div class="highlight-box">
+        <p>A verification email is dispatched immediately. Your address is registered on our subscriber list only after confirming receipt. You may unsubscribe or request data deletion at any time with a single click.</p>
+      </div>
+      <p>Appointment booking inquiries are routed directly to assigned technical leads for strategy preparation and are strictly restricted from third-party advertising brokers.</p>
+    </div>
+
+    <div class="policy-card">
+      <h2><i class="ri-database-2-line"></i> 3. Smart CRM Security &amp; Local Storage</h2>
+      <p>Client workspace settings, active project preferences, and session tokens are stored using browser <code>localStorage</code> and encrypted server-side databases within the Intermaven Network architecture.</p>
+      <ul>
+        <li>Data is protected using AES-256 encryption at rest and TLS 1.3 in transit.</li>
+        <li>Access to client CRM records is restricted to authorized studio personnel under signed non-disclosure agreements.</li>
+      </ul>
+    </div>
+
+    <div class="policy-card">
+      <h2><i class="ri-user-shared-line"></i> 4. Data Sharing &amp; Third-Party Integrations</h2>
+      <p>We do not sell, rent, or trade personal information to external marketers. Information is disclosed solely in the following operational contexts:</p>
+      <ul>
+        <li><strong>Infrastructure Providers:</strong> Secure hosting, calendar synchronization (e.g. Twilio, Google Workspace API), and cloud infrastructure supporting project delivery.</li>
+        <li><strong>Legal Compliance:</strong> When required by binding legal process, court orders, or enforceable governmental requests.</li>
+      </ul>
+    </div>
+
+    <div class="policy-card">
+      <h2><i class="ri-user-smile-line"></i> 5. Your Data Rights (GDPR &amp; CCPA)</h2>
+      <p>Depending on your jurisdiction, you possess the right to access, rectify, port, or request the deletion of your personal records. To submit a data subject access request, email our compliance lead at <code>privacy@intermaven.io</code>.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="legal-container">
+    <p>&copy; 2026 Intermaven Agency. All rights reserved. | Powered by <a href="https://intermaven.io">intermaven.io</a></p>
+  </div>
+</footer>
+
 </body>
 </html>

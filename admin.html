@@ -175,6 +175,7 @@
     <div class="nav-item" onclick="switchPane('team', this)"><i class="ri-team-line"></i> <span>Team Members</span></div>
     <div class="nav-item" onclick="switchPane('cms-projects', this)"><i class="ri-folder-code-line"></i> <span>CMS — Projects</span></div>
     <div class="nav-item" onclick="switchPane('cms-testimonials', this)"><i class="ri-chat-quote-line"></i> <span>CMS — Testimonials</span></div>
+    <div class="nav-item" onclick="switchPane('cms-socials', this)"><i class="ri-share-line"></i> <span>CMS — Social Media</span></div>
   </div>
 
   <div class="sandbox-tag">
@@ -329,6 +330,22 @@
             <tr><th>Author Name</th><th>Role / Company</th><th>Rating</th><th>Quote Snippet</th><th>Actions</th></tr>
           </thead>
           <tbody id="cmsTestimonialsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PANE 6: CMS SOCIAL MEDIA ── -->
+    <div class="view-pane" id="pane-cms-socials">
+      <div class="table-card">
+        <div class="table-header">
+          <h3>CMS — Social Media Accounts &amp; Footer Links</h3>
+          <button class="btn-action btn-lime" onclick="openSocialModal()"><i class="ri-add-line"></i> Add Social Media Link</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Platform</th><th>Target URL</th><th>Remixicon Icon</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="cmsSocialsBody"></tbody>
         </table>
       </div>
     </div>
@@ -563,6 +580,7 @@
             <button type="button" class="wp-btn" onclick="execWpCommand('insertOrderedList')"><i class="ri-list-ordered"></i> Numbered</button>
             <button type="button" class="wp-btn" onclick="insertWpLink()"><i class="ri-link"></i> Link</button>
             <button type="button" class="wp-btn" onclick="execWpCommand('removeFormat')"><i class="ri-format-clear"></i> Clear</button>
+            <button type="button" class="wp-btn" style="background:rgba(215,223,35,0.15); color:var(--lime); font-weight:700; border-color:var(--lime);" onclick="triggerAiRewriteModal()"><i class="ri-magic-line"></i> ✨ AI Assist</button>
           </div>
           <div class="wp-editor-area" id="pFullDescEditor" contenteditable="true">
             <h3>Executive Summary</h3>
@@ -686,6 +704,86 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════════
+     AI ASSIST REWRITE MODAL
+═══════════════════════════════════════════════════════════════ -->
+<div class="admin-form-modal" id="aiAssistModal">
+  <div class="modal-box" style="max-width:680px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--b1);">
+      <h3 style="margin:0; border:none; padding:0; color:var(--lime); display:flex; align-items:center; gap:8px;">
+        <i class="ri-magic-line"></i> ✨ AI Case Study Assist
+      </h3>
+      <button type="button" class="btn-action" onclick="closeSmallModal('aiAssistModal')"><i class="ri-close-line"></i></button>
+    </div>
+    <p style="font-size:13.5px; color:var(--mu); margin-bottom:18px;">Select an AI rewrite narrative option below to automatically polish and enhance your project description for the rich text editor:</p>
+    
+    <div class="form-group">
+      <label>1. Executive &amp; Impact Style (ROI &amp; High-level business results)</label>
+      <div style="background:var(--bg3); border:1px solid var(--b1); padding:14px; border-radius:3px; font-size:13px; color:var(--tx); margin-bottom:12px;" id="aiOpt1">
+        <h3>Executive Summary</h3><p>Proprietary enterprise platform designed to eliminate manual reconciliation workflows and accelerate high-volume operations. Engineered end-to-end by Intermaven Agency with automated telemetry and real-time client dashboards.</p>
+      </div>
+      <button type="button" class="btn-action btn-lime" onclick="applyAiCopy(1)">Apply Executive Version</button>
+    </div>
+
+    <div class="form-group" style="margin-top:16px;">
+      <label>2. Technical &amp; Architecture Style (Deep-tech specs &amp; AI pipelines)</label>
+      <div style="background:var(--bg3); border:1px solid var(--b1); padding:14px; border-radius:3px; font-size:13px; color:var(--tx); margin-bottom:12px;" id="aiOpt2">
+        <h3>Technical Architecture Highlights</h3><ul><li><strong>Automated Data Pipelines:</strong> Real-time event streaming and AI metadata tagging.</li><li><strong>High-Availability Core:</strong> Zero-latency API endpoints with localized caching.</li><li><strong>Autonomous Workflow Engine:</strong> Self-healing pipeline orchestration.</li></ul>
+      </div>
+      <button type="button" class="btn-action btn-lime" onclick="applyAiCopy(2)">Apply Technical Version</button>
+    </div>
+
+    <div class="form-group" style="margin-top:16px;">
+      <label>3. Full Story Narrative (Strategy, Execution, &amp; Measurable Outcome)</label>
+      <div style="background:var(--bg3); border:1px solid var(--b1); padding:14px; border-radius:3px; font-size:13px; color:var(--tx); margin-bottom:12px;" id="aiOpt3">
+        <h3>Project Transformation Narrative</h3><p>Transformed legacy offline operations into a sleek, high-converting digital ecosystem. Intermaven Agency delivered full visual identity guidelines, responsive client web portals, and continuous CRM synchronization.</p>
+      </div>
+      <button type="button" class="btn-action btn-lime" onclick="applyAiCopy(3)">Apply Narrative Version</button>
+    </div>
+
+    <div class="modal-footer" style="margin-top:20px;">
+      <button type="button" class="btn-action" onclick="closeSmallModal('aiAssistModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SOCIAL MEDIA LINK MODAL
+═══════════════════════════════════════════════════════════════ -->
+<div class="admin-form-modal" id="socialModal">
+  <div class="modal-box" style="max-width:500px;">
+    <h3 id="socialModalTitle" style="margin-bottom:16px;">Add Social Media Link</h3>
+    <form onsubmit="saveSocialMedia(event)">
+      <input type="hidden" id="socId">
+      <div class="form-group">
+        <label>Platform Name (e.g. Instagram, Twitter / X, LinkedIn, YouTube, WhatsApp, GitHub, TikTok, Facebook)</label>
+        <input type="text" id="socPlatform" required placeholder="Instagram" oninput="previewSocialIcon()">
+      </div>
+      <div class="form-group">
+        <label>Profile / Page URL</label>
+        <input type="url" id="socUrl" required placeholder="https://instagram.com/intermaven">
+      </div>
+      <div class="form-group">
+        <label>Remixicon Icon Class (Auto-generated or custom override)</label>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <input type="text" id="socIcon" required placeholder="ri-instagram-line" oninput="updateSocialIconPreview()">
+          <div id="socIconPreview" style="font-size:24px; color:var(--lime); width:32px; text-align:center;"><i class="ri-instagram-line"></i></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="prep-check">
+          <input type="checkbox" id="socVisible" checked>
+          <span>Visible in Footer Navigation across site</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-action" onclick="closeSmallModal('socialModal')">Cancel</button>
+        <button type="submit" class="btn-action btn-lime">Save Social Link <i class="ri-save-line"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
 // ─── DEFAULT DATA ───
 const defaultLeads = [
@@ -702,9 +800,11 @@ const defaultCrm = [
 ];
 
 const defaultProjects = [
-  { id: 1, title: 'TuneMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/tunemavens.png', desc: 'Sync licensing platform built for music rights holders.' },
-  { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/sync_mavens.png', desc: 'SaaS engine powering automated delivery and CRM workflows.' },
-  { id: 3, title: 'Atlanta TV Mount PRO', category: 'Branding & Web', badge: 'venture', thumb: 'assets/atlanta_tv_mount_pro.png', desc: 'Live quote calculation booking web app for home services.' },
+  { id: 1, title: 'TuneMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/tunemavens_thumb.png', desc: 'Sync licensing platform built for music rights holders.' },
+  { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/intermaven_thumb.png', desc: 'SaaS engine powering automated delivery and CRM workflows.' },
+  { id: 3, title: 'Atlanta TV Mount PRO', category: 'Branding & Web', badge: 'venture', thumb: 'assets/atlanta_tv_mount_thumb.png', desc: 'Live quote calculation booking web app for home services.' },
+  { id: 7, title: 'SyncMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/syncmavens_thumb.png', desc: 'Sync marketplace sub-platform, brand-extended from TuneMavens.' },
+  { id: 8, title: 'TuneStream Engine', category: 'AI & Automation', badge: 'venture', thumb: 'assets/tunestream_thumb.png', desc: 'Audio delivery engine and dynamic rights catalog distribution system.' },
   { id: 4, title: 'Jua Capital', category: 'Branding', badge: 'client', thumb: 'assets/jua_capital.png', desc: 'Investor-grade identity system for an East African venture firm.' },
   { id: 5, title: 'Mwanga Law', category: 'Branding', badge: 'client', thumb: 'assets/mwanga_law.png', desc: 'Distinguished legal wordmark and digital presence.' },
   { id: 6, title: 'Afya Plus Clinics', category: 'Branding', badge: 'client', thumb: 'assets/afya_plus.png', desc: 'Healthcare brand identity and patient portal design.' }
@@ -734,12 +834,20 @@ const defaultTeamMembers = [
   }
 ];
 
+const defaultSocials = [
+  { id: 1, platform: 'Instagram', url: 'https://instagram.com/intermaven', iconClass: 'ri-instagram-line', visible: true },
+  { id: 2, platform: 'LinkedIn', url: 'https://linkedin.com/company/intermaven', iconClass: 'ri-linkedin-fill', visible: true },
+  { id: 3, platform: 'YouTube', url: 'https://youtube.com/@intermaven', iconClass: 'ri-youtube-line', visible: true },
+  { id: 4, platform: 'WhatsApp', url: 'https://wa.me/10000000000', iconClass: 'ri-whatsapp-line', visible: true }
+];
+
 // ─── INIT ───
 if (!localStorage.getItem('intermaven_leads')) localStorage.setItem('intermaven_leads', JSON.stringify(defaultLeads));
 if (!localStorage.getItem('intermaven_crm')) localStorage.setItem('intermaven_crm', JSON.stringify(defaultCrm));
 if (!localStorage.getItem('intermaven_projects')) localStorage.setItem('intermaven_projects', JSON.stringify(defaultProjects));
 if (!localStorage.getItem('intermaven_testimonials')) localStorage.setItem('intermaven_testimonials', JSON.stringify(defaultTestimonials));
 if (!localStorage.getItem('intermaven_team')) localStorage.setItem('intermaven_team', JSON.stringify(defaultTeamMembers));
+if (!localStorage.getItem('intermaven_socials')) localStorage.setItem('intermaven_socials', JSON.stringify(defaultSocials));
 
 let activeLeadModalIdx = null;
 let leadsChartInst = null;
@@ -874,6 +982,24 @@ function renderAdmin() {
         <td>
           <button class="btn-action" onclick="editTestimonial(${t.id})"><i class="ri-edit-line"></i> Edit</button>
           <button class="btn-action btn-danger" onclick="deleteTestimonial(${t.id})"><i class="ri-delete-bin-line"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ─ Social Media Table ─
+  const socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+  const socialsBody = document.getElementById('cmsSocialsBody');
+  if (socialsBody) {
+    socialsBody.innerHTML = socials.map(s => `
+      <tr>
+        <td><strong>${s.platform}</strong></td>
+        <td><a href="${s.url}" target="_blank" style="color:var(--sage-light); text-decoration:underline;">${s.url}</a></td>
+        <td><i class="${s.iconClass}" style="font-size:18px; color:var(--lime);"></i> <code style="font-size:11px; color:var(--mu);">${s.iconClass}</code></td>
+        <td>${s.visible ? '<span class="badge badge-success">Visible</span>' : '<span class="badge badge-warn">Hidden</span>'}</td>
+        <td>
+          <button class="btn-action" onclick="openSocialModal(${s.id})"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger" onclick="deleteSocialMedia(${s.id})"><i class="ri-delete-bin-line"></i></button>
         </td>
       </tr>
     `).join('');
@@ -1260,16 +1386,94 @@ function exportLeads() {
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'intermaven_leads.json'; a.click();
 }
 
-// ─── UTILITIES ───
-function closeSmallModal(id) {
-  document.getElementById(id).classList.remove('open');
+// ─── AI ASSIST REWRITE HANDLERS ───
+function triggerAiRewriteModal() {
+  document.getElementById('aiAssistModal').classList.add('open');
 }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.admin-form-modal.open, .wide-modal-overlay.open').forEach(m => m.classList.remove('open'));
+function applyAiCopy(optionNum) {
+  const optEl = document.getElementById('aiOpt' + optionNum);
+  const editor = document.getElementById('pFullDescEditor');
+  if (optEl && editor) {
+    editor.innerHTML = optEl.innerHTML;
+    closeSmallModal('aiAssistModal');
+    alert('✨ AI rewrite applied successfully to the rich text editor!');
   }
-});
+}
+
+// ─── SOCIAL MEDIA CMS HANDLERS ───
+function resolveSocialIcon(platform) {
+  const p = (platform || '').toLowerCase();
+  if (p.includes('instagram')) return 'ri-instagram-line';
+  if (p.includes('twitter') || p.includes('x')) return 'ri-twitter-x-line';
+  if (p.includes('linkedin')) return 'ri-linkedin-fill';
+  if (p.includes('youtube')) return 'ri-youtube-line';
+  if (p.includes('whatsapp')) return 'ri-whatsapp-line';
+  if (p.includes('github')) return 'ri-github-fill';
+  if (p.includes('tiktok')) return 'ri-tiktok-line';
+  if (p.includes('facebook')) return 'ri-facebook-fill';
+  return 'ri-global-line';
+}
+
+function previewSocialIcon() {
+  const p = document.getElementById('socPlatform').value;
+  const resolved = resolveSocialIcon(p);
+  document.getElementById('socIcon').value = resolved;
+  updateSocialIconPreview();
+}
+
+function updateSocialIconPreview() {
+  const iconClass = document.getElementById('socIcon').value || 'ri-global-line';
+  document.getElementById('socIconPreview').innerHTML = `<i class="${iconClass}"></i>`;
+}
+
+function openSocialModal(id) {
+  const socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+  const s = id ? socials.find(x => x.id === id) : null;
+
+  document.getElementById('socId').value = s ? s.id : '';
+  document.getElementById('socPlatform').value = s ? s.platform : '';
+  document.getElementById('socUrl').value = s ? s.url : '';
+  document.getElementById('socIcon').value = s ? s.iconClass : 'ri-instagram-line';
+  document.getElementById('socVisible').checked = s ? s.visible : true;
+
+  document.getElementById('socialModalTitle').innerText = s ? 'Edit Social Media Link' : 'Add Social Media Link';
+  updateSocialIconPreview();
+  document.getElementById('socialModal').classList.add('open');
+}
+
+function saveSocialMedia(e) {
+  e.preventDefault();
+  const id = document.getElementById('socId').value;
+  const socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+  
+  const data = {
+    id: id ? parseInt(id) : Date.now(),
+    platform: document.getElementById('socPlatform').value,
+    url: document.getElementById('socUrl').value,
+    iconClass: document.getElementById('socIcon').value || resolveSocialIcon(document.getElementById('socPlatform').value),
+    visible: document.getElementById('socVisible').checked
+  };
+
+  if (id) {
+    const idx = socials.findIndex(s => s.id === parseInt(id));
+    if (idx !== -1) socials[idx] = data;
+  } else {
+    socials.push(data);
+  }
+
+  localStorage.setItem('intermaven_socials', JSON.stringify(socials));
+  closeSmallModal('socialModal');
+  renderAdmin();
+}
+
+function deleteSocialMedia(id) {
+  if (!confirm('Remove this social media account link?')) return;
+  let socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+  socials = socials.filter(s => s.id !== id);
+  localStorage.setItem('intermaven_socials', JSON.stringify(socials));
+  renderAdmin();
+}
 
 // ─── INIT ───
 renderAdmin();

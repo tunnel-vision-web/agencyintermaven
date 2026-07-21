@@ -542,18 +542,43 @@ body.scrolled .nav-logo img { transform: scale(0.86); }
 }
 .auth-modal {
   width: 100%;
-  max-width: 440px;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
   background: var(--bg2);
   border: 1px solid var(--b2);
-  border-radius: 3px;
-  padding: 36px 32px;
+  border-radius: 4px;
+  padding: 32px 28px;
   position: relative;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
   transform: translateY(20px) scale(0.96);
   transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+  scrollbar-width: thin;
+  scrollbar-color: var(--sage) var(--bg3);
 }
 .auth-modal-overlay.open .auth-modal {
   transform: translateY(0) scale(1);
+}
+.auth-alert {
+  padding: 12px 14px;
+  border-radius: 3px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  border: 1px solid transparent;
+  line-height: 1.4;
+}
+.auth-alert.success {
+  background: rgba(215, 223, 35, 0.12);
+  border-color: var(--lime);
+  color: #f1f879;
+}
+.auth-alert.error {
+  background: rgba(235, 87, 87, 0.12);
+  border-color: rgba(235, 87, 87, 0.4);
+  color: #ff9999;
 }
 .auth-modal-close {
   position: absolute;
@@ -941,7 +966,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 <section id="services">
   <div class="container">
     <div class="section-head center reveal">
-      <span class="eyebrow">What We Do</span>
       <h2 class="section-title section-kicker">One studio, the full stack — brand, interface, software, and the automation behind all three.</h2>
       <p class="section-sub">Every engagement starts the same way: a free consultation with a tech lead or account manager to map what you actually need, before we scope anything.</p>
     </div>
@@ -953,7 +977,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         <p>Logos, systems, positioning and voice — brand foundations built to survive contact with the real market, not just a pitch deck.</p>
         <div class="svc-actions">
           <a href="appointment.html?service=branding" class="btn-primary btn-sm">Book Service</a>
-          <a href="case-studies.html?cat=branding" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+          <a href="similar-projects.html?category=Branding" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
         </div>
       </div>
 
@@ -963,7 +987,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         <p>Marketing sites and digital experiences designed to convert traffic into pipeline, not just look good in a screenshot.</p>
         <div class="svc-actions">
           <a href="appointment.html?service=web" class="btn-primary btn-sm">Book Service</a>
-          <a href="case-studies.html?cat=web" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+          <a href="similar-projects.html?category=Branding%20%26%20Web" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
         </div>
       </div>
 
@@ -973,7 +997,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         <p>Responsive interfaces for your product, dashboard, or platform — designed around how real users actually work, not demo day.</p>
         <div class="svc-actions">
           <a href="appointment.html?service=uiux" class="btn-primary btn-sm">Book Service</a>
-          <a href="case-studies.html?cat=web" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+          <a href="similar-projects.html?category=Branding%20%26%20Web" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
         </div>
       </div>
 
@@ -983,7 +1007,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         <p>Multi-platform builds, from first MVP to full ecosystem — architecture that's built to scale with the business, not be rebuilt by it.</p>
         <div class="svc-actions">
           <a href="appointment.html?service=ecosystem" class="btn-primary btn-sm">Book Service</a>
-          <a href="case-studies.html?cat=systems" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+          <a href="similar-projects.html?category=Software%20%26%20Systems" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
         </div>
       </div>
 
@@ -993,7 +1017,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         <p>We map how your operation actually runs, then automate what's repetitive — freeing your team for the work that needs a human.</p>
         <div class="svc-actions">
           <a href="appointment.html?service=automation" class="btn-primary btn-sm">Book Service</a>
-          <a href="case-studies.html?cat=automation" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+          <a href="similar-projects.html?category=AI%20%26%20Automation" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
         </div>
       </div>
 
@@ -1003,7 +1027,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         <p>Not sure where AI actually fits in your business? We'll show you honestly, then help you build the parts worth building.</p>
         <div class="svc-actions">
           <a href="appointment.html?service=consulting" class="btn-primary btn-sm">Book Service</a>
-          <a href="case-studies.html?cat=automation" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+          <a href="similar-projects.html?category=AI%20%26%20Automation" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
         </div>
       </div>
     </div>
@@ -1076,7 +1100,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <div class="proj-card reveal" data-tags="systems venture web">
         <div class="proj-thumb">
           <span class="proj-badge venture">In-House Venture</span>
-          <a href="project-details.html?id=1"><img src="assets/tunemavens_hero.png" alt="TuneMavens platform preview"></a>
+          <a href="project-details.html?id=1"><img src="assets/tunemavens_thumb.png" alt="TuneMavens platform preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Software &amp; Systems</div>
@@ -1092,7 +1116,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <div class="proj-card reveal" data-tags="systems venture automation">
         <div class="proj-thumb">
           <span class="proj-badge venture">In-House Venture</span>
-          <a href="project-details.html?id=2"><img src="assets/intermaven_hero.png" alt="Intermaven Network ecosystem preview"></a>
+          <a href="project-details.html?id=2"><img src="assets/intermaven_thumb.png" alt="Intermaven Network ecosystem preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">AI &amp; Automation</div>
@@ -1108,7 +1132,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <div class="proj-card reveal" data-tags="branding web venture">
         <div class="proj-thumb">
           <span class="proj-badge venture">In-House Venture</span>
-          <a href="project-details.html?id=3"><img src="assets/atlanta_tv_mount_hero.png" alt="Atlanta TV Mount PRO website screenshot"></a>
+          <a href="project-details.html?id=3"><img src="assets/atlanta_tv_mount_thumb.png" alt="Atlanta TV Mount PRO website screenshot"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Branding &amp; Web</div>
@@ -1124,7 +1148,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <div class="proj-card reveal" data-tags="systems web venture">
         <div class="proj-thumb">
           <span class="proj-badge venture">In-House Venture</span>
-          <a href="project-details.html?id=7"><img src="assets/syncmavens_hero.png" alt="SyncMavens sub-platform preview"></a>
+          <a href="project-details.html?id=7"><img src="assets/syncmavens_thumb.png" alt="SyncMavens sub-platform preview"></a>
         </div>
         <div class="proj-body">
           <div class="proj-cat">Software &amp; Systems</div>
@@ -1295,7 +1319,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <div class="footer-col">
         <h5>Community &amp; Legal</h5>
         <ul>
-          <li><a href="forum.html">Forum</a></li>
           <li><a href="faq.html">FAQ</a></li>
           <li><a href="appointment.html">Book Appointment</a></li>
           <li><a href="terms.html">Terms of Service</a></li>
@@ -1325,8 +1348,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <div class="auth-tabs">
         <button type="button" class="auth-tab active" id="tabSignIn" onclick="switchAuthTab('signin')">Sign In</button>
         <button type="button" class="auth-tab" id="tabSignUp" onclick="switchAuthTab('signup')">Sign Up</button>
+        <button type="button" class="auth-tab" id="tabReset" onclick="switchAuthTab('reset')">Reset Password</button>
       </div>
     </div>
+
+    <!-- Alert Box Container -->
+    <div id="authAlertBox" style="display:none;"></div>
 
     <!-- Sign In Form -->
     <form class="auth-form active" id="formSignIn" onsubmit="handleAuthSubmit(event, 'signin')">
@@ -1347,7 +1374,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       </div>
       <div class="form-options">
         <label class="remember-me"><input type="checkbox"> Remember me</label>
-        <a href="#" class="forgot-pass" onclick="alert('Password reset instructions sent to your email.'); return false;">Forgot password?</a>
+        <a href="#" class="forgot-pass" onclick="switchAuthTab('reset'); return false;">Forgot password?</a>
       </div>
       <button type="submit" class="btn-primary auth-submit-btn">Sign In to Account <i class="ri-arrow-right-line"></i></button>
     </form>
@@ -1393,6 +1420,33 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <button type="submit" class="btn-primary auth-submit-btn">Create Intermaven Account <i class="ri-arrow-right-line"></i></button>
     </form>
 
+    <!-- Password Reset Form -->
+    <form class="auth-form" id="formReset" onsubmit="handleAuthSubmit(event, 'reset')">
+      <p style="font-size:13px; color:var(--mu); margin-bottom:12px; line-height:1.5;">Enter your registered account email address to receive a secure password reset token.</p>
+      <div class="form-group">
+        <label for="resetEmail">Registered Email</label>
+        <div class="input-with-icon">
+          <i class="ri-mail-send-line icon-left"></i>
+          <input type="email" id="resetEmail" placeholder="name@company.com" required>
+        </div>
+      </div>
+      <div class="form-group" id="resetStep2" style="display:none;">
+        <label for="resetPin">Verification Token / Security PIN</label>
+        <div class="input-with-icon">
+          <i class="ri-shield-keyhole-line icon-left"></i>
+          <input type="text" id="resetPin" placeholder="6-digit verification code">
+        </div>
+        <div class="form-group" style="margin-top:10px;">
+          <label for="resetNewPass">New Password</label>
+          <div class="input-with-icon">
+            <i class="ri-lock-password-line icon-left"></i>
+            <input type="password" id="resetNewPass" placeholder="Enter new password">
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary auth-submit-btn" id="resetSubmitBtn">Request Reset Token <i class="ri-mail-check-line"></i></button>
+    </form>
+
     <div class="sandbox-login-box" style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--b2); text-align: center;">
       <button type="button" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 13px; font-weight: 700; border-color: var(--sage); color: var(--sage-light); background: rgba(111,162,158,0.12);" onclick="window.location.href='admin.html'">
         <i class="ri-flashlight-fill" style="color:var(--lime);"></i> Sandbox Admin Login (Instant Demo)
@@ -1427,8 +1481,12 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeM
 const authModalOverlay = document.getElementById('authModalOverlay');
 const tabSignIn = document.getElementById('tabSignIn');
 const tabSignUp = document.getElementById('tabSignUp');
+const tabReset = document.getElementById('tabReset');
 const formSignIn = document.getElementById('formSignIn');
 const formSignUp = document.getElementById('formSignUp');
+const formReset = document.getElementById('formReset');
+const authAlertBox = document.getElementById('authAlertBox');
+let resetStep = 1;
 
 function openAuthModal(tab = 'signin') {
   switchAuthTab(tab);
@@ -1440,19 +1498,33 @@ function closeAuthModal(e) {
   if (e && e.target !== authModalOverlay && !e.target.closest('.auth-modal-close')) return;
   authModalOverlay.classList.remove('open');
   document.body.style.overflow = '';
+  if (authAlertBox) authAlertBox.style.display = 'none';
+}
+
+function showAuthNotification(msg, type = 'success') {
+  if (!authAlertBox) return;
+  authAlertBox.className = `auth-alert ${type}`;
+  authAlertBox.innerHTML = type === 'success' 
+    ? `<i class="ri-checkbox-circle-line" style="font-size:18px;"></i> <span>${msg}</span>` 
+    : `<i class="ri-error-warning-line" style="font-size:18px;"></i> <span>${msg}</span>`;
+  authAlertBox.style.display = 'flex';
 }
 
 function switchAuthTab(tab) {
+  if (authAlertBox) authAlertBox.style.display = 'none';
+  
+  [tabSignIn, tabSignUp, tabReset].forEach(t => t && t.classList.remove('active'));
+  [formSignIn, formSignUp, formReset].forEach(f => f && f.classList.remove('active'));
+
   if (tab === 'signin') {
     tabSignIn.classList.add('active');
-    tabSignUp.classList.remove('active');
     formSignIn.classList.add('active');
-    formSignUp.classList.remove('active');
-  } else {
+  } else if (tab === 'signup') {
     tabSignUp.classList.add('active');
-    tabSignIn.classList.remove('active');
     formSignUp.classList.add('active');
-    formSignIn.classList.remove('active');
+  } else if (tab === 'reset') {
+    tabReset.classList.add('active');
+    formReset.classList.add('active');
   }
 }
 
@@ -1476,29 +1548,68 @@ function handleAuthSubmit(e, mode) {
     const terms = document.getElementById('signupTerms').checked;
 
     if (pass !== confirmPass) {
-      alert('Passwords do not match. Please ensure both password fields match.');
+      showAuthNotification('Passwords do not match. Please check and try again.', 'error');
       return;
     }
 
     if (!terms) {
-      alert('You must accept the Terms of Service and Privacy Policy to create an account.');
+      showAuthNotification('Please accept the Terms of Service and Privacy Policy.', 'error');
       return;
     }
   }
 
   const btn = e.target.querySelector('button[type="submit"]');
   const originalText = btn.innerHTML;
+
+  if (mode === 'reset') {
+    if (resetStep === 1) {
+      const email = document.getElementById('resetEmail').value;
+      btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Dispatching Token...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.disabled = false;
+        showAuthNotification(`Password reset token sent to <strong>${email}</strong>. Enter code below:`, 'success');
+        document.getElementById('resetStep2').style.display = 'block';
+        document.getElementById('resetSubmitBtn').innerHTML = 'Submit New Password <i class="ri-check-double-line"></i>';
+        resetStep = 2;
+      }, 1000);
+      return;
+    } else {
+      const pin = document.getElementById('resetPin').value;
+      const newPass = document.getElementById('resetNewPass').value;
+      if (!pin || !newPass) {
+        showAuthNotification('Please fill in both the security PIN and your new password.', 'error');
+        return;
+      }
+      btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Updating Password...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.disabled = false;
+        showAuthNotification('Password updated successfully! Redirecting to Sign In...', 'success');
+        setTimeout(() => {
+          resetStep = 1;
+          document.getElementById('resetStep2').style.display = 'none';
+          document.getElementById('resetSubmitBtn').innerHTML = 'Request Reset Token <i class="ri-mail-check-line"></i>';
+          switchAuthTab('signin');
+        }, 1200);
+      }, 1000);
+      return;
+    }
+  }
+
   btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Authenticating...';
   btn.disabled = true;
 
   setTimeout(() => {
     btn.innerHTML = '<i class="ri-checkbox-circle-line"></i> Success!';
+    showAuthNotification(mode === 'signin' ? 'Welcome back! Signed in successfully.' : 'Account created successfully! Welcome to Intermaven.', 'success');
     setTimeout(() => {
       closeAuthModal();
       btn.innerHTML = originalText;
       btn.disabled = false;
-      alert(mode === 'signin' ? 'Welcome back! Signed in successfully.' : 'Account created successfully! Welcome to Intermaven.');
-    }, 800);
+    }, 1000);
   }, 1000);
 }
 
