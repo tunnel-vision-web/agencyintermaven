@@ -103,6 +103,39 @@
     .team-member-card { background: var(--bg3); border: 1px solid var(--b2); border-radius: 3px; padding: 22px; }
     .tm-avatar { width: 46px; height: 46px; border-radius: 3px; background: var(--sage); color: #070f0e; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
     .tm-name { font-weight: 800; font-size: 16px; margin-bottom: 2px; }
+
+    /* ─── 3-Column CMS Tile Grid Hub ─── */
+    .cms-tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 1100px) { .cms-tile-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px) { .cms-tile-grid { grid-template-columns: 1fr; } }
+    .cms-tile-card {
+      background: var(--bg2); border: 1px solid var(--b2); border-radius: 4px;
+      padding: 22px 20px; display: flex; gap: 16px; cursor: pointer; transition: all .25s ease;
+    }
+    .cms-tile-card:hover {
+      transform: translateY(-4px); border-color: var(--sage); background: var(--bg3);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    .cms-tile-card.highlight-crm {
+      border-color: rgba(215,223,35,0.4);
+      background: linear-gradient(135deg, rgba(13,26,24,0.9), rgba(215,223,35,0.06));
+    }
+    .cms-tile-card.highlight-crm:hover {
+      border-color: var(--lime);
+      background: linear-gradient(135deg, rgba(18,36,33,0.95), rgba(215,223,35,0.12));
+    }
+    .cms-tile-icon {
+      font-size: 26px; color: var(--sage-light); flex-shrink: 0; width: 44px; height: 44px;
+      border-radius: 4px; background: rgba(111,162,158,0.12); display: flex; align-items: center; justify-content: center;
+    }
+    .cms-tile-content h4 { font-family: 'Sansation', sans-serif; font-size: 16px; color: var(--tx); margin-bottom: 6px; }
+    .cms-tile-content p { font-size: 12.5px; color: var(--mu); line-height: 1.45; margin-bottom: 12px; }
+    .cms-tile-action { font-size: 12px; font-weight: 700; color: var(--sage-light); display: inline-flex; align-items: center; gap: 6px; }
+    .cms-tile-card:hover .cms-tile-action { color: var(--lime); }
+    
+    .section-back-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--b1); }
+    .btn-back-dash { background: var(--bg3); color: var(--lime); border: 1px solid var(--b2); padding: 8px 16px; border-radius: 3px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all .2s ease; }
+    .btn-back-dash:hover { background: rgba(215,223,35,0.12); border-color: var(--lime); transform: translateX(-3px); }
     .tm-role { color: var(--mu); font-size: 13px; margin-bottom: 12px; }
     .tm-meta { font-size: 12px; color: var(--mu); display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
     .tm-meta span { display: flex; align-items: flex-start; gap: 6px; }
@@ -223,26 +256,138 @@
 
   <div class="content-padding">
 
-    <!-- ── PANE 1: DASHBOARD OVERVIEW WITH VISUAL CHARTS ── -->
+    <!-- ── PANE 1: CMS DASHBOARD HUB (3-COLUMN TILE GRID) ── -->
     <div class="view-pane active" id="pane-dashboard">
       
-      <!-- Metrics Cards -->
-      <div class="metrics-grid">
+      <!-- Metrics Overview Header -->
+      <div class="metrics-grid" style="margin-bottom: 28px;">
         <div class="metric-card">
-          <div class="metric-title">Total Active Leads</div>
+          <div class="metric-title">Showcase Projects</div>
+          <div class="metric-value" id="statProjects">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Active Leads &amp; Bookings</div>
           <div class="metric-value" id="statLeads">0</div>
         </div>
         <div class="metric-card">
-          <div class="metric-title">CRM Subscribers</div>
+          <div class="metric-title">CRM Opt-In Subscribers</div>
           <div class="metric-value" id="statCrm">0</div>
         </div>
         <div class="metric-card">
           <div class="metric-title">Team Specialists</div>
           <div class="metric-value" id="statTeam">0</div>
         </div>
-        <div class="metric-card">
-          <div class="metric-title">Showcase Projects</div>
-          <div class="metric-value" id="statProjects">0</div>
+      </div>
+
+      <!-- CMS Section Navigation Cards (3-Column Grid) -->
+      <div style="margin-bottom: 32px;">
+        <h3 style="font-family:'Sansation', sans-serif; font-size:20px; color:var(--tx); margin-bottom:16px; display:flex; align-items:center; gap:10px;">
+          <i class="ri-apps-2-line" style="color:var(--lime);"></i> CMS Section Hub
+          <span style="font-size:12px; color:var(--mu); font-family:'Outfit', sans-serif; font-weight:400;">Select any section tile below to edit live website content</span>
+        </h3>
+
+        <div class="cms-tile-grid">
+          
+          <!-- Tile 1: Projects -->
+          <div class="cms-tile-card" onclick="switchPane('cms-projects')">
+            <div class="cms-tile-icon"><i class="ri-folder-code-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>Portfolio Projects &amp; Case Studies</h4>
+              <p>Manage showcase projects (e.g. Atlanta TV Mount PRO), rich text, AI assist, carousel images &amp; captions.</p>
+              <div class="cms-tile-action">Open Projects CMS <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 2: Services -->
+          <div class="cms-tile-card" onclick="switchPane('cms-services')">
+            <div class="cms-tile-icon"><i class="ri-layout-grid-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>Services &amp; Packages</h4>
+              <p>Manage "What We Do" service cards, icons, descriptions, and booking parameters.</p>
+              <div class="cms-tile-action">Open Services CMS <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 3: Hero Slides -->
+          <div class="cms-tile-card" onclick="switchPane('cms-hero')">
+            <div class="cms-tile-icon"><i class="ri-slideshow-3-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>Hero Carousel Slides</h4>
+              <p>Manage landing page hero titles, lead paragraphs, background images, and CTA links.</p>
+              <div class="cms-tile-action">Open Hero CMS <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 4: Smart CRM -->
+          <div class="cms-tile-card highlight-crm" onclick="launchIntermavenCrm()">
+            <div class="cms-tile-icon" style="color:var(--lime);"><i class="ri-contacts-book-2-line"></i></div>
+            <div class="cms-tile-content">
+              <h4 style="color:var(--lime);">Smart CRM (intermaven.io)</h4>
+              <p>Launch &amp; auto-login to intermaven.io CRM with free/unlimited agency credits.</p>
+              <div class="cms-tile-action" style="color:var(--lime);">Launch intermaven.io CRM <i class="ri-external-link-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 5: Leads & Appointments -->
+          <div class="cms-tile-card" onclick="switchPane('leads')">
+            <div class="cms-tile-icon"><i class="ri-user-search-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>Lead Gen &amp; Appointments</h4>
+              <p>View consultation bookings, lead status logs, and call preparation checklists.</p>
+              <div class="cms-tile-action">Open Leads Manager <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 6: Testimonials -->
+          <div class="cms-tile-card" onclick="switchPane('cms-testimonials')">
+            <div class="cms-tile-icon"><i class="ri-chat-quote-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>Client Testimonials</h4>
+              <p>Manage client reviews, star ratings, roles, and client case study quotes.</p>
+              <div class="cms-tile-action">Open Testimonials CMS <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 7: Team Members -->
+          <div class="cms-tile-card" onclick="switchPane('team')">
+            <div class="cms-tile-icon"><i class="ri-team-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>Team Members &amp; Specialists</h4>
+              <p>Manage tech lead profiles, specialties, available days, and booking time slots.</p>
+              <div class="cms-tile-action">Open Team CMS <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 8: FAQs -->
+          <div class="cms-tile-card" onclick="switchPane('cms-faqs')">
+            <div class="cms-tile-icon"><i class="ri-questionnaire-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>FAQs &amp; Knowledge Base</h4>
+              <p>Manage agency Q&amp;A items, category tags, and detailed answers.</p>
+              <div class="cms-tile-action">Open FAQs CMS <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 9: Social Media -->
+          <div class="cms-tile-card" onclick="switchPane('cms-socials')">
+            <div class="cms-tile-icon"><i class="ri-share-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>Social Media &amp; Footers</h4>
+              <p>Manage social media profile links, Remixicon icons, and footer visibility.</p>
+              <div class="cms-tile-action">Open Social CMS <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Tile 10: Global Settings -->
+          <div class="cms-tile-card" onclick="switchPane('cms-settings')">
+            <div class="cms-tile-icon"><i class="ri-settings-4-line"></i></div>
+            <div class="cms-tile-content">
+              <h4>Global Site Settings</h4>
+              <p>Manage agency address, contact phone, email, and landing page tagline.</p>
+              <div class="cms-tile-action">Open Settings CMS <i class="ri-arrow-right-line"></i></div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -250,39 +395,26 @@
       <div class="charts-grid">
         <div class="chart-card">
           <h4><span><i class="ri-bar-chart-fill" style="color:var(--lime);"></i> Lead Pipeline &amp; Consultations Trend</span> <span style="font-size:11px; color:var(--mu); font-weight:500;">Live Analytics</span></h4>
-          <div style="position:relative; height:220px; width:100%;">
+          <div style="position:relative; height:200px; width:100%;">
             <canvas id="leadsChart"></canvas>
           </div>
         </div>
 
         <div class="chart-card">
           <h4><span><i class="ri-pie-chart-2-fill" style="color:var(--sage-light);"></i> Team Specialist Load</span> <span style="font-size:11px; color:var(--mu); font-weight:500;">Capacity</span></h4>
-          <div style="position:relative; height:220px; width:100%;">
+          <div style="position:relative; height:200px; width:100%;">
             <canvas id="teamChart"></canvas>
           </div>
         </div>
       </div>
 
-      <!-- Recent Leads Table -->
-      <div class="table-card">
-        <div class="table-header">
-          <h3>Recent Consultation Bookings (Click Row for Call Prep)</h3>
-          <div style="display:flex;gap:10px;">
-            <button class="btn-action btn-lime" onclick="openSmartCrmModal()"><i class="ri-contacts-book-2-line"></i> Launch Smart CRM</button>
-            <a href="appointment.html" class="btn-action"><i class="ri-calendar-check-line"></i> New Booking Wizard</a>
-          </div>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Lead ID</th><th>Name</th><th>Email</th><th>Discipline</th><th>Specialist</th><th>Date &amp; Slot</th><th>Status</th><th>Call Prep</th></tr>
-          </thead>
-          <tbody id="dashLeadsBody"></tbody>
-        </table>
-      </div>
     </div>
 
     <!-- ── PANE 2: LEADS & BOOKINGS ── -->
     <div class="view-pane" id="pane-leads">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>Full Lead Generation &amp; Call Preparation Log</h3>
@@ -299,6 +431,9 @@
 
     <!-- ── PANE 3: TEAM MEMBERS ── -->
     <div class="view-pane" id="pane-team">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-header" style="margin-bottom:20px;">
         <h3 style="font-size:20px; font-weight:800;">Team Members &amp; Specialist Availability</h3>
         <button class="btn-action btn-lime" onclick="openTeamMemberModal()"><i class="ri-user-add-line"></i> Add Team Member</button>
@@ -308,6 +443,9 @@
 
     <!-- ── PANE 4: CMS PROJECTS ── -->
     <div class="view-pane" id="pane-cms-projects">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — Portfolio Projects &amp; In-House Ventures</h3>
@@ -324,6 +462,9 @@
 
     <!-- ── PANE 5: CMS TESTIMONIALS ── -->
     <div class="view-pane" id="pane-cms-testimonials">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — Client Testimonials &amp; Case Reviews</h3>
@@ -340,6 +481,9 @@
 
     <!-- ── PANE 6: CMS SOCIAL MEDIA ── -->
     <div class="view-pane" id="pane-cms-socials">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — Social Media Accounts &amp; Footer Links</h3>
@@ -356,6 +500,9 @@
 
     <!-- ── PANE 7: CMS SERVICES ── -->
     <div class="view-pane" id="pane-cms-services">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — Service Offerings &amp; Packages</h3>
@@ -372,6 +519,9 @@
 
     <!-- ── PANE 8: CMS HERO SLIDES ── -->
     <div class="view-pane" id="pane-cms-hero">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — Landing Page Hero Slides</h3>
@@ -388,6 +538,9 @@
 
     <!-- ── PANE 9: CMS FAQS ── -->
     <div class="view-pane" id="pane-cms-faqs">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — FAQs &amp; Knowledge Base</h3>
@@ -404,6 +557,9 @@
 
     <!-- ── PANE 10: CMS SITE SETTINGS ── -->
     <div class="view-pane" id="pane-cms-settings">
+      <div class="section-back-bar">
+        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — Global Agency Settings &amp; Branding</h3>
