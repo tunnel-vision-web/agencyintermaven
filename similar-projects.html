@@ -433,16 +433,18 @@
 
 <script>
 const defaultFullProjects = [
-  { id: 1, title: 'TuneMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/tunemavens.png', desc: 'Sync licensing and catalogue acquisition platform built for music rights holders.' },
-  { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/sync_mavens.png', desc: 'SaaS engine powering automated delivery and CRM workflows across all ventures.' },
-  { id: 3, title: 'Atlanta TV Mount PRO', category: 'Branding & Web', badge: 'venture', thumb: 'assets/atlanta_tv_mount_pro.png', desc: 'Live quote calculation booking web app for an Atlanta home services enterprise.' },
+  { id: 1, title: 'TuneMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/tunemavens_hero.png', desc: 'Sync licensing and catalogue acquisition platform built for music rights holders and sync supervisors.' },
+  { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/intermaven_hero.png', desc: 'The AI-powered SaaS ecosystem behind every project — credits, accounts, and automation, unified.' },
+  { id: 3, title: 'Atlanta TV Mount PRO', category: 'Branding & Web', badge: 'venture', thumb: 'assets/atlanta_tv_mount_hero.png', desc: 'Live quote calculation booking web app for an Atlanta home services enterprise.' },
+  { id: 7, title: 'SyncMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/syncmavens_hero.png', desc: 'Sync marketplace sub-platform, brand-extended from the TuneMavens family of products.' },
+  { id: 8, title: 'TuneStream Engine', category: 'AI & Automation', badge: 'venture', thumb: 'assets/tunestream_hero.png', desc: 'Audio delivery engine and dynamic rights catalog distribution system.' },
   { id: 4, title: 'Jua Capital', category: 'Branding', badge: 'client', thumb: 'assets/jua_capital.png', desc: 'Investor-grade identity system for an East African venture firm.' },
   { id: 5, title: 'Mwanga Law', category: 'Branding', badge: 'client', thumb: 'assets/mwanga_law.png', desc: 'Distinguished wordmark and legal digital presence.' },
   { id: 6, title: 'Afya Plus Clinics', category: 'Branding', badge: 'client', thumb: 'assets/afya_plus.png', desc: 'Healthcare brand identity and patient portal design.' }
 ];
 
 let projects = JSON.parse(localStorage.getItem('intermaven_projects') || 'null');
-if (!projects || !projects.length) {
+if (!projects || !projects.length || !projects[0].images) {
   projects = defaultFullProjects;
 }
 
