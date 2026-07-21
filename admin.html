@@ -202,17 +202,11 @@
   </div>
 
   <div class="sidebar-menu">
-    <div class="nav-item active" onclick="switchPane('dashboard', this)"><i class="ri-dashboard-3-line"></i> <span>Dashboard</span></div>
+    <div class="nav-item active" onclick="switchPane('dashboard', this)"><i class="ri-dashboard-3-line"></i> <span>Dashboard (Analytics)</span></div>
     <div class="nav-item" onclick="switchPane('leads', this)"><i class="ri-user-search-line"></i> <span>Lead Gen &amp; Bookings</span></div>
-    <div class="nav-item" onclick="openSmartCrmModal()"><i class="ri-contacts-book-2-line"></i> <span>Smart CRM (Intermaven)</span></div>
+    <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="nav-item" style="text-decoration:none;"><i class="ri-contacts-book-2-line" style="color:var(--lime);"></i> <span style="color:var(--lime);">Smart CRM (intermaven.io)</span></a>
     <div class="nav-item" onclick="switchPane('team', this)"><i class="ri-team-line"></i> <span>Team Members</span></div>
-    <div class="nav-item" onclick="switchPane('cms-projects', this)"><i class="ri-folder-code-line"></i> <span>CMS — Projects</span></div>
-    <div class="nav-item" onclick="switchPane('cms-services', this)"><i class="ri-layout-grid-line"></i> <span>CMS — Services</span></div>
-    <div class="nav-item" onclick="switchPane('cms-hero', this)"><i class="ri-slideshow-3-line"></i> <span>CMS — Hero Slides</span></div>
-    <div class="nav-item" onclick="switchPane('cms-testimonials', this)"><i class="ri-chat-quote-line"></i> <span>CMS — Testimonials</span></div>
-    <div class="nav-item" onclick="switchPane('cms-faqs', this)"><i class="ri-questionnaire-line"></i> <span>CMS — FAQs</span></div>
-    <div class="nav-item" onclick="switchPane('cms-socials', this)"><i class="ri-share-line"></i> <span>CMS — Social Media</span></div>
-    <div class="nav-item" onclick="switchPane('cms-settings', this)"><i class="ri-settings-4-line"></i> <span>CMS — Site Settings</span></div>
+    <div class="nav-item" onclick="switchPane('cms-hub', this)"><i class="ri-apps-2-line"></i> <span>CMS Dashboard Hub</span></div>
   </div>
 
   <div class="sandbox-tag">
@@ -256,7 +250,7 @@
 
   <div class="content-padding">
 
-    <!-- ── PANE 1: CMS DASHBOARD HUB (3-COLUMN TILE GRID) ── -->
+    <!-- ── PANE 1: MAIN ANALYTICS DASHBOARD ── -->
     <div class="view-pane active" id="pane-dashboard">
       
       <!-- Metrics Overview Header -->
@@ -279,141 +273,160 @@
         </div>
       </div>
 
-      <!-- CMS Section Navigation Cards (3-Column Grid) -->
-      <div style="margin-bottom: 32px;">
-        <h3 style="font-family:'Sansation', sans-serif; font-size:20px; color:var(--tx); margin-bottom:16px; display:flex; align-items:center; gap:10px;">
-          <i class="ri-apps-2-line" style="color:var(--lime);"></i> CMS Section Hub
-          <span style="font-size:12px; color:var(--mu); font-family:'Outfit', sans-serif; font-weight:400;">Select any section tile below to edit live website content</span>
-        </h3>
-
-        <div class="cms-tile-grid">
-          
-          <!-- Tile 1: Projects -->
-          <div class="cms-tile-card" onclick="switchPane('cms-projects')">
-            <div class="cms-tile-icon"><i class="ri-folder-code-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>Portfolio Projects &amp; Case Studies</h4>
-              <p>Manage showcase projects (e.g. Atlanta TV Mount PRO), rich text, AI assist, carousel images &amp; captions.</p>
-              <div class="cms-tile-action">Open Projects CMS <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 2: Services -->
-          <div class="cms-tile-card" onclick="switchPane('cms-services')">
-            <div class="cms-tile-icon"><i class="ri-layout-grid-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>Services &amp; Packages</h4>
-              <p>Manage "What We Do" service cards, icons, descriptions, and booking parameters.</p>
-              <div class="cms-tile-action">Open Services CMS <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 3: Hero Slides -->
-          <div class="cms-tile-card" onclick="switchPane('cms-hero')">
-            <div class="cms-tile-icon"><i class="ri-slideshow-3-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>Hero Carousel Slides</h4>
-              <p>Manage landing page hero titles, lead paragraphs, background images, and CTA links.</p>
-              <div class="cms-tile-action">Open Hero CMS <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 4: Smart CRM -->
-          <div class="cms-tile-card highlight-crm" onclick="launchIntermavenCrm()">
-            <div class="cms-tile-icon" style="color:var(--lime);"><i class="ri-contacts-book-2-line"></i></div>
-            <div class="cms-tile-content">
-              <h4 style="color:var(--lime);">Smart CRM (intermaven.io)</h4>
-              <p>Launch &amp; auto-login to intermaven.io CRM with free/unlimited agency credits.</p>
-              <div class="cms-tile-action" style="color:var(--lime);">Launch intermaven.io CRM <i class="ri-external-link-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 5: Leads & Appointments -->
-          <div class="cms-tile-card" onclick="switchPane('leads')">
-            <div class="cms-tile-icon"><i class="ri-user-search-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>Lead Gen &amp; Appointments</h4>
-              <p>View consultation bookings, lead status logs, and call preparation checklists.</p>
-              <div class="cms-tile-action">Open Leads Manager <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 6: Testimonials -->
-          <div class="cms-tile-card" onclick="switchPane('cms-testimonials')">
-            <div class="cms-tile-icon"><i class="ri-chat-quote-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>Client Testimonials</h4>
-              <p>Manage client reviews, star ratings, roles, and client case study quotes.</p>
-              <div class="cms-tile-action">Open Testimonials CMS <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 7: Team Members -->
-          <div class="cms-tile-card" onclick="switchPane('team')">
-            <div class="cms-tile-icon"><i class="ri-team-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>Team Members &amp; Specialists</h4>
-              <p>Manage tech lead profiles, specialties, available days, and booking time slots.</p>
-              <div class="cms-tile-action">Open Team CMS <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 8: FAQs -->
-          <div class="cms-tile-card" onclick="switchPane('cms-faqs')">
-            <div class="cms-tile-icon"><i class="ri-questionnaire-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>FAQs &amp; Knowledge Base</h4>
-              <p>Manage agency Q&amp;A items, category tags, and detailed answers.</p>
-              <div class="cms-tile-action">Open FAQs CMS <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 9: Social Media -->
-          <div class="cms-tile-card" onclick="switchPane('cms-socials')">
-            <div class="cms-tile-icon"><i class="ri-share-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>Social Media &amp; Footers</h4>
-              <p>Manage social media profile links, Remixicon icons, and footer visibility.</p>
-              <div class="cms-tile-action">Open Social CMS <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-          <!-- Tile 10: Global Settings -->
-          <div class="cms-tile-card" onclick="switchPane('cms-settings')">
-            <div class="cms-tile-icon"><i class="ri-settings-4-line"></i></div>
-            <div class="cms-tile-content">
-              <h4>Global Site Settings</h4>
-              <p>Manage agency address, contact phone, email, and landing page tagline.</p>
-              <div class="cms-tile-action">Open Settings CMS <i class="ri-arrow-right-line"></i></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
       <!-- Visual Charts Summary Grid -->
-      <div class="charts-grid">
+      <div class="charts-grid" style="margin-bottom: 28px;">
         <div class="chart-card">
           <h4><span><i class="ri-bar-chart-fill" style="color:var(--lime);"></i> Lead Pipeline &amp; Consultations Trend</span> <span style="font-size:11px; color:var(--mu); font-weight:500;">Live Analytics</span></h4>
-          <div style="position:relative; height:200px; width:100%;">
+          <div style="position:relative; height:220px; width:100%;">
             <canvas id="leadsChart"></canvas>
           </div>
         </div>
 
         <div class="chart-card">
           <h4><span><i class="ri-pie-chart-2-fill" style="color:var(--sage-light);"></i> Team Specialist Load</span> <span style="font-size:11px; color:var(--mu); font-weight:500;">Capacity</span></h4>
-          <div style="position:relative; height:200px; width:100%;">
+          <div style="position:relative; height:220px; width:100%;">
             <canvas id="teamChart"></canvas>
           </div>
         </div>
       </div>
 
+      <!-- Recent Leads Table -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Recent Consultation Bookings (Click Row for Call Prep)</h3>
+          <div style="display:flex;gap:10px;">
+            <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="btn-action btn-lime" style="font-weight:700;"><i class="ri-contacts-book-2-line"></i> Launch intermaven.io CRM</a>
+            <a href="appointment.html" class="btn-action"><i class="ri-calendar-check-line"></i> New Booking Wizard</a>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Lead ID</th><th>Name</th><th>Email</th><th>Discipline</th><th>Specialist</th><th>Date &amp; Slot</th><th>Status</th><th>Call Prep</th></tr>
+          </thead>
+          <tbody id="dashLeadsBody"></tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ── PANE 1B: DEDICATED CMS DASHBOARD HUB (3-COLUMN TILE GRID) ── -->
+    <div class="view-pane" id="pane-cms-hub">
+      <div style="margin-bottom: 28px;">
+        <h3 style="font-family:'Sansation', sans-serif; font-size:22px; color:var(--tx); margin-bottom:8px; display:flex; align-items:center; gap:10px;">
+          <i class="ri-apps-2-line" style="color:var(--lime);"></i> CMS Dashboard Hub
+        </h3>
+        <p style="font-size:14px; color:var(--mu);">Select any section tile below to edit live website content, descriptions, rich text, images, and global settings:</p>
+      </div>
+
+      <div class="cms-tile-grid">
+        
+        <!-- Tile 1: Projects -->
+        <div class="cms-tile-card" onclick="switchPane('cms-projects')">
+          <div class="cms-tile-icon"><i class="ri-folder-code-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>Portfolio Projects &amp; Case Studies</h4>
+            <p>Manage showcase projects (e.g. Atlanta TV Mount PRO), rich text, AI assist, carousel images &amp; captions.</p>
+            <div class="cms-tile-action">Open Projects CMS <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+        <!-- Tile 2: Services -->
+        <div class="cms-tile-card" onclick="switchPane('cms-services')">
+          <div class="cms-tile-icon"><i class="ri-layout-grid-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>Services &amp; Packages</h4>
+            <p>Manage "What We Do" service cards, icons, descriptions, and booking parameters.</p>
+            <div class="cms-tile-action">Open Services CMS <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+        <!-- Tile 3: Hero Slides -->
+        <div class="cms-tile-card" onclick="switchPane('cms-hero')">
+          <div class="cms-tile-icon"><i class="ri-slideshow-3-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>Hero Carousel Slides</h4>
+            <p>Manage landing page hero titles, lead paragraphs, background images, and CTA links.</p>
+            <div class="cms-tile-action">Open Hero CMS <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+        <!-- Tile 4: Smart CRM -->
+        <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="cms-tile-card highlight-crm" style="text-decoration:none;">
+          <div class="cms-tile-icon" style="color:var(--lime);"><i class="ri-contacts-book-2-line"></i></div>
+          <div class="cms-tile-content">
+            <h4 style="color:var(--lime);">Smart CRM (intermaven.io)</h4>
+            <p>Launch &amp; auto-login to intermaven.io CRM with free/unlimited agency credits.</p>
+            <div class="cms-tile-action" style="color:var(--lime);">Launch intermaven.io CRM <i class="ri-external-link-line"></i></div>
+          </div>
+        </a>
+
+        <!-- Tile 5: Leads & Appointments -->
+        <div class="cms-tile-card" onclick="switchPane('leads')">
+          <div class="cms-tile-icon"><i class="ri-user-search-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>Lead Gen &amp; Appointments</h4>
+            <p>View consultation bookings, lead status logs, and call preparation checklists.</p>
+            <div class="cms-tile-action">Open Leads Manager <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+        <!-- Tile 6: Testimonials -->
+        <div class="cms-tile-card" onclick="switchPane('cms-testimonials')">
+          <div class="cms-tile-icon"><i class="ri-chat-quote-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>Client Testimonials</h4>
+            <p>Manage client reviews, star ratings, roles, and client case study quotes.</p>
+            <div class="cms-tile-action">Open Testimonials CMS <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+        <!-- Tile 7: Team Members -->
+        <div class="cms-tile-card" onclick="switchPane('team')">
+          <div class="cms-tile-icon"><i class="ri-team-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>Team Members &amp; Specialists</h4>
+            <p>Manage tech lead profiles, specialties, available days, and booking time slots.</p>
+            <div class="cms-tile-action">Open Team CMS <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+        <!-- Tile 8: FAQs -->
+        <div class="cms-tile-card" onclick="switchPane('cms-faqs')">
+          <div class="cms-tile-icon"><i class="ri-questionnaire-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>FAQs &amp; Knowledge Base</h4>
+            <p>Manage agency Q&amp;A items, category tags, and detailed answers.</p>
+            <div class="cms-tile-action">Open FAQs CMS <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+        <!-- Tile 9: Social Media -->
+        <div class="cms-tile-card" onclick="switchPane('cms-socials')">
+          <div class="cms-tile-icon"><i class="ri-share-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>Social Media &amp; Footers</h4>
+            <p>Manage social media profile links, Remixicon icons, and footer visibility.</p>
+            <div class="cms-tile-action">Open Social CMS <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+        <!-- Tile 10: Global Settings -->
+        <div class="cms-tile-card" onclick="switchPane('cms-settings')">
+          <div class="cms-tile-icon"><i class="ri-settings-4-line"></i></div>
+          <div class="cms-tile-content">
+            <h4>Global Site Settings</h4>
+            <p>Manage agency address, contact phone, email, and landing page tagline.</p>
+            <div class="cms-tile-action">Open Settings CMS <i class="ri-arrow-right-line"></i></div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- ── PANE 2: LEADS & BOOKINGS ── -->
     <div class="view-pane" id="pane-leads">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -432,7 +445,7 @@
     <!-- ── PANE 3: TEAM MEMBERS ── -->
     <div class="view-pane" id="pane-team">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-header" style="margin-bottom:20px;">
         <h3 style="font-size:20px; font-weight:800;">Team Members &amp; Specialist Availability</h3>
@@ -444,7 +457,7 @@
     <!-- ── PANE 4: CMS PROJECTS ── -->
     <div class="view-pane" id="pane-cms-projects">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -463,7 +476,7 @@
     <!-- ── PANE 5: CMS TESTIMONIALS ── -->
     <div class="view-pane" id="pane-cms-testimonials">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -482,7 +495,7 @@
     <!-- ── PANE 6: CMS SOCIAL MEDIA ── -->
     <div class="view-pane" id="pane-cms-socials">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -501,7 +514,7 @@
     <!-- ── PANE 7: CMS SERVICES ── -->
     <div class="view-pane" id="pane-cms-services">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -520,7 +533,7 @@
     <!-- ── PANE 8: CMS HERO SLIDES ── -->
     <div class="view-pane" id="pane-cms-hero">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -539,7 +552,7 @@
     <!-- ── PANE 9: CMS FAQS ── -->
     <div class="view-pane" id="pane-cms-faqs">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -558,7 +571,7 @@
     <!-- ── PANE 10: CMS SITE SETTINGS ── -->
     <div class="view-pane" id="pane-cms-settings">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('dashboard')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
       </div>
       <div class="table-card">
         <div class="table-header">
