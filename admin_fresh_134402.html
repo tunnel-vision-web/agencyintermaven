@@ -207,13 +207,13 @@
   <div class="sidebar-menu">
     <div class="nav-item active" onclick="switchPane('dashboard', this)"><i class="ri-dashboard-3-line"></i> <span>Dashboard (Analytics)</span></div>
     <div class="nav-item" onclick="switchPane('leads', this)"><i class="ri-user-search-line"></i> <span>Lead Gen &amp; Bookings</span></div>
-    <div class="nav-item" onclick="window.open('https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier','_blank')" style="cursor:pointer;"><i class="ri-contacts-book-2-line" style="color:var(--lime);"></i> <span style="color:var(--lime);">Smart CRM (intermaven.io)</span></div>
+    <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="nav-item" style="text-decoration:none;" title="Launch intermaven.io CRM — auto-login as Agency Admin with unlimited Studio Credits"><i class="ri-contacts-book-2-line" style="color:var(--lime);"></i> <span style="color:var(--lime);">Smart CRM (intermaven.io)</span></a>
     <div class="nav-item" onclick="switchPane('team', this)"><i class="ri-team-line"></i> <span>Team Members</span></div>
     <div class="nav-item" onclick="switchPane('cms-hub', this)"><i class="ri-apps-2-line"></i> <span>CMS Dashboard Hub</span></div>
   </div>
 
   <div class="sandbox-tag">
-    <i class="ri-shield-check-line"></i> <span>v2026.07.21-C &nbsp;|&nbsp; Sandbox Mode</span>
+    <i class="ri-shield-check-line"></i> <span>v2026.07.21-B &nbsp;|&nbsp; Sandbox Mode</span>
   </div>
 </aside>
 
@@ -2153,31 +2153,17 @@ function deleteService(id) {
 
 // ─── HERO SLIDES CMS HANDLERS ───
 function openHeroSlideModal(id) {
-  try {
-    var slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
-    var numId = id !== undefined && id !== null && id !== '' ? Number(id) : null;
-    var h = numId ? slides.find(function(x){ return Number(x.id) === numId; }) : null;
+  const slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  const numId = id ? Number(id) : null;
+  const h = numId ? slides.find(x => Number(x.id) === numId) : null;
 
-    var el_id    = document.getElementById('hsId');
-    var el_title = document.getElementById('hsTitle');
-    var el_lead  = document.getElementById('hsLead');
-    var el_bg    = document.getElementById('hsBg');
-    var el_label = document.getElementById('heroModalTitle');
-    var el_modal = document.getElementById('heroSlideModal');
+  document.getElementById('hsId').value = h ? h.id : '';
+  document.getElementById('hsTitle').value = h ? h.title : '';
+  document.getElementById('hsLead').value = h ? h.lead : '';
+  document.getElementById('hsBg').value = h ? h.bg : 'assets/hero_slide1.png';
 
-    if (!el_modal) { alert('Error: heroSlideModal element not found.'); return; }
-
-    if (el_id)    el_id.value    = h ? h.id    : '';
-    if (el_title) el_title.value = h ? h.title  : '';
-    if (el_lead)  el_lead.value  = h ? h.lead   : '';
-    if (el_bg)    el_bg.value    = h ? h.bg     : 'assets/hero_slide1.png';
-    if (el_label) el_label.innerText = h ? 'Edit Hero Slide' : 'Add Hero Slide';
-
-    el_modal.classList.add('open');
-    el_modal.style.display = 'flex';
-  } catch(err) {
-    alert('openHeroSlideModal error: ' + err.message);
-  }
+  document.getElementById('heroModalTitle').innerText = h ? 'Edit Hero Slide' : 'Add Hero Slide';
+  document.getElementById('heroSlideModal').classList.add('open');
 }
 
 function saveHeroSlide(e) {
