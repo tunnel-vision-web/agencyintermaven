@@ -1443,15 +1443,25 @@ const defaultSettings = {
 };
 
 const defaultMedia = [
-  { id: 1, name: 'Hero Slide 1 — Studio Overview', url: 'assets/hero_slide1.png', type: 'PNG Image', size: '1.2 MB', date: 'July 20, 2026' },
-  { id: 2, name: 'Hero Slide 2 — AI Workflows', url: 'assets/hero_slide2.png', type: 'PNG Image', size: '1.4 MB', date: 'July 21, 2026' },
-  { id: 3, name: 'Hero Slide 3 — Platform Tools', url: 'assets/hero_slide3.png', type: 'PNG Image', size: '1.1 MB', date: 'July 22, 2026' },
-  { id: 4, name: 'Intermaven Header Logo', url: 'assets/logo/header/logo.png', type: 'PNG Image', size: '340 KB', date: 'July 15, 2026' },
-  { id: 5, name: 'Intermaven Footer Logo', url: 'assets/logo/footer/logo.png', type: 'PNG Image', size: '320 KB', date: 'July 15, 2026' },
-  { id: 6, name: 'Mwanga Law Case Study Cover', url: 'assets/mwanga_law.png', type: 'PNG Image', size: '890 KB', date: 'July 18, 2026' },
-  { id: 7, name: 'Afya Plus Patient Portal Showcase', url: 'assets/afya_plus.png', type: 'PNG Image', size: '940 KB', date: 'July 19, 2026' },
-  { id: 8, name: 'Tunemavens Audio App Platform', url: 'assets/tunemavens.png', type: 'PNG Image', size: '1.0 MB', date: 'July 17, 2026' },
-  { id: 9, name: 'Agency Favicon Icon', url: 'favicon.ico', type: 'ICO Image', size: '45 KB', date: 'July 10, 2026' }
+  { id: 1, name: 'Hero Slide 1 — Studio Overview', url: 'assets/hero_slide1.png', type: 'PNG Image', size: '702 KB', date: 'July 20, 2026' },
+  { id: 2, name: 'Hero Slide 2 — AI Workflows', url: 'assets/hero_slide2.png', type: 'PNG Image', size: '783 KB', date: 'July 21, 2026' },
+  { id: 3, name: 'Hero Slide 3 — Platform Tools', url: 'assets/hero_slide3.png', type: 'PNG Image', size: '675 KB', date: 'July 22, 2026' },
+  { id: 4, name: 'Intermaven Header Logo', url: 'assets/logo/header/logo.png', type: 'PNG Image', size: '10 KB', date: 'July 15, 2026' },
+  { id: 5, name: 'Intermaven Footer Logo', url: 'assets/logo/footer/logo.png', type: 'PNG Image', size: '10 KB', date: 'July 15, 2026' },
+  { id: 6, name: 'Mwanga Law Case Study Cover', url: 'assets/mwanga_law.png', type: 'PNG Image', size: '689 KB', date: 'July 18, 2026' },
+  { id: 7, name: 'Afya Plus Patient Portal Showcase', url: 'assets/afya_plus.png', type: 'PNG Image', size: '663 KB', date: 'July 19, 2026' },
+  { id: 8, name: 'Tunemavens Audio App Platform', url: 'assets/tunemavens.png', type: 'PNG Image', size: '727 KB', date: 'July 17, 2026' },
+  { id: 9, name: 'SyncMavens Realtime Platform', url: 'assets/sync_mavens.png', type: 'PNG Image', size: '727 KB', date: 'July 18, 2026' },
+  { id: 10, name: 'Imora Holdings Enterprise Portal', url: 'assets/imora_holdings.png', type: 'PNG Image', size: '704 KB', date: 'July 19, 2026' },
+  { id: 11, name: 'Jua Capital Fintech Showcase', url: 'assets/jua_capital.png', type: 'PNG Image', size: '686 KB', date: 'July 19, 2026' },
+  { id: 12, name: 'Atlanta TV Mount Pro', url: 'assets/atlanta_tv_mount_pro.png', type: 'PNG Image', size: '604 KB', date: 'July 20, 2026' },
+  { id: 13, name: 'Profile Page Hero Header', url: 'assets/header_profile.png', type: 'PNG Image', size: '855 KB', date: 'July 20, 2026' },
+  { id: 14, name: 'Services Page Hero Header', url: 'assets/header_services.png', type: 'PNG Image', size: '794 KB', date: 'July 20, 2026' },
+  { id: 15, name: 'Showcase Page Hero Header', url: 'assets/header_showcase.png', type: 'PNG Image', size: '653 KB', date: 'July 20, 2026' },
+  { id: 16, name: 'Testimonials Hero Header', url: 'assets/header_testimonials.png', type: 'PNG Image', size: '675 KB', date: 'July 20, 2026' },
+  { id: 17, name: 'FAQ Page Hero Header', url: 'assets/header_faq.png', type: 'PNG Image', size: '783 KB', date: 'July 20, 2026' },
+  { id: 18, name: 'Appointment Hero Header', url: 'assets/header_appointment.png', type: 'PNG Image', size: '717 KB', date: 'July 20, 2026' },
+  { id: 19, name: 'Agency Favicon Icon', url: 'favicon.ico', type: 'ICO Image', size: '45 KB', date: 'July 10, 2026' }
 ];
 
 // ─── INIT ───
@@ -2914,7 +2924,18 @@ function replaceMediaAsset(id) {
 }
 
 function renderMediaLibrary() {
-  const media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+  let media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+  let updatedMedia = false;
+  defaultMedia.forEach(asset => {
+    if (!media.some(m => m.url === asset.url)) {
+      media.push(asset);
+      updatedMedia = true;
+    }
+  });
+  if (updatedMedia || !localStorage.getItem('intermaven_media_library')) {
+    localStorage.setItem('intermaven_media_library', JSON.stringify(media));
+  }
+
   const container = document.getElementById('mediaGrid');
   const emptyMsg = document.getElementById('mediaEmptyMsg');
   const paginationEl = document.getElementById('mediaPagination');
@@ -2943,7 +2964,7 @@ function renderMediaLibrary() {
   container.innerHTML = paginated.map(m => `
     <div class="media-card" style="background:var(--bg2); border:1px solid var(--b2); border-radius:4px; overflow:hidden; display:flex; flex-direction:column; transition:transform 0.2s, border-color 0.2s;">
       <div style="height:140px; background:var(--bg3); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;">
-        <img src="${m.url}" alt="${m.name}" style="width:100%; height:100%; object-fit:cover;">
+        <img src="${m.url}" alt="${m.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='assets/hero_slide1.png'">
       </div>
       <div style="padding:12px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
         <div>
