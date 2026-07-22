@@ -198,22 +198,23 @@
 <!-- ─── SIDEBAR ─── -->
 <aside class="sidebar" id="adminSidebar">
   <div class="sidebar-logo">
-    <a href="index.html"><img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency Admin"></a>
+    <a href="index.html"><img src="assets/logo/header/logo.png" alt="Intermaven Agency Admin"></a>
     <button class="toggle-btn" id="sidebarToggleBtn" onclick="toggleSidebar()" title="Toggle Sidebar">
       <i class="ri-menu-fold-line"></i>
     </button>
   </div>
 
   <div class="sidebar-menu">
-    <div class="nav-item active" onclick="switchPane('dashboard', this)"><i class="ri-dashboard-3-line"></i> <span>Dashboard (Analytics)</span></div>
-    <div class="nav-item" onclick="switchPane('leads', this)"><i class="ri-user-search-line"></i> <span>Lead Gen &amp; Bookings</span></div>
-    <div class="nav-item" onclick="window.open('https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier','_blank')" style="cursor:pointer;"><i class="ri-contacts-book-2-line" style="color:var(--lime);"></i> <span style="color:var(--lime);">Smart CRM (intermaven.io)</span></div>
-    <div class="nav-item" onclick="switchPane('team', this)"><i class="ri-team-line"></i> <span>Team Members</span></div>
-    <div class="nav-item" onclick="switchPane('cms-hub', this)"><i class="ri-apps-2-line"></i> <span>CMS Dashboard Hub</span></div>
+    <div class="nav-item active" data-pane="dashboard" onclick="switchPane('dashboard', this)"><i class="ri-dashboard-3-line"></i> <span>Dashboard (Analytics)</span></div>
+    <div class="nav-item" data-pane="leads" onclick="switchPane('leads', this)"><i class="ri-user-search-line"></i> <span>Lead Gen &amp; Bookings</span></div>
+    <div class="nav-item" data-pane="crm" onclick="switchPane('crm', this)"><i class="ri-contacts-book-2-line"></i> <span>Smart CRM (intermaven.io)</span></div>
+    <div class="nav-item" data-pane="team" onclick="switchPane('team', this)"><i class="ri-team-line"></i> <span>Team Members</span></div>
+    <div class="nav-item" data-pane="media" onclick="switchPane('media', this)"><i class="ri-image-line"></i> <span>Media Library</span></div>
+    <div class="nav-item" data-pane="cms" onclick="switchPane('cms-hub', this)"><i class="ri-apps-2-line"></i> <span>CMS</span></div>
   </div>
 
   <div class="sandbox-tag">
-    <i class="ri-shield-check-line"></i> <span>v2026.07.21-C &nbsp;|&nbsp; Sandbox Mode</span>
+    <i class="ri-shield-check-line"></i> <span>v2026.07.21-H &nbsp;|&nbsp; Sandbox Mode</span>
   </div>
 </aside>
 
@@ -298,7 +299,7 @@
         <div class="table-header">
           <h3>Recent Consultation Bookings (Click Row for Call Prep)</h3>
           <div style="display:flex;gap:10px;">
-            <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="btn-action btn-lime" style="font-weight:700;"><i class="ri-contacts-book-2-line"></i> Launch intermaven.io CRM</a>
+            <button class="btn-action btn-lime" style="font-weight:700;" onclick="openSmartCrmModal()"><i class="ri-contacts-book-2-line"></i> Launch Intermaven CRM</button>
             <a href="appointment.html" class="btn-action"><i class="ri-calendar-check-line"></i> New Booking Wizard</a>
           </div>
         </div>
@@ -316,7 +317,7 @@
     <div class="view-pane" id="pane-cms-hub">
       <div style="margin-bottom: 28px;">
         <h3 style="font-family:'Sansation', sans-serif; font-size:22px; color:var(--tx); margin-bottom:8px; display:flex; align-items:center; gap:10px;">
-          <i class="ri-apps-2-line" style="color:var(--lime);"></i> CMS Dashboard Hub
+          <i class="ri-apps-2-line" style="color:var(--lime);"></i> CMS
         </h3>
         <p style="font-size:14px; color:var(--mu);">Select any section tile below to edit live website content, descriptions, rich text, images, and global settings:</p>
       </div>
@@ -360,8 +361,8 @@
             <h4 style="color:var(--lime);">Smart CRM (intermaven.io)</h4>
             <p>Launch &amp; auto-login to intermaven.io CRM with unlimited agency credits.</p>
             <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
-              <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="btn-action btn-lime" style="text-align:center; font-size:12px; font-weight:700; text-decoration:none;" onclick="event.stopPropagation();"><i class="ri-external-link-line"></i> Launch intermaven.io CRM</a>
-              <button class="btn-action" onclick="openSmartCrmModal()" style="font-size:11px;"><i class="ri-contacts-book-2-line"></i> View Local CRM Portal</button>
+              <button class="btn-action btn-lime" style="text-align:center; font-size:12px; font-weight:700;" onclick="event.stopPropagation(); openSmartCrmModal();"><i class="ri-external-link-line"></i> Launch Intermaven CRM</button>
+              <button class="btn-action" onclick="event.stopPropagation(); window.open(getIntermavenCrmUrl(), '_blank');" style="font-size:11px;"><i class="ri-contacts-book-2-line"></i> Open CRM in New Tab</button>
             </div>
           </div>
         </div>
@@ -431,9 +432,6 @@
 
     <!-- ── PANE 2: LEADS & BOOKINGS ── -->
     <div class="view-pane" id="pane-leads">
-      <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
-      </div>
       <div class="table-card">
         <div class="table-header">
           <h3>Full Lead Generation &amp; Call Preparation Log</h3>
@@ -450,9 +448,6 @@
 
     <!-- ── PANE 3: TEAM MEMBERS ── -->
     <div class="view-pane" id="pane-team">
-      <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
-      </div>
       <div class="table-header" style="margin-bottom:20px;">
         <h3 style="font-size:20px; font-weight:800;">Team Members &amp; Specialist Availability</h3>
         <button class="btn-action btn-lime" onclick="openTeamMemberModal()"><i class="ri-user-add-line"></i> Add Team Member</button>
@@ -463,7 +458,7 @@
     <!-- ── PANE 4: CMS PROJECTS ── -->
     <div class="view-pane" id="pane-cms-projects">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -482,7 +477,7 @@
     <!-- ── PANE 5: CMS TESTIMONIALS ── -->
     <div class="view-pane" id="pane-cms-testimonials">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -501,7 +496,7 @@
     <!-- ── PANE 6: CMS SOCIAL MEDIA ── -->
     <div class="view-pane" id="pane-cms-socials">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -520,7 +515,7 @@
     <!-- ── PANE 7: CMS SERVICES ── -->
     <div class="view-pane" id="pane-cms-services">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -539,31 +534,32 @@
     <!-- ── PANE 8: CMS HERO SLIDES ── -->
     <div class="view-pane" id="pane-cms-hero">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS</button>
       </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — Landing Page Hero Slides</h3>
-          <button class="btn-action btn-lime" onclick="openHeroSlideModal()"><i class="ri-add-line"></i> Add Hero Slide</button>
+          <button class="btn-action btn-lime" onclick="hsOpen()"><i class="ri-add-line"></i> Add Hero Slide</button>
         </div>
         <table>
           <thead>
-            <tr><th>Slide Title</th><th>Lead Text</th><th>Background Image</th><th>Actions</th></tr>
+            <tr><th>#</th><th>Slide Title</th><th>Lead Text</th><th>Background Image</th><th style="min-width:140px;">Actions</th></tr>
           </thead>
           <tbody id="cmsHeroSlidesBody"></tbody>
         </table>
+        <div id="heroSlidesEmptyMsg" style="display:none; padding:32px; text-align:center; color:var(--mu); font-size:14px;"><i class="ri-slideshow-3-line" style="font-size:32px; display:block; margin-bottom:10px;"></i>No hero slides yet. Click "Add Hero Slide" to create your first slide.</div>
       </div>
     </div>
 
     <!-- ── PANE 9: CMS FAQS ── -->
     <div class="view-pane" id="pane-cms-faqs">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS</button>
       </div>
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — FAQs &amp; Knowledge Base</h3>
-          <button class="btn-action btn-lime" onclick="openFaqModal()"><i class="ri-add-line"></i> Add FAQ Question</button>
+          <button class="btn-action btn-lime" onclick="faqOpen()"><i class="ri-add-line"></i> Add FAQ Question</button>
         </div>
         <table>
           <thead>
@@ -577,7 +573,7 @@
     <!-- ── PANE 10: CMS SITE SETTINGS ── -->
     <div class="view-pane" id="pane-cms-settings">
       <div class="section-back-bar">
-        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS Dashboard Hub</button>
+        <button type="button" class="btn-back-dash" onclick="switchPane('cms-hub')"><i class="ri-arrow-left-line"></i> Back to CMS</button>
       </div>
       <div class="table-card">
         <div class="table-header">
@@ -615,106 +611,64 @@
       </div>
     </div>
 
-  </div><!-- /content-padding -->
+    <!-- ── PANE 11: MEDIA LIBRARY ── -->
+    <div class="view-pane" id="pane-media">
+      <div class="table-card" style="margin-bottom:24px;">
+        <div class="table-header" style="flex-wrap:wrap; gap:14px;">
+          <div>
+            <h3>Agency Media Library</h3>
+            <span style="font-size:12px; color:var(--mu);">Upload, preview, and manage high-resolution assets for CMS slides, case studies, and services.</span>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <input type="text" id="mediaSearchInput" placeholder="Filter assets by name..." oninput="renderMediaLibrary()" style="background:var(--bg3); border:1px solid var(--b2); color:var(--tx); padding:8px 12px; border-radius:3px; font-size:13px; width:220px;">
+            <button class="btn-action btn-lime" onclick="document.getElementById('mediaFileInput').click()"><i class="ri-upload-cloud-2-line"></i> Upload New Media</button>
+            <input type="file" id="mediaFileInput" accept="image/*" multiple style="display:none;" onchange="handleMediaFileUpload(this)">
+          </div>
+        </div>
+        
+        <div id="mediaDropZone" style="border:2px dashed var(--b2); border-radius:4px; padding:20px; text-align:center; background:var(--bg3); margin:20px; transition:border-color 0.2s;"
+             ondragover="event.preventDefault(); this.style.borderColor='var(--lime)';"
+             ondragleave="this.style.borderColor='var(--b2)';"
+             ondrop="handleMediaDrop(event)">
+          <i class="ri-image-add-line" style="font-size:36px; color:var(--lime); display:block; margin-bottom:8px;"></i>
+          <strong style="color:var(--tx); font-size:14px;">Drag &amp; Drop Images Here to Upload to Agency Media Storage</strong>
+          <div style="font-size:12px; color:var(--mu); margin-top:4px;">Supports PNG, JPG, WEBP, SVG &amp; Data URLs</div>
+        </div>
+      </div>
+
+      <div id="mediaGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:18px;"></div>
+      <div id="mediaEmptyMsg" style="display:none; padding:48px; text-align:center; color:var(--mu); background:var(--bg2); border:1px solid var(--b1); border-radius:4px;"><i class="ri-landscape-line" style="font-size:40px; display:block; margin-bottom:12px; color:var(--mu);"></i>No media assets found matching your filter.</div>
+    </div>
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════════
      EXTRA-WIDE SMART CRM MODAL (Authenticated Intermaven CRM Portal)
 ═══════════════════════════════════════════════════════════════ -->
 <div class="wide-modal-overlay" id="smartCrmModal">
-  <div class="wide-modal-box">
-    <div class="wide-modal-header">
-      <div style="display:flex; align-items:center; gap:12px;">
-        <i class="ri-contacts-book-2-line" style="color:var(--lime); font-size:24px;"></i>
+  <div class="wide-modal-box" style="width:96%; max-width:1400px; height:92vh;">
+    <!-- Modal Header -->
+    <div class="wide-modal-header" style="background:var(--bg3); border-bottom:1px solid var(--b2); padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <i class="ri-contacts-book-2-fill" style="color:var(--lime); font-size:26px;"></i>
         <div>
           <h3 style="font-size:16px; font-weight:800; color:var(--tx); display:flex; align-items:center; gap:10px;">
             Intermaven Smart CRM Suite 
-            <span class="badge badge-success" style="font-size:10px;"><i class="ri-shield-check-line"></i> Authenticated: Marcus Sterling</span>
-            <span class="badge badge-success" style="font-size:10.5px; background:rgba(215,223,35,0.18); color:var(--lime); border:1px solid var(--lime);"><i class="ri-flashlight-fill"></i> Agency Tier: Unlimited Studio Credits Active</span>
+            <span class="badge badge-success" style="font-size:10px; padding:3px 8px;"><i class="ri-user-shared-line"></i> Ecosystem Single Sign-On Active</span>
+            <span class="badge badge-success" style="font-size:10px; background:rgba(215,223,35,0.18); color:var(--lime); border:1px solid var(--lime); padding:3px 8px;"><i class="ri-flashlight-fill"></i> Studio Tier</span>
           </h3>
-          <span style="font-size:11.5px; color:var(--mu);">Connected to intermaven.io backend network • Double Opt-In &amp; Lead Dispatch Active</span>
+          <span style="font-size:11.5px; color:var(--mu);">Embedded Ecosystem App: <code>http://localhost:3004/embed/crm</code> &bull; Unified CRM Platform</span>
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:10px;">
-        <a href="https://intermaven.io/crm?sso=agency_admin_master&credits=unlimited_studio_tier" target="_blank" class="btn-action btn-lime" style="font-size:12px; font-weight:700;"><i class="ri-external-link-line"></i> Launch &amp; Auto-Login intermaven.io CRM</a>
-        <button class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:6px 12px;"><i class="ri-close-line"></i> Close CRM</button>
+        <button class="btn-action btn-lime" onclick="refreshCrmIframe()" style="font-size:12px; font-weight:700;"><i class="ri-refresh-line"></i> Sync &amp; Reload CRM</button>
+        <a id="crmExternalLink" href="#" target="_blank" class="btn-action" style="font-size:12px;"><i class="ri-external-link-line"></i> Open in New Tab</a>
+        <button class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:6px 12px;"><i class="ri-close-line"></i> Close</button>
       </div>
     </div>
-    <div class="wide-modal-body" style="padding:20px; overflow-y:auto; background:var(--bg2);">
-      
-      <!-- Metrics Header inside CRM Portal -->
-      <div class="metrics-grid" style="margin-bottom:20px;">
-        <div class="metric-card">
-          <div class="metric-title">Total Active Leads</div>
-          <div class="metric-value">1,480</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-title">Double Opt-In Rate</div>
-          <div class="metric-value">98.4%</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-title">Pipeline Value</div>
-          <div class="metric-value">$340,000</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-title">Synced Workflows</div>
-          <div class="metric-value">12 Active</div>
-        </div>
-      </div>
 
-      <!-- CRM Portal Main Table -->
-      <div class="table-card" style="margin-bottom:0;">
-        <div class="table-header">
-          <h3>Smart CRM Contact Directory &amp; Opt-In Sync</h3>
-          <div style="display:flex; gap:10px;">
-            <button class="btn-action btn-lime" onclick="alert('Triggering automated CRM double opt-in sync...');"><i class="ri-refresh-line"></i> Sync Double Opt-In</button>
-            <button class="btn-action" onclick="exportLeads()"><i class="ri-download-cloud-line"></i> Export CRM CSV</button>
-          </div>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Contact Name</th>
-              <th>Email Address</th>
-              <th>Channel</th>
-              <th>Opt-In Status</th>
-              <th>Source</th>
-              <th>Date Added</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="crmModalTableBody">
-            <tr>
-              <td><strong>Julian Vance</strong></td>
-              <td>founder@juacapital.org</td>
-              <td><span class="badge badge-info"><i class="ri-mail-line"></i> EMAIL</span></td>
-              <td><span class="badge badge-success"><i class="ri-check-double-line"></i> Opted In</span></td>
-              <td>Landing Page Updates</td>
-              <td>2026-07-18</td>
-              <td><button class="btn-action" onclick="alert('Opening contact history for Julian Vance...')"><i class="ri-user-settings-line"></i> Manage</button></td>
-            </tr>
-            <tr>
-              <td><strong>Sarah Kalu</strong></td>
-              <td>techlead@afyaplus.com</td>
-              <td><span class="badge badge-warn"><i class="ri-whatsapp-line"></i> WHATSAPP</span></td>
-              <td><span class="badge badge-success"><i class="ri-check-double-line"></i> Opted In</span></td>
-              <td>Newsletter Modal</td>
-              <td>2026-07-19</td>
-              <td><button class="btn-action" onclick="alert('Opening contact history for Sarah Kalu...')"><i class="ri-user-settings-line"></i> Manage</button></td>
-            </tr>
-            <tr>
-              <td><strong>David Mwanga</strong></td>
-              <td>mwangalaw@legal.com</td>
-              <td><span class="badge badge-info"><i class="ri-mail-line"></i> EMAIL</span></td>
-              <td><span class="badge badge-success"><i class="ri-check-double-line"></i> Opted In</span></td>
-              <td>Footer Signup</td>
-              <td>2026-07-20</td>
-              <td><button class="btn-action" onclick="alert('Opening contact history for David Mwanga...')"><i class="ri-user-settings-line"></i> Manage</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
+    <!-- Modal Body: Loaded Ecosystem Iframe -->
+    <div class="wide-modal-body" style="padding:0; flex:1; background:var(--bg);">
+      <iframe id="smartCrmIframe" src="" class="crm-iframe" style="width:100%; height:100%; border:none; background:#070f0e;"></iframe>
     </div>
   </div>
 </div>
@@ -902,8 +856,15 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Testimonial Quote</label>
-        <textarea id="tQuote" rows="4" required placeholder="Client review in their own words..."></textarea>
+        <label>Client Quote / Review (Rich Text)</label>
+        <div class="wp-editor-box">
+          <div class="wp-toolbar">
+            <button type="button" class="wp-btn" onclick="execWpCommand('bold')" title="Bold"><i class="ri-bold"></i></button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('italic')" title="Italic"><i class="ri-italic"></i></button>
+            <button type="button" class="wp-btn" onclick="insertWpLink()" title="Insert Link"><i class="ri-link"></i></button>
+          </div>
+          <div id="tQuoteEditor" class="wp-editor-area" contenteditable="true" style="min-height:90px; max-height:150px;"></div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn-action" onclick="closeSmallModal('testiModal')">Cancel</button>
@@ -1036,12 +997,14 @@
           <div id="socIconPreview" style="font-size:24px; color:var(--lime); width:32px; text-align:center;"><i class="ri-instagram-line"></i></div>
         </div>
       </div>
-      <div class="form-group">
-        <label class="prep-check">
-          <input type="checkbox" id="socVisible" checked>
-          <span>Visible in Footer Navigation across site</span>
-        </label>
+      <div class="modal-footer">
+        <button type="button" class="btn-action" onclick="closeSmallModal('socialModal')">Cancel</button>
+        <button type="submit" class="btn-action btn-lime">Save Social Link <i class="ri-save-line"></i></button>
       </div>
+    </form>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════════════════
      SERVICE OFFERING MODAL
 ═══════════════════════════════════════════════════════════════ -->
@@ -1059,8 +1022,16 @@
         <input type="text" id="svcIcon" required placeholder="ri-fingerprint-line">
       </div>
       <div class="form-group">
-        <label>Service Description</label>
-        <textarea id="svcDesc" rows="3" required placeholder="Logos, systems, positioning and voice..."></textarea>
+        <label>Service Description (Rich Text)</label>
+        <div class="wp-editor-box">
+          <div class="wp-toolbar">
+            <button type="button" class="wp-btn" onclick="execWpCommand('bold')" title="Bold"><i class="ri-bold"></i></button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('italic')" title="Italic"><i class="ri-italic"></i></button>
+            <button type="button" class="wp-btn" onclick="execWpCommand('insertUnorderedList')" title="Bullet List"><i class="ri-list-unordered"></i></button>
+            <button type="button" class="wp-btn" onclick="insertWpLink()" title="Insert Link"><i class="ri-link"></i></button>
+          </div>
+          <div id="svcDescEditor" class="wp-editor-area" contenteditable="true" style="min-height:90px; max-height:150px;"></div>
+        </div>
       </div>
       <div class="form-row-2">
         <div class="form-group">
@@ -1081,30 +1052,65 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     HERO SLIDE MODAL
+     HERO SLIDE MODAL (WITH IMAGE UPLOAD & PREVIEW)
 ═══════════════════════════════════════════════════════════════ -->
 <div class="admin-form-modal" id="heroSlideModal">
-  <div class="modal-box" style="max-width:540px;">
+  <div class="modal-box" style="max-width:640px;">
     <h3 id="heroModalTitle" style="margin-bottom:16px;">Add Hero Slide</h3>
-    <form onsubmit="saveHeroSlide(event)">
-      <input type="hidden" id="hsId">
-      <div class="form-group">
-        <label>Slide Title (HTML allowed e.g., Building Iconic Brands for the &lt;em&gt;AI Era&lt;/em&gt;)</label>
-        <input type="text" id="hsTitle" required placeholder="Building Iconic Brands...">
+    <input type="hidden" id="hsIdx" value="-1">
+    
+    <div class="form-group">
+      <label>Slide Title <span style="color:var(--mu); font-weight:400; text-transform:none;">(HTML tags like &lt;em&gt; allowed)</span></label>
+      <input type="text" id="hsTitle" placeholder="Building Iconic Brands for the AI Era.">
+    </div>
+    
+    <div class="form-group">
+      <label>Lead Paragraph (Rich Text Editor)</label>
+      <div class="wp-editor-box">
+        <div class="wp-toolbar">
+          <button type="button" class="wp-btn" onclick="execWpCommand('bold')" title="Bold"><i class="ri-bold"></i></button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('italic')" title="Italic"><i class="ri-italic"></i></button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('underline')" title="Underline"><i class="ri-underline"></i></button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('insertUnorderedList')" title="Bullet List"><i class="ri-list-unordered"></i></button>
+          <button type="button" class="wp-btn" onclick="insertWpLink()" title="Insert Link"><i class="ri-link"></i></button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('unlink')" title="Remove Link"><i class="ri-link-unlink"></i></button>
+        </div>
+        <div id="hsLeadEditor" class="wp-editor-area" contenteditable="true" style="min-height:90px; max-height:150px;"></div>
       </div>
-      <div class="form-group">
-        <label>Lead Paragraph</label>
-        <textarea id="hsLead" rows="3" required placeholder="Intermaven Agency turns ambitious ventures..."></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Background Image &amp; Upload</label>
+      <div id="hsDropZone" style="border:2px dashed var(--b2); border-radius:4px; padding:16px; text-align:center; background:var(--bg3); transition:border-color 0.2s;"
+           ondragover="event.preventDefault(); this.style.borderColor='var(--lime)';"
+           ondragleave="this.style.borderColor='var(--b2)';"
+           ondrop="hsHandleDrop(event)">
+        
+        <div id="hsPreviewWrapper" style="margin-bottom:12px;">
+          <img id="hsBgPreview" src="assets/hero_slide1.png" alt="Hero Background Preview" style="max-height:140px; width:100%; object-fit:cover; border-radius:4px; border:1px solid var(--b2);">
+        </div>
+        
+        <div style="display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap;">
+          <input type="file" id="hsFileInput" accept="image/*" style="display:none;" onchange="hsHandleFileSelect(this)">
+          <button type="button" class="btn-action btn-lime" onclick="document.getElementById('hsFileInput').click()"><i class="ri-upload-cloud-2-line"></i> Upload Image File</button>
+          <span style="font-size:12px; color:var(--mu);">or drag &amp; drop file here</span>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Background Image Asset Path</label>
-        <input type="text" id="hsBg" required placeholder="assets/hero_slide1.png">
+      
+      <div style="margin-top:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span style="font-size:11px; color:var(--mu); font-weight:700; text-transform:uppercase;">Presets:</span>
+        <button type="button" class="btn-action" style="font-size:11px; padding:4px 8px;" onclick="hsSelectPreset('assets/hero_slide1.png')">Hero 1 (Studio)</button>
+        <button type="button" class="btn-action" style="font-size:11px; padding:4px 8px;" onclick="hsSelectPreset('assets/hero_slide2.png')">Hero 2 (Workflows)</button>
+        <button type="button" class="btn-action" style="font-size:11px; padding:4px 8px;" onclick="hsSelectPreset('assets/hero_slide3.png')">Hero 3 (Platform)</button>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-action" onclick="closeSmallModal('heroSlideModal')">Cancel</button>
-        <button type="submit" class="btn-action btn-lime">Save Hero Slide <i class="ri-save-line"></i></button>
-      </div>
-    </form>
+
+      <input type="text" id="hsBg" placeholder="assets/hero_slide1.png" style="margin-top:10px; font-size:12px;" oninput="hsUpdatePreviewFromInput()">
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" class="btn-action" onclick="hsClose()">Cancel</button>
+      <button type="button" class="btn-action btn-lime" onclick="hsSave()"><i class="ri-save-line"></i> Save Slide</button>
+    </div>
   </div>
 </div>
 
@@ -1112,27 +1118,36 @@
      FAQ ITEM MODAL
 ═══════════════════════════════════════════════════════════════ -->
 <div class="admin-form-modal" id="faqModal">
-  <div class="modal-box" style="max-width:540px;">
+  <div class="modal-box" style="max-width:580px;">
     <h3 id="faqModalTitle" style="margin-bottom:16px;">Add FAQ Question</h3>
-    <form onsubmit="saveFaq(event)">
-      <input type="hidden" id="faqId">
-      <div class="form-group">
-        <label>Question</label>
-        <input type="text" id="faqQuestion" required placeholder="How does the agency engagement timeline work?">
+    <input type="hidden" id="faqId">
+    <div class="form-group">
+      <label>Question</label>
+      <input type="text" id="faqQuestion" placeholder="How does the agency engagement timeline work?">
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <input type="text" id="faqCategory" placeholder="General &amp; Engagements">
+    </div>
+    <div class="form-group">
+      <label>Detailed Answer (Rich Text Editor)</label>
+      <div class="wp-editor-box">
+        <div class="wp-toolbar">
+          <button type="button" class="wp-btn" onclick="execWpCommand('bold')" title="Bold"><i class="ri-bold"></i></button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('italic')" title="Italic"><i class="ri-italic"></i></button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('underline')" title="Underline"><i class="ri-underline"></i></button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('formatBlock', '<h3>')" title="Heading 3">H3</button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('insertUnorderedList')" title="Bullet List"><i class="ri-list-unordered"></i></button>
+          <button type="button" class="wp-btn" onclick="insertWpLink()" title="Insert Link"><i class="ri-link"></i></button>
+          <button type="button" class="wp-btn" onclick="execWpCommand('unlink')" title="Remove Link"><i class="ri-link-unlink"></i></button>
+        </div>
+        <div id="faqAnswerEditor" class="wp-editor-area" contenteditable="true" style="min-height:100px; max-height:180px;"></div>
       </div>
-      <div class="form-group">
-        <label>Category</label>
-        <input type="text" id="faqCategory" required placeholder="General &amp; Engagements">
-      </div>
-      <div class="form-group">
-        <label>Detailed Answer</label>
-        <textarea id="faqAnswer" rows="4" required placeholder="All projects begin with an initial scoping session..."></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-action" onclick="closeSmallModal('faqModal')">Cancel</button>
-        <button type="submit" class="btn-action btn-lime">Save FAQ Item <i class="ri-save-line"></i></button>
-      </div>
-    </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-action" onclick="faqClose()">Cancel</button>
+      <button type="button" class="btn-action btn-lime" onclick="faqSave()"><i class="ri-save-line"></i> Save FAQ Item</button>
+    </div>
   </div>
 </div>
 
@@ -1364,6 +1379,15 @@ const defaultSettings = {
   tagline: 'Brand identity, interactive design, and software ecosystems — built with two decades of craft.'
 };
 
+const defaultMedia = [
+  { id: 1, name: 'Hero Slide 1 — Studio Overview', url: 'assets/hero_slide1.png', type: 'PNG Image', size: '1.2 MB', date: 'July 20, 2026' },
+  { id: 2, name: 'Hero Slide 2 — AI Workflows', url: 'assets/hero_slide2.png', type: 'PNG Image', size: '1.4 MB', date: 'July 21, 2026' },
+  { id: 3, name: 'Hero Slide 3 — Platform Tools', url: 'assets/hero_slide3.png', type: 'PNG Image', size: '1.1 MB', date: 'July 22, 2026' },
+  { id: 4, name: 'Intermaven Wordmark Logo', url: 'assets/logo/header/logo.png', type: 'PNG Image', size: '340 KB', date: 'July 15, 2026' },
+  { id: 5, name: 'Mwanga Law Case Study Cover', url: 'assets/mwanga_law.png', type: 'PNG Image', size: '890 KB', date: 'July 18, 2026' },
+  { id: 6, name: 'Afya Plus Patient Portal Showcase', url: 'assets/afya_plus.png', type: 'PNG Image', size: '940 KB', date: 'July 19, 2026' }
+];
+
 // ─── INIT ───
 if (!localStorage.getItem('intermaven_leads')) localStorage.setItem('intermaven_leads', JSON.stringify(defaultLeads));
 if (!localStorage.getItem('intermaven_crm')) localStorage.setItem('intermaven_crm', JSON.stringify(defaultCrm));
@@ -1375,6 +1399,7 @@ if (!localStorage.getItem('intermaven_services')) localStorage.setItem('intermav
 if (!localStorage.getItem('intermaven_hero_slides')) localStorage.setItem('intermaven_hero_slides', JSON.stringify(defaultHeroSlides));
 if (!localStorage.getItem('intermaven_faqs')) localStorage.setItem('intermaven_faqs', JSON.stringify(defaultFaqs));
 if (!localStorage.getItem('intermaven_settings')) localStorage.setItem('intermaven_settings', JSON.stringify(defaultSettings));
+if (!localStorage.getItem('intermaven_media_library')) localStorage.setItem('intermaven_media_library', JSON.stringify(defaultMedia));
 
 let activeLeadModalIdx = null;
 let leadsChartInst = null;
@@ -1392,13 +1417,35 @@ function toggleNotifPopover() {
 
 // ─── PANE SWITCHING ───
 function switchPane(paneId, el) {
+  if (paneId === 'crm') {
+    openSmartCrmModal();
+    paneId = 'crm';
+  }
+
   document.querySelectorAll('.view-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('pane-' + paneId).classList.add('active');
+
+  const targetPane = document.getElementById('pane-' + paneId);
+  if (targetPane) targetPane.classList.add('active');
+
   if (el) {
     el.classList.add('active');
     const span = el.querySelector('span');
-    document.getElementById('paneTitle').innerText = span ? span.innerText : paneId;
+    if (document.getElementById('paneTitle') && span) {
+      document.getElementById('paneTitle').innerText = span.innerText;
+    }
+  } else {
+    let navKey = paneId;
+    if (paneId.startsWith('cms-')) navKey = 'cms';
+    
+    const matchingNav = document.querySelector(`.nav-item[data-pane="${navKey}"]`);
+    if (matchingNav) {
+      matchingNav.classList.add('active');
+      const span = matchingNav.querySelector('span');
+      if (document.getElementById('paneTitle') && span) {
+        document.getElementById('paneTitle').innerText = span.innerText;
+      }
+    }
   }
   renderAdmin();
 }
@@ -1490,8 +1537,8 @@ function renderAdmin() {
         <td><span class="badge ${p.badge === 'venture' ? 'badge-info' : 'badge-success'}">${p.badge}</span></td>
         <td><code style="font-size:12px; color:var(--mu);">${p.thumb}</code></td>
         <td>
-          <button class="btn-action" onclick="editProject(${p.id})"><i class="ri-edit-line"></i> Edit</button>
-          <button class="btn-action btn-danger" onclick="deleteProject(${p.id})"><i class="ri-delete-bin-line"></i></button>
+          <button class="btn-action proj-edit-btn" data-id="${p.id}" onclick="openProjectModal('${p.id}')"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger proj-del-btn" data-id="${p.id}" onclick="deleteProject('${p.id}')"><i class="ri-delete-bin-line"></i></button>
         </td>
       </tr>
     `).join('');
@@ -1507,8 +1554,8 @@ function renderAdmin() {
         <td>${'★'.repeat(t.rating)}</td>
         <td style="max-width:260px; font-size:13px; color:var(--mu);">"${t.quote.slice(0, 60)}..."</td>
         <td>
-          <button class="btn-action" onclick="editTestimonial(${t.id})"><i class="ri-edit-line"></i> Edit</button>
-          <button class="btn-action btn-danger" onclick="deleteTestimonial(${t.id})"><i class="ri-delete-bin-line"></i></button>
+          <button class="btn-action testi-edit-btn" data-id="${t.id}" onclick="openTestimonialModal('${t.id}')"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger testi-del-btn" data-id="${t.id}" onclick="deleteTestimonial('${t.id}')"><i class="ri-delete-bin-line"></i></button>
         </td>
       </tr>
     `).join('');
@@ -1525,8 +1572,8 @@ function renderAdmin() {
         <td><i class="${s.iconClass}" style="font-size:18px; color:var(--lime);"></i> <code style="font-size:11px; color:var(--mu);">${s.iconClass}</code></td>
         <td>${s.visible ? '<span class="badge badge-success">Visible</span>' : '<span class="badge badge-warn">Hidden</span>'}</td>
         <td>
-          <button class="btn-action" onclick="openSocialModal(${s.id})"><i class="ri-edit-line"></i> Edit</button>
-          <button class="btn-action btn-danger" onclick="deleteSocialMedia(${s.id})"><i class="ri-delete-bin-line"></i></button>
+          <button class="btn-action soc-edit-btn" data-id="${s.id}" onclick="openSocialModal('${s.id}')"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger soc-del-btn" data-id="${s.id}" onclick="deleteSocialMedia('${s.id}')"><i class="ri-delete-bin-line"></i></button>
         </td>
       </tr>
     `).join('');
@@ -1543,28 +1590,41 @@ function renderAdmin() {
         <td style="max-width:240px; font-size:13px; color:var(--mu);">${s.desc}</td>
         <td><code style="font-size:11px; color:var(--lime);">${s.param}</code></td>
         <td>
-          <button class="btn-action" onclick="openServiceModal(${s.id})"><i class="ri-edit-line"></i> Edit</button>
-          <button class="btn-action btn-danger" onclick="deleteService(${s.id})"><i class="ri-delete-bin-line"></i></button>
+          <button class="btn-action svc-edit-btn" data-id="${s.id}" onclick="openServiceModal('${s.id}')"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger svc-del-btn" data-id="${s.id}" onclick="deleteService('${s.id}')"><i class="ri-delete-bin-line"></i></button>
         </td>
       </tr>
     `).join('');
   }
 
   // ─ Hero Slides Table ─
-  const heroSlides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
-  const heroBody = document.getElementById('cmsHeroSlidesBody');
+  var _hs = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  var heroBody = document.getElementById('cmsHeroSlidesBody');
+  var heroEmpty = document.getElementById('heroSlidesEmptyMsg');
   if (heroBody) {
-    heroBody.innerHTML = heroSlides.map(h => `
-      <tr>
-        <td><strong>${h.title}</strong></td>
-        <td style="max-width:260px; font-size:13px; color:var(--mu);">${h.lead}</td>
-        <td><code style="font-size:11px; color:var(--sage-light);">${h.bg}</code></td>
-        <td>
-          <button class="btn-action" onclick="openHeroSlideModal(${h.id})"><i class="ri-edit-line"></i> Edit</button>
-          <button class="btn-action btn-danger" onclick="deleteHeroSlide(${h.id})"><i class="ri-delete-bin-line"></i></button>
-        </td>
-      </tr>
-    `).join('');
+    if (_hs.length === 0) {
+      heroBody.innerHTML = '';
+      if (heroEmpty) heroEmpty.style.display = 'block';
+    } else {
+      if (heroEmpty) heroEmpty.style.display = 'none';
+      var rows = '';
+      for (var _i = 0; _i < _hs.length; _i++) {
+        var _h = _hs[_i];
+        var _pt = String(_h.title || '').replace(/<[^>]*>/g, '');
+        var _pl = String(_h.lead  || '').replace(/<[^>]*>/g, '').slice(0, 80);
+        rows += '<tr>' +
+          '<td style="color:var(--mu);font-size:12px;font-weight:700;">' + (_i+1) + '</td>' +
+          '<td><strong>' + _pt + '</strong></td>' +
+          '<td style="max-width:220px;font-size:13px;color:var(--mu);">' + _pl + '...</td>' +
+          '<td><code style="font-size:11px;color:var(--sage-light);">' + String(_h.bg || '') + '</code></td>' +
+          '<td>' +
+            '<button type="button" class="btn-action" style="margin-right:6px;" onclick="event.stopPropagation(); hsEdit(' + _i + ')"><i class="ri-edit-line"></i> Edit</button>' +
+            '<button type="button" class="btn-action btn-danger" onclick="event.stopPropagation(); hsDel(' + _i + ')"><i class="ri-delete-bin-line"></i></button>' +
+          '</td>' +
+        '</tr>';
+      }
+      heroBody.innerHTML = rows;
+    }
   }
 
   // ─ FAQs Table ─
@@ -1575,14 +1635,17 @@ function renderAdmin() {
       <tr>
         <td><strong>${f.question}</strong></td>
         <td><span class="badge badge-info">${f.category}</span></td>
-        <td style="max-width:260px; font-size:13px; color:var(--mu);">${f.answer.slice(0, 50)}...</td>
+        <td style="max-width:260px; font-size:13px; color:var(--mu);">${(f.answer || '').replace(/<[^>]*>/g, '').slice(0, 50)}...</td>
         <td>
-          <button class="btn-action" onclick="openFaqModal(${f.id})"><i class="ri-edit-line"></i> Edit</button>
-          <button class="btn-action btn-danger" onclick="deleteFaq(${f.id})"><i class="ri-delete-bin-line"></i></button>
+          <button type="button" class="btn-action" style="margin-right:6px;" onclick="event.stopPropagation(); faqEdit('${f.id}')"><i class="ri-edit-line"></i> Edit</button>
+          <button type="button" class="btn-action btn-danger" onclick="event.stopPropagation(); faqDel('${f.id}')"><i class="ri-delete-bin-line"></i></button>
         </td>
       </tr>
     `).join('');
   }
+
+  // ─ Media Library Grid ─
+  renderMediaLibrary();
 
   // ─ Global Site Settings Inputs ─
   const settings = JSON.parse(localStorage.getItem('intermaven_settings') || '{}');
@@ -1706,37 +1769,225 @@ function deleteCurrentLeadModal() {
 // ─── MODAL HELPER ───
 function closeSmallModal(modalId) {
   const el = document.getElementById(modalId);
-  if (el) el.classList.remove('open');
+  if (el) {
+    el.classList.remove('open');
+    el.style.cssText = 'display:none!important;';
+  }
 }
 
-// ─── EXTRA-WIDE SMART CRM MODAL ───
-function openSmartCrmModal() {
-  renderCrmTable();
-  document.getElementById('smartCrmModal').classList.add('open');
+function showSmallModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) {
+    el._openTimestamp = Date.now();
+    el.classList.add('open');
+    el.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:99999!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
+  }
 }
+
+// ─── EXTRA-WIDE SMART CRM MODAL (SSO & ECOSYSTEM INTEGRATION) ───
+function getIntermavenCrmUrl() {
+  var hostname = window.location.hostname;
+  var protocol = window.location.protocol;
+  var token = localStorage.getItem('token') || localStorage.getItem('tunemavens_token') || 'agency_admin_master';
+  var tokenQuery = '?token=' + encodeURIComponent(token);
+  
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return protocol + '//' + hostname + ':3004/embed/crm' + tokenQuery;
+  }
+  return 'https://intermaven.io/embed/crm' + tokenQuery;
+}
+
+function portAllDataToCrm() {
+  let crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+  
+  if (crm.length === 0 && typeof defaultCrm !== 'undefined') {
+    crm = [...defaultCrm];
+  }
+
+  let updated = false;
+
+  leads.forEach(lead => {
+    if (!lead.email) return;
+    const existing = crm.find(c => c.email && c.email.toLowerCase() === lead.email.toLowerCase());
+    if (!existing) {
+      crm.unshift({
+        id: 'CRM-PORT-' + Math.floor(1000 + Math.random() * 9000),
+        name: lead.name || 'Lead Contact',
+        email: lead.email,
+        channel: lead.channel || 'EMAIL',
+        doubleOptIn: true,
+        source: lead.company ? `Lead Booking (${lead.company})` : (lead.service || 'Appointment Portal'),
+        date: lead.date ? lead.date.split(' @')[0] : new Date().toISOString().split('T')[0],
+        status: 'Subscribed'
+      });
+      updated = true;
+
+      // Async sync to core CRM backend API
+      try {
+        const nameParts = (lead.name || 'Lead Contact').split(' ');
+        fetch('http://localhost:8001/api/crm/contacts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer agency_admin_master'
+          },
+          body: JSON.stringify({
+            first_name: nameParts[0] || 'Lead',
+            last_name: nameParts.slice(1).join(' ') || '',
+            email: lead.email,
+            company: lead.company || '',
+            source: lead.service || 'Agency Portal Booking',
+            tags: ['booker', 'vip']
+          })
+        }).catch(function() {});
+      } catch (e) {}
+    }
+  });
+
+  if (updated || !localStorage.getItem('intermaven_crm')) {
+    localStorage.setItem('intermaven_crm', JSON.stringify(crm));
+  }
+
+  return crm;
+}
+
+function refreshCrmIframe() {
+  portAllDataToCrm();
+  const iframe = document.getElementById('smartCrmIframe');
+  const extLink = document.getElementById('crmExternalLink');
+  const targetUrl = getIntermavenCrmUrl();
+  if (iframe) {
+    iframe.src = targetUrl;
+  }
+  if (extLink) {
+    extLink.href = targetUrl;
+  }
+}
+
+function openSmartCrmModal() {
+  portAllDataToCrm();
+  refreshCrmIframe();
+
+  var el = document.getElementById('smartCrmModal');
+  if (el) {
+    el.classList.add('open');
+    el.style.display = 'flex';
+  }
+}
+
 function closeSmartCrmModal() {
-  document.getElementById('smartCrmModal').classList.remove('open');
+  var el = document.getElementById('smartCrmModal');
+  if (el) {
+    el.classList.remove('open');
+    el.style.display = 'none';
+  }
+}
+
+function switchCrmTab(tab) {
+  const directoryTab = document.getElementById('crmTabDirectory');
+  const leadsTab = document.getElementById('crmTabLeads');
+  const embedTab = document.getElementById('crmTabEmbed');
+
+  const btnDir = document.getElementById('crmTabBtnDirectory');
+  const btnLeads = document.getElementById('crmTabBtnLeads');
+  const btnEmbed = document.getElementById('crmTabBtnEmbed');
+
+  [directoryTab, leadsTab, embedTab].forEach(t => { if(t) t.style.display = 'none'; });
+  [btnDir, btnLeads, btnEmbed].forEach(b => {
+    if(b) {
+      b.style.color = 'var(--mu)';
+      b.style.borderBottomColor = 'transparent';
+      b.style.fontWeight = '600';
+    }
+  });
+
+  if (tab === 'directory' && directoryTab && btnDir) {
+    directoryTab.style.display = 'block';
+    btnDir.style.color = 'var(--lime)';
+    btnDir.style.borderBottomColor = 'var(--lime)';
+    btnDir.style.fontWeight = '700';
+  } else if (tab === 'leads' && leadsTab && btnLeads) {
+    leadsTab.style.display = 'block';
+    btnLeads.style.color = 'var(--lime)';
+    btnLeads.style.borderBottomColor = 'var(--lime)';
+    btnLeads.style.fontWeight = '700';
+  } else if (tab === 'embed' && embedTab && btnEmbed) {
+    embedTab.style.display = 'block';
+    btnEmbed.style.color = 'var(--lime)';
+    btnEmbed.style.borderBottomColor = 'var(--lime)';
+    btnEmbed.style.fontWeight = '700';
+  }
+}
+
+function filterCrmTable() {
+  const search = (document.getElementById('crmSearchInput')?.value || '').toLowerCase();
+  const channelFilter = document.getElementById('crmChannelFilter')?.value || 'ALL';
+  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+
+  const filtered = crm.filter(item => {
+    const matchesSearch = !search || 
+      (item.name && item.name.toLowerCase().includes(search)) ||
+      (item.email && item.email.toLowerCase().includes(search)) ||
+      (item.source && item.source.toLowerCase().includes(search));
+    const matchesChannel = channelFilter === 'ALL' || (item.channel && item.channel.toUpperCase() === channelFilter);
+    return matchesSearch && matchesChannel;
+  });
+
+  renderCrmRows(filtered);
 }
 
 function renderCrmTable() {
   const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+  renderCrmRows(crm);
+}
+
+function renderCrmRows(items) {
   const body = document.getElementById('crmModalTableBody');
-  if (body) {
-    body.innerHTML = crm.map((item, idx) => `
-      <tr>
-        <td><strong>${item.name || (item.email ? item.email.split('@')[0] : 'Subscriber')}</strong></td>
-        <td>${item.email}</td>
-        <td><span class="badge ${item.channel === 'WHATSAPP' ? 'badge-warn' : 'badge-info'}"><i class="${item.channel === 'WHATSAPP' ? 'ri-whatsapp-line' : 'ri-mail-line'}"></i> ${item.channel || 'EMAIL'}</span></td>
-        <td><span class="badge ${item.doubleOptIn ? 'badge-success' : 'badge-warn'}"><i class="${item.doubleOptIn ? 'ri-check-double-line' : 'ri-time-line'}"></i> ${item.doubleOptIn ? 'Opted In' : 'Pending'}</span></td>
-        <td>${item.source || 'Landing Page'}</td>
-        <td>${item.date || '2026-07-21'}</td>
-        <td>
-          <button class="btn-action" onclick="toggleCrmOptIn(${idx})"><i class="ri-refresh-line"></i> Toggle Status</button>
-          <button class="btn-action btn-danger" onclick="deleteCrmContact(${idx})"><i class="ri-delete-bin-line"></i></button>
-        </td>
-      </tr>
-    `).join('');
+  if (!body) return;
+  
+  if (items.length === 0) {
+    body.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--mu); padding:20px;">No contacts found matching filter.</td></tr>`;
+    return;
   }
+
+  body.innerHTML = items.map((item, idx) => `
+    <tr>
+      <td><strong>${item.name || (item.email ? item.email.split('@')[0] : 'Subscriber')}</strong></td>
+      <td><a href="mailto:${item.email}" style="color:var(--sage-light);">${item.email}</a></td>
+      <td><span class="badge ${item.channel === 'WHATSAPP' ? 'badge-warn' : 'badge-info'}"><i class="${item.channel === 'WHATSAPP' ? 'ri-whatsapp-line' : 'ri-mail-line'}"></i> ${item.channel || 'EMAIL'}</span></td>
+      <td><span class="badge ${item.doubleOptIn ? 'badge-success' : 'badge-warn'}"><i class="${item.doubleOptIn ? 'ri-check-double-line' : 'ri-time-line'}"></i> ${item.doubleOptIn ? 'Opted In' : 'Pending'}</span></td>
+      <td><span style="font-size:12px; color:var(--mu);">${item.source || 'Landing Page'}</span></td>
+      <td>${item.date || '2026-07-21'}</td>
+      <td>
+        <button class="btn-action" onclick="toggleCrmOptIn(${idx})"><i class="ri-refresh-line"></i> Toggle Status</button>
+        <button class="btn-action btn-danger" onclick="deleteCrmContact(${idx})"><i class="ri-delete-bin-line"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderCrmLeadsTable() {
+  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+  const body = document.getElementById('crmModalLeadsBody');
+  if (!body) return;
+
+  if (leads.length === 0) {
+    body.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--mu); padding:20px;">No active booking leads found.</td></tr>`;
+    return;
+  }
+
+  body.innerHTML = leads.map(l => `
+    <tr>
+      <td><strong style="color:var(--lime); font-size:12px;">${l.id}</strong></td>
+      <td><strong>${l.name}</strong><br><span style="font-size:11px; color:var(--mu);">${l.email}</span></td>
+      <td>${l.company || 'Direct Client'}</td>
+      <td><span style="color:var(--sage-light); font-size:12.5px;">${l.service}</span></td>
+      <td><span class="badge badge-info">${l.techLead || 'Elena Rostova'}</span></td>
+      <td><span style="font-size:12px;">${l.date}</span></td>
+      <td><span class="badge badge-success">${l.status || 'Confirmed'}</span></td>
+    </tr>
+  `).join('');
 }
 
 function toggleCrmOptIn(idx) {
@@ -1764,7 +2015,7 @@ let tempCarouselImages = [];
 
 function openProjectModal(id) {
   const projects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
-  const p = id ? projects.find(x => x.id === id) : null;
+  const p = (id !== undefined && id !== null && id !== '') ? projects.find(x => String(x.id) === String(id)) : null;
 
   document.getElementById('pId').value = p ? p.id : '';
   document.getElementById('pTitle').value = p ? p.title : '';
@@ -1788,10 +2039,8 @@ function openProjectModal(id) {
   renderAdminCarouselList();
 
   document.getElementById('projModalTitle').innerText = p ? 'Edit Showcase Project Details' : 'Add Showcase Project';
-  document.getElementById('projectModal').classList.add('open');
+  showSmallModal('projectModal');
 }
-
-function editProject(id) { openProjectModal(id); }
 
 function execWpCommand(cmd, value = null) {
   document.execCommand(cmd, false, value);
@@ -1886,7 +2135,7 @@ function saveProject(e) {
   };
 
   if (id) {
-    const idx = projects.findIndex(p => p.id === parseInt(id));
+    const idx = projects.findIndex(p => String(p.id) === String(id));
     if (idx !== -1) projects[idx] = data;
   } else {
     projects.unshift(data);
@@ -1901,7 +2150,7 @@ function saveProject(e) {
 function deleteProject(id) {
   if (!confirm('Are you sure you want to delete this project?')) return;
   let p = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
-  p = p.filter(x => x.id !== id);
+  p = p.filter(x => String(x.id) !== String(id));
   localStorage.setItem('intermaven_projects', JSON.stringify(p));
   renderAdmin();
 }
@@ -1909,31 +2158,30 @@ function deleteProject(id) {
 // ─── CMS TESTIMONIALS ───
 function openTestimonialModal(id) {
   const testimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
-  const t = id ? testimonials.find(x => x.id === id) : null;
+  const t = (id !== undefined && id !== null && id !== '') ? testimonials.find(x => String(x.id) === String(id)) : null;
   document.getElementById('tId').value = t ? t.id : '';
   document.getElementById('tName').value = t ? t.name : '';
   document.getElementById('tRole').value = t ? t.role : '';
   document.getElementById('tRating').value = t ? t.rating : 5;
-  document.getElementById('tQuote').value = t ? t.quote : '';
+  if (document.getElementById('tQuoteEditor')) document.getElementById('tQuoteEditor').innerHTML = t ? (t.quote || '') : '';
   document.getElementById('testiModalTitle').innerText = t ? 'Edit Testimonial' : 'Add Client Review';
-  document.getElementById('testiModal').classList.add('open');
+  showSmallModal('testiModal');
 }
-
-function editTestimonial(id) { openTestimonialModal(id); }
 
 function saveTestimonial(e) {
   e.preventDefault();
   const id = document.getElementById('tId').value;
   const testimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
+  const quoteHtml = document.getElementById('tQuoteEditor') ? document.getElementById('tQuoteEditor').innerHTML : '';
   const data = {
     id: id ? parseInt(id) : Date.now(),
     name: document.getElementById('tName').value,
     role: document.getElementById('tRole').value,
     rating: parseInt(document.getElementById('tRating').value),
-    quote: document.getElementById('tQuote').value
+    quote: quoteHtml
   };
   if (id) {
-    const idx = testimonials.findIndex(t => t.id === parseInt(id));
+    const idx = testimonials.findIndex(t => String(t.id) === String(id));
     if (idx !== -1) testimonials[idx] = data;
   } else {
     testimonials.unshift(data);
@@ -2018,11 +2266,6 @@ function deleteLead(idx) {
   renderAdmin();
 }
 
-function exportLeads() {
-  const blob = new Blob([localStorage.getItem('intermaven_leads')], { type: 'application/json' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'intermaven_leads.json'; a.click();
-}
-
 // ─── AI ASSIST REWRITE HANDLERS ───
 function triggerAiRewriteModal() {
   document.getElementById('aiAssistModal').classList.add('open');
@@ -2066,7 +2309,7 @@ function updateSocialIconPreview() {
 
 function openSocialModal(id) {
   const socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
-  const s = id ? socials.find(x => x.id === id) : null;
+  const s = (id !== undefined && id !== null && id !== '') ? socials.find(x => String(x.id) === String(id)) : null;
 
   document.getElementById('socId').value = s ? s.id : '';
   document.getElementById('socPlatform').value = s ? s.platform : '';
@@ -2076,7 +2319,7 @@ function openSocialModal(id) {
 
   document.getElementById('socialModalTitle').innerText = s ? 'Edit Social Media Link' : 'Add Social Media Link';
   updateSocialIconPreview();
-  document.getElementById('socialModal').classList.add('open');
+  showSmallModal('socialModal');
 }
 
 function saveSocialMedia(e) {
@@ -2093,7 +2336,7 @@ function saveSocialMedia(e) {
   };
 
   if (id) {
-    const idx = socials.findIndex(s => s.id === parseInt(id));
+    const idx = socials.findIndex(s => String(s.id) === String(id));
     if (idx !== -1) socials[idx] = data;
   } else {
     socials.push(data);
@@ -2104,36 +2347,45 @@ function saveSocialMedia(e) {
   renderAdmin();
 }
 
+function deleteSocialMedia(id) {
+  if (!confirm('Remove this social link?')) return;
+  let socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+  socials = socials.filter(s => String(s.id) !== String(id));
+  localStorage.setItem('intermaven_socials', JSON.stringify(socials));
+  renderAdmin();
+}
+
 // ─── SERVICES CMS HANDLERS ───
 function openServiceModal(id) {
   const services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
-  const s = id ? services.find(x => x.id === id) : null;
+  const s = (id !== undefined && id !== null && id !== '') ? services.find(x => String(x.id) === String(id)) : null;
 
   document.getElementById('svcId').value = s ? s.id : '';
   document.getElementById('svcTitle').value = s ? s.title : '';
   document.getElementById('svcIcon').value = s ? s.icon : 'ri-fingerprint-line';
-  document.getElementById('svcDesc').value = s ? s.desc : '';
+  if (document.getElementById('svcDescEditor')) document.getElementById('svcDescEditor').innerHTML = s ? (s.desc || '') : '';
   document.getElementById('svcParam').value = s ? s.param : '';
   document.getElementById('svcCategory').value = s ? s.category : '';
 
   document.getElementById('serviceModalTitle').innerText = s ? 'Edit Service Offering' : 'Add Service Offering';
-  document.getElementById('serviceModal').classList.add('open');
+  showSmallModal('serviceModal');
 }
 
 function saveService(e) {
   e.preventDefault();
   const id = document.getElementById('svcId').value;
   const services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const descHtml = document.getElementById('svcDescEditor') ? document.getElementById('svcDescEditor').innerHTML : '';
   const data = {
     id: id ? parseInt(id) : Date.now(),
     title: document.getElementById('svcTitle').value,
     icon: document.getElementById('svcIcon').value,
-    desc: document.getElementById('svcDesc').value,
+    desc: descHtml,
     param: document.getElementById('svcParam').value,
     category: document.getElementById('svcCategory').value
   };
   if (id) {
-    const idx = services.findIndex(s => s.id === parseInt(id));
+    const idx = services.findIndex(s => String(s.id) === String(id));
     if (idx !== -1) services[idx] = data;
   } else {
     services.push(data);
@@ -2146,110 +2398,300 @@ function saveService(e) {
 function deleteService(id) {
   if (!confirm('Remove this service offering?')) return;
   let services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
-  services = services.filter(s => s.id !== id);
+  services = services.filter(s => String(s.id) !== String(id));
   localStorage.setItem('intermaven_services', JSON.stringify(services));
   renderAdmin();
 }
 
-// ─── HERO SLIDES CMS HANDLERS ───
-function openHeroSlideModal(id) {
-  try {
-    var slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
-    var numId = id !== undefined && id !== null && id !== '' ? Number(id) : null;
-    var h = numId ? slides.find(function(x){ return Number(x.id) === numId; }) : null;
+// ─── HERO SLIDES CMS (IMAGE UPLOAD & PREVIEW) ───
+function hsUpdatePreview(url) {
+  const bgInput = document.getElementById('hsBg');
+  const previewImg = document.getElementById('hsBgPreview');
+  if (bgInput) bgInput.value = url;
+  if (previewImg) previewImg.src = url || 'assets/hero_slide1.png';
+}
 
-    var el_id    = document.getElementById('hsId');
-    var el_title = document.getElementById('hsTitle');
-    var el_lead  = document.getElementById('hsLead');
-    var el_bg    = document.getElementById('hsBg');
-    var el_label = document.getElementById('heroModalTitle');
-    var el_modal = document.getElementById('heroSlideModal');
+function hsUpdatePreviewFromInput() {
+  const val = (document.getElementById('hsBg').value || '').trim();
+  const previewImg = document.getElementById('hsBgPreview');
+  if (previewImg) previewImg.src = val || 'assets/hero_slide1.png';
+}
 
-    if (!el_modal) { alert('Error: heroSlideModal element not found.'); return; }
+function hsSelectPreset(path) {
+  hsUpdatePreview(path);
+}
 
-    if (el_id)    el_id.value    = h ? h.id    : '';
-    if (el_title) el_title.value = h ? h.title  : '';
-    if (el_lead)  el_lead.value  = h ? h.lead   : '';
-    if (el_bg)    el_bg.value    = h ? h.bg     : 'assets/hero_slide1.png';
-    if (el_label) el_label.innerText = h ? 'Edit Hero Slide' : 'Add Hero Slide';
-
-    el_modal.classList.add('open');
-    el_modal.style.display = 'flex';
-  } catch(err) {
-    alert('openHeroSlideModal error: ' + err.message);
+function hsHandleFileSelect(input) {
+  if (input.files && input.files[0]) {
+    const file = input.files[0];
+    if (!file.type.startsWith('image/')) { alert('Please select an image file.'); return; }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      hsUpdatePreview(e.target.result);
+    };
+    reader.readAsDataURL(file);
   }
 }
 
-function saveHeroSlide(e) {
+function hsHandleDrop(e) {
   e.preventDefault();
-  const id = document.getElementById('hsId').value;
-  const slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
-  const data = {
-    id: id ? parseInt(id) : Date.now(),
-    title: document.getElementById('hsTitle').value,
-    lead: document.getElementById('hsLead').value,
-    bg: document.getElementById('hsBg').value
-  };
-  if (id) {
-    const idx = slides.findIndex(s => s.id === parseInt(id));
-    if (idx !== -1) slides[idx] = data;
-  } else {
-    slides.push(data);
+  const dropZone = document.getElementById('hsDropZone');
+  if (dropZone) dropZone.style.borderColor = 'var(--b2)';
+  
+  if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+    const file = e.dataTransfer.files[0];
+    if (!file.type.startsWith('image/')) { alert('Please drop a valid image file.'); return; }
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      hsUpdatePreview(evt.target.result);
+    };
+    reader.readAsDataURL(file);
   }
+}
+
+function hsOpen() { hsEdit(-1); }
+
+function hsEdit(editIdx) {
+  console.log('[HeroCMS] hsEdit called with index:', editIdx);
+  var modal = document.getElementById('heroSlideModal');
+  if (!modal) { console.error('[HeroCMS] heroSlideModal missing'); return; }
+
+  var slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  var idx = (editIdx !== undefined && editIdx !== null && editIdx !== '') ? parseInt(editIdx) : -1;
+  if (isNaN(idx) || idx < 0 || idx >= slides.length) idx = -1;
+  var h = idx >= 0 ? slides[idx] : null;
+
+  document.getElementById('hsIdx').value   = idx;
+  document.getElementById('hsTitle').value = h ? String(h.title || '') : '';
+  if (document.getElementById('hsLeadEditor')) document.getElementById('hsLeadEditor').innerHTML = h ? String(h.lead || '') : '';
+  
+  const bgUrl = h ? String(h.bg || 'assets/hero_slide1.png') : 'assets/hero_slide1.png';
+  hsUpdatePreview(bgUrl);
+
+  document.getElementById('heroModalTitle').innerText = h ? 'Edit Hero Slide #' + (idx + 1) : 'Add New Hero Slide';
+
+  console.log('[HeroCMS] Displaying heroSlideModal for item:', h);
+  modal._openTimestamp = Date.now();
+  modal.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:99999!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
+  modal.classList.add('open');
+}
+
+function hsClose() {
+  var modal = document.getElementById('heroSlideModal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.style.cssText = 'display:none!important;';
+  }
+}
+
+function hsSave() {
+  console.log('[HeroCMS] hsSave called');
+  var title = (document.getElementById('hsTitle').value || '').trim();
+  var lead  = document.getElementById('hsLeadEditor') ? (document.getElementById('hsLeadEditor').innerHTML || '').trim() : '';
+  var bg    = (document.getElementById('hsBg').value    || '').trim() || 'assets/hero_slide1.png';
+  var idx   = parseInt(document.getElementById('hsIdx').value);
+
+  if (!title) { alert('Title is required.'); document.getElementById('hsTitle').focus(); return; }
+  if (!lead)  { alert('Lead paragraph is required.'); return; }
+
+  var slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+
+  if (idx >= 0 && idx < slides.length) {
+    slides[idx] = { id: slides[idx].id || Date.now(), title: title, lead: lead, bg: bg };
+  } else {
+    slides.push({ id: Date.now(), title: title, lead: lead, bg: bg });
+  }
+
   localStorage.setItem('intermaven_hero_slides', JSON.stringify(slides));
-  closeSmallModal('heroSlideModal');
+  hsClose();
+  renderAdmin();
+  alert('✅ Hero Slide saved! Open index.html to see it live in the carousel.');
+}
+
+function hsDel(idx) {
+  if (!confirm('Delete this hero slide?')) return;
+  var slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  slides.splice(idx, 1);
+  localStorage.setItem('intermaven_hero_slides', JSON.stringify(slides));
   renderAdmin();
 }
 
-function deleteHeroSlide(id) {
-  if (!confirm('Remove this hero slide?')) return;
-  let slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
-  slides = slides.filter(s => s.id !== id);
-  localStorage.setItem('intermaven_hero_slides', JSON.stringify(slides));
-  renderAdmin();
-}
+// Keep old names as aliases for any remaining references
+function openHeroSlideModal(i) { hsEdit(typeof i === 'undefined' ? -1 : i); }
+function heroSlideSave() { hsSave(); }
+function heroSlideDelete(i) { hsDel(i); }
 
 // ─── FAQS CMS HANDLERS ───
-function openFaqModal(id) {
-  const faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
-  const f = id ? faqs.find(x => x.id === id) : null;
+function faqOpen() { faqEdit(''); }
 
-  document.getElementById('faqId').value = f ? f.id : '';
-  document.getElementById('faqQuestion').value = f ? f.question : '';
-  document.getElementById('faqCategory').value = f ? f.category : 'General & Engagements';
-  document.getElementById('faqAnswer').value = f ? f.answer : '';
+function faqEdit(id) {
+  console.log('[FaqCMS] faqEdit called with id:', id);
+  var modal = document.getElementById('faqModal');
+  if (!modal) { console.error('[FaqCMS] faqModal missing'); return; }
+  var faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  var f = (id !== undefined && id !== null && id !== '') ? faqs.find(function(x) { return String(x.id) === String(id); }) : null;
+
+  document.getElementById('faqId').value       = f ? f.id : '';
+  document.getElementById('faqQuestion').value = f ? (f.question || '') : '';
+  document.getElementById('faqCategory').value = f ? (f.category || 'General & Engagements') : 'General & Engagements';
+  if (document.getElementById('faqAnswerEditor')) document.getElementById('faqAnswerEditor').innerHTML = f ? (f.answer || '') : '';
 
   document.getElementById('faqModalTitle').innerText = f ? 'Edit FAQ Item' : 'Add FAQ Question';
-  document.getElementById('faqModal').classList.add('open');
+  console.log('[FaqCMS] Displaying faqModal for item:', f);
+  modal._openTimestamp = Date.now();
+  modal.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:99999!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
+  modal.classList.add('open');
 }
 
-function saveFaq(e) {
-  e.preventDefault();
-  const id = document.getElementById('faqId').value;
-  const faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
-  const data = {
-    id: id ? parseInt(id) : Date.now(),
-    question: document.getElementById('faqQuestion').value,
-    category: document.getElementById('faqCategory').value,
-    answer: document.getElementById('faqAnswer').value
+function faqClose() {
+  var modal = document.getElementById('faqModal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.style.cssText = 'display:none!important;';
+  }
+}
+
+function faqSave() {
+  console.log('[FaqCMS] faqSave called');
+  var id       = document.getElementById('faqId').value;
+  var question = (document.getElementById('faqQuestion').value || '').trim();
+  var category = (document.getElementById('faqCategory').value || '').trim() || 'General & Engagements';
+  var answer   = document.getElementById('faqAnswerEditor') ? (document.getElementById('faqAnswerEditor').innerHTML || '').trim() : '';
+
+  if (!question) { alert('Please enter a question.'); document.getElementById('faqQuestion').focus(); return; }
+  if (!answer)   { alert('Please enter an answer.'); return; }
+
+  var faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  var data = {
+    id: id ? (isNaN(parseInt(id)) ? id : parseInt(id)) : Date.now(),
+    question: question,
+    category: category,
+    answer: answer
   };
+
   if (id) {
-    const idx = faqs.findIndex(f => f.id === parseInt(id));
+    var idx = faqs.findIndex(function(f) { return String(f.id) === String(id); });
     if (idx !== -1) faqs[idx] = data;
+    else faqs.push(data);
   } else {
     faqs.push(data);
   }
+
   localStorage.setItem('intermaven_faqs', JSON.stringify(faqs));
-  closeSmallModal('faqModal');
+  faqClose();
+  renderAdmin();
+  alert('✅ FAQ saved successfully!');
+}
+
+function faqDel(id) {
+  if (!confirm('Remove this FAQ item?')) return;
+  var faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  faqs = faqs.filter(function(f) { return String(f.id) !== String(id); });
+  localStorage.setItem('intermaven_faqs', JSON.stringify(faqs));
   renderAdmin();
 }
 
-function deleteFaq(id) {
-  if (!confirm('Remove this FAQ item?')) return;
-  let faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
-  faqs = faqs.filter(f => f.id !== id);
-  localStorage.setItem('intermaven_faqs', JSON.stringify(faqs));
-  renderAdmin();
+// Aliases for backward compatibility
+function openFaqModal(id) { faqEdit(id); }
+function saveFaq(e) { if (e && e.preventDefault) e.preventDefault(); faqSave(); }
+function deleteFaq(id) { faqDel(id); }
+
+// ─── MEDIA LIBRARY HANDLERS ───
+function renderMediaLibrary() {
+  const media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+  const container = document.getElementById('mediaGrid');
+  const emptyMsg = document.getElementById('mediaEmptyMsg');
+  const searchInput = document.getElementById('mediaSearchInput');
+  const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+  if (!container) return;
+
+  const filtered = media.filter(m => !search || (m.name || '').toLowerCase().includes(search) || (m.url || '').toLowerCase().includes(search));
+
+  if (!filtered.length) {
+    container.innerHTML = '';
+    if (emptyMsg) emptyMsg.style.display = 'block';
+    return;
+  }
+
+  if (emptyMsg) emptyMsg.style.display = 'none';
+
+  container.innerHTML = filtered.map(m => `
+    <div class="media-card" style="background:var(--bg2); border:1px solid var(--b2); border-radius:4px; overflow:hidden; display:flex; flex-direction:column; transition:transform 0.2s, border-color 0.2s;">
+      <div style="height:140px; background:var(--bg3); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;">
+        <img src="${m.url}" alt="${m.name}" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div style="padding:12px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-weight:700; font-size:13px; color:var(--tx); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${m.name}">${m.name}</div>
+          <div style="font-size:11px; color:var(--mu); margin-top:4px;">${m.type || 'Image'} &bull; ${m.size || 'Asset'}</div>
+        </div>
+        <div style="display:flex; gap:6px; margin-top:12px;">
+          <button type="button" class="btn-action" style="flex:1; font-size:11px; padding:4px 6px; justify-content:center;" onclick="copyMediaUrl('${m.url}')"><i class="ri-file-copy-line"></i> Copy Path</button>
+          <button type="button" class="btn-action btn-danger" style="padding:4px 8px;" onclick="deleteMediaAsset(${m.id})" title="Delete Asset"><i class="ri-delete-bin-line"></i></button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function copyMediaUrl(url) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => {
+      alert('📋 Media URL/Path copied to clipboard:\n' + url);
+    }).catch(() => {
+      prompt('Copy media URL:', url);
+    });
+  } else {
+    prompt('Copy media URL:', url);
+  }
+}
+
+function deleteMediaAsset(id) {
+  if (!confirm('Remove this asset from Media Library?')) return;
+  let media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+  media = media.filter(m => String(m.id) !== String(id));
+  localStorage.setItem('intermaven_media_library', JSON.stringify(media));
+  renderMediaLibrary();
+}
+
+function handleMediaFileUpload(input) {
+  if (!input.files || !input.files.length) return;
+  const files = Array.from(input.files);
+  let media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+
+  let processed = 0;
+  files.forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const dataUrl = e.target.result;
+      media.unshift({
+        id: Date.now() + Math.floor(Math.random() * 1000),
+        name: file.name.split('.')[0],
+        url: dataUrl,
+        type: (file.type ? file.type.split('/')[1].toUpperCase() : 'PNG') + ' Image',
+        size: (file.size / 1024).toFixed(1) + ' KB',
+        date: new Date().toLocaleDateString()
+      });
+      processed++;
+      if (processed === files.length) {
+        localStorage.setItem('intermaven_media_library', JSON.stringify(media));
+        renderMediaLibrary();
+        alert(`✅ Uploaded ${processed} new media asset(s) to Agency Library!`);
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function handleMediaDrop(e) {
+  e.preventDefault();
+  const dropZone = document.getElementById('mediaDropZone');
+  if (dropZone) dropZone.style.borderColor = 'var(--b2)';
+  if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+    handleMediaFileUpload(e.dataTransfer);
+  }
 }
 
 // ─── SITE SETTINGS HANDLERS ───
@@ -2267,8 +2709,37 @@ function saveSiteSettings(e) {
   renderAdmin();
 }
 
+// ─── EVENT DELEGATION & CLICK OUTSIDE MODAL TO CLOSE ───
+document.addEventListener('click', function(e) {
+  // If clicked directly on backdrop overlay outside inner modal box
+  if (e.target.classList.contains('admin-form-modal') || e.target.classList.contains('wide-modal-overlay')) {
+    if (e.target._openTimestamp && (Date.now() - e.target._openTimestamp < 400)) {
+      console.log('[Modal] Ignored immediate backdrop close (prevented auto-closing modal)');
+      return;
+    }
+    console.log('[Modal] Closing modal via backdrop click on:', e.target.id);
+    e.target.classList.remove('open');
+    e.target.style.cssText = 'display:none!important;';
+    return;
+  }
+  var b;
+  // Hero row buttons now use inline onclick — no delegation needed
+  if ((b = e.target.closest('.proj-edit-btn'))) { openProjectModal(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.proj-del-btn'))) { deleteProject(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.testi-edit-btn'))) { openTestimonialModal(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.testi-del-btn'))) { deleteTestimonial(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.soc-edit-btn'))) { openSocialModal(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.soc-del-btn'))) { deleteSocialMedia(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.svc-edit-btn'))) { openServiceModal(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.svc-del-btn'))) { deleteService(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.faq-edit-btn'))) { openFaqModal(b.getAttribute('data-id')); return; }
+  if ((b = e.target.closest('.faq-del-btn'))) { deleteFaq(b.getAttribute('data-id')); return; }
+});
+
 // ─── INIT ───
 renderAdmin();
+
+
 </script>
 
 </body>

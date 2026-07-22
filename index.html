@@ -869,7 +869,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 <!-- ================= NAVBAR ================= -->
 <nav class="navbar">
   <div class="container">
-    <a href="#top" class="nav-logo"><img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency — Brand Intelligence"></a>
+    <a href="#top" class="nav-logo"><img src="assets/logo/header/logo.png" alt="Intermaven Agency — Brand Intelligence"></a>
 
     <div class="nav-links">
       <a href="profile.html">Profile</a>
@@ -1282,7 +1282,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <!-- Column 1: Brand Info (TuneMavens style) -->
       <div class="footer-brand">
         <a href="#top">
-          <img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency — Brand Intelligence" class="footer-logo-img">
+          <img src="assets/logo/footer/logo.png" alt="Intermaven Agency — Brand Intelligence" class="footer-logo-img">
         </a>
         <p>Brand identity, interactive design, and software ecosystems — built with two decades of craft and an AI-assisted delivery pipeline.</p>
         <div class="footer-socials">
@@ -1343,7 +1343,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <button type="button" class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close modal"><i class="ri-close-line"></i></button>
     <div class="auth-modal-header">
       <div class="auth-brand-logo">
-        <img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency">
+        <img src="assets/logo/header/logo.png" alt="Intermaven Agency">
       </div>
       <div class="auth-tabs">
         <button type="button" class="auth-tab active" id="tabSignIn" onclick="switchAuthTab('signin')">Sign In</button>
@@ -1614,26 +1614,37 @@ function handleAuthSubmit(e, mode) {
 }
 
 // ===== Hero Carousel (10s interval & Side Arrows) =====
-const slides = document.querySelectorAll('.hero-slide');
-const bgLayers = document.querySelectorAll('.hero-bg-layer');
+let slides = Array.from(document.querySelectorAll('.hero-slide'));
+let bgLayers = Array.from(document.querySelectorAll('.hero-bg-layer'));
 let heroIndex = 0;
 let heroTimer;
 
+function updateSlideNodes() {
+  slides = Array.from(document.querySelectorAll('.hero-slide'));
+  bgLayers = Array.from(document.querySelectorAll('.hero-bg-layer'));
+  if (slides.length > 0 && heroIndex >= slides.length) heroIndex = 0;
+}
+
 function goToSlide(i) {
-  slides[heroIndex].classList.remove('active');
-  if (bgLayers[heroIndex]) bgLayers[heroIndex].classList.remove('active');
-  heroIndex = i;
-  slides[heroIndex].classList.add('active');
+  updateSlideNodes();
+  if (slides.length === 0) return;
+  slides.forEach(s => s.classList.remove('active'));
+  bgLayers.forEach(b => b.classList.remove('active'));
+  heroIndex = (i + slides.length) % slides.length;
+  if (slides[heroIndex]) slides[heroIndex].classList.add('active');
   if (bgLayers[heroIndex]) bgLayers[heroIndex].classList.add('active');
 }
-function nextSlide() { goToSlide((heroIndex + 1) % slides.length); }
-function prevSlide() { goToSlide((heroIndex - 1 + slides.length) % slides.length); }
+function nextSlide() { goToSlide(heroIndex + 1); }
+function prevSlide() { goToSlide(heroIndex - 1); }
 
-function startHeroTimer() { heroTimer = setInterval(nextSlide, 10000); }
-function stopHeroTimer() { clearInterval(heroTimer); }
+function startHeroTimer() { stopHeroTimer(); heroTimer = setInterval(nextSlide, 10000); }
+function stopHeroTimer() { if (heroTimer) clearInterval(heroTimer); }
 
-document.querySelector('.hero').addEventListener('mouseenter', stopHeroTimer);
-document.querySelector('.hero').addEventListener('mouseleave', startHeroTimer);
+const heroEl = document.querySelector('.hero');
+if (heroEl) {
+  heroEl.addEventListener('mouseenter', stopHeroTimer);
+  heroEl.addEventListener('mouseleave', startHeroTimer);
+}
 startHeroTimer();
 
 // ===== Case study filter =====
@@ -1692,22 +1703,182 @@ document.getElementById('newsletterForm').addEventListener('submit', (e) => {
   });
   localStorage.setItem('intermaven_crm', JSON.stringify(crm));
 
+  // Direct real-time sync to Intermaven Smart CRM Backend API
+  try {
+    fetch('http://localhost:8001/api/crm/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer agency_admin_master'
+      },
+      body: JSON.stringify({
+        first_name: val.split('@')[0] || 'Subscriber',
+        last_name: '',
+        email: val,
+        source: 'Landing Page Newsletter (Double Opt-In)',
+        tags: ['newsletter', 'fan']
+      })
+    }).catch(function() {});
+  } catch (e) {}
+
   document.getElementById('formMsg').innerHTML = '<i class="ri-checkbox-circle-line"></i> Double Opt-In Verified — Added to Intermaven Smart CRM!';
   document.getElementById('formMsg').classList.add('show');
   newsletterInput.value = '';
 });
 
-// ===== Scroll reveal =====
-const revealEls = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in');
-      observer.unobserve(entry.target);
+// ===== DYNAMIC LIVE CMS HYDRATION (localStorage Sync) =====
+function hydrateCmsContent() {
+  // 1. Hero Slides
+  const storedHero = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  if (storedHero.length > 0) {
+    const heroSlidesContainer = document.getElementById('heroSlides');
+    const heroBgContainer = document.getElementById('heroBgContainer');
+    if (heroSlidesContainer && heroBgContainer) {
+      let slidesHtml = '';
+      let bgHtml = '';
+      storedHero.forEach((h, idx) => {
+        const isActive = idx === 0 ? 'active' : '';
+        slidesHtml += `
+          <div class="hero-slide ${isActive}" data-slide="${idx}">
+            <h1>${h.title}</h1>
+            <p class="lead">${h.lead}</p>
+            <div class="hero-cta-row">
+              <a href="appointment.html" class="btn-primary"><i class="ri-calendar-check-line"></i> Book Your Free Consultation</a>
+              <a href="#showcase" class="btn-ghost">See Showcase <i class="ri-arrow-right-line"></i></a>
+            </div>
+            <div class="consult-badge"><i class="ri-checkbox-circle-line"></i> First session is a free consult with a tech lead or account manager</div>
+          </div>
+        `;
+        bgHtml += `<div class="hero-bg-layer ${isActive}" data-bg="${idx}" style="background-image: url('${h.bg}');"></div>`;
+      });
+      bgHtml += '<div class="hero-bg-overlay"></div>';
+      heroSlidesContainer.innerHTML = slidesHtml;
+      heroBgContainer.innerHTML = bgHtml;
+      updateSlideNodes();
     }
-  });
-}, { threshold: 0.12 });
-revealEls.forEach(el => observer.observe(el));
+  }
+
+  // 2. Services Grid
+  const storedServices = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  if (storedServices.length > 0) {
+    const servicesGrid = document.querySelector('.services-grid');
+    if (servicesGrid) {
+      servicesGrid.innerHTML = storedServices.map(s => `
+        <div class="svc-card reveal in">
+          <div class="svc-icon"><i class="${s.icon || 'ri-fingerprint-line'}"></i></div>
+          <h3>${s.title}</h3>
+          <p>${s.desc}</p>
+          <div class="svc-actions">
+            <a href="appointment.html?service=${s.param || 'consulting'}" class="btn-primary btn-sm">Book Service</a>
+            <a href="similar-projects.html?category=${encodeURIComponent(s.category || 'Branding')}" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // 3. Showcase Projects Grid
+  const storedProjects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  if (storedProjects.length > 0) {
+    const showcaseGrid = document.querySelector('.showcase-grid');
+    if (showcaseGrid) {
+      showcaseGrid.innerHTML = storedProjects.map(p => `
+        <div class="showcase-card reveal in" data-category="${p.category ? p.category.toLowerCase().replace(/[^a-z0-9]/g, '') : 'all'}">
+          <div class="showcase-thumb">
+            <img src="${p.thumb}" alt="${p.title}">
+            <span class="showcase-badge ${p.badge === 'venture' ? 'badge-venture' : 'badge-client'}">${p.badge === 'venture' ? 'In-House Venture' : 'Client Engagement'}</span>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-cat">${p.category}</div>
+            <h3 class="showcase-title">${p.title}</h3>
+            <p class="showcase-desc">${p.desc}</p>
+            <div class="showcase-metrics">
+              ${p.budget ? `<div class="metric-pill"><i class="ri-money-dollar-circle-line"></i> ${p.budget}</div>` : ''}
+              ${p.roi ? `<div class="metric-pill"><i class="ri-line-chart-line"></i> ${p.roi}</div>` : ''}
+            </div>
+            <div class="showcase-actions">
+              <a href="project-details.html?id=${p.id}" class="btn-primary btn-sm">Case Study <i class="ri-arrow-right-line"></i></a>
+              ${p.projectUrl ? `<a href="${p.projectUrl}" target="_blank" class="btn-ghost btn-sm"><i class="ri-external-link-line"></i> Live Site</a>` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // 4. Testimonials Grid
+  const storedTestimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
+  if (storedTestimonials.length > 0) {
+    const testiGrid = document.querySelector('.testimonials-grid');
+    if (testiGrid) {
+      testiGrid.innerHTML = storedTestimonials.map(t => `
+        <div class="testi-card reveal in">
+          <div class="testi-stars">${'★'.repeat(t.rating)}</div>
+          <p class="testi-quote">"${t.quote}"</p>
+          <div class="testi-author">
+            <strong>${t.name}</strong>
+            <span>${t.role}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // 5. FAQs Grid
+  const storedFaqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  if (storedFaqs.length > 0) {
+    const faqGrid = document.querySelector('.faq-grid');
+    if (faqGrid) {
+      faqGrid.innerHTML = storedFaqs.map(f => `
+        <div class="faq-item reveal in">
+          <div class="faq-question">
+            <h3>${f.question}</h3>
+            <span class="faq-badge">${f.category}</span>
+          </div>
+          <div class="faq-answer">
+            <p>${f.answer}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+}
+
+// ===== SCROLL REVEAL OBSERVER =====
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => {
+      if (!el.classList.contains('in')) {
+        observer.observe(el);
+      }
+    });
+  } else {
+    revealElements.forEach(el => el.classList.add('in'));
+  }
+}
+
+function initPage() {
+  hydrateCmsContent();
+  initScrollReveal();
+}
+
+document.addEventListener('DOMContentLoaded', initPage);
+window.addEventListener('storage', hydrateCmsContent);
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+  initPage();
+} else {
+  initPage();
+}
 </script>
 
 </body>

@@ -139,7 +139,7 @@
 
 <nav class="navbar">
   <div class="container">
-    <a href="index.html" class="nav-logo"><img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/logo/header/logo.png" alt="Intermaven Agency"></a>
     <div class="nav-links">
       <a href="profile.html">Profile</a>
       <a href="services.html">Services</a>
@@ -297,7 +297,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency">
+        <img src="assets/logo/footer/logo.png" alt="Intermaven Agency">
         <p>Brand identity, interactive design, and software ecosystems — built with two decades of craft and an AI-assisted delivery pipeline.</p>
       </div>
       <div class="footer-col">
@@ -403,6 +403,27 @@ function submitWizardAppointment() {
   const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
   leads.unshift(newLead);
   localStorage.setItem('intermaven_leads', JSON.stringify(leads));
+
+  // Direct real-time sync to Intermaven Smart CRM Backend API
+  try {
+    const nameParts = (name || 'Lead Contact').split(' ');
+    fetch('http://localhost:8001/api/crm/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer agency_admin_master'
+      },
+      body: JSON.stringify({
+        first_name: nameParts[0] || 'Lead',
+        last_name: nameParts.slice(1).join(' ') || '',
+        email: email,
+        phone: phone,
+        company: company || 'N/A',
+        source: selectedSvcs.join(', ') || 'Appointment Consultation',
+        tags: ['booker', 'vip']
+      })
+    }).catch(function() {});
+  } catch (e) {}
 
   alert('Success, ' + name + '! Your consultation appointment with ' + selectedLeadMember + ' on ' + selectedBookingDate + ' (' + selectedBookingSlot + ') has been recorded in the Smart CRM.');
   window.location.href = 'admin.html';

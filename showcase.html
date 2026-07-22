@@ -126,7 +126,7 @@
 
 <nav class="navbar">
   <div class="container">
-    <a href="index.html" class="nav-logo"><img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/logo/header/logo.png" alt="Intermaven Agency"></a>
     <div class="nav-links">
       <a href="profile.html">Profile</a>
       <a href="services.html">Services</a>
@@ -174,7 +174,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html"><img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency"></a>
+        <a href="index.html"><img src="assets/logo/footer/logo.png" alt="Intermaven Agency"></a>
         <p>Brand identity, interactive design, and software ecosystems — built with two decades of craft and an AI-assisted delivery pipeline.</p>
       </div>
       <div class="footer-col">
@@ -281,6 +281,92 @@ function searchShowcase() {
 }
 
 loadAndRenderShowcase();
+</script>
+
+
+<script>
+// ===== DYNAMIC LIVE CMS HYDRATION (localStorage Sync) =====
+function hydrateCmsPage() {
+  // Services
+  const storedServices = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const servicesGrid = document.querySelector('.services-grid');
+  if (storedServices.length > 0 && servicesGrid) {
+    servicesGrid.innerHTML = storedServices.map(s => `
+      <div class="svc-card">
+        <div class="svc-icon"><i class="${s.icon || 'ri-fingerprint-line'}"></i></div>
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <div class="svc-actions">
+          <a href="appointment.html?service=${s.param || 'consulting'}" class="btn-primary btn-sm">Book Service</a>
+          <a href="similar-projects.html?category=${encodeURIComponent(s.category || 'Branding')}" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Showcase Projects
+  const storedProjects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  const showcaseGrid = document.querySelector('.showcase-grid');
+  if (storedProjects.length > 0 && showcaseGrid) {
+    showcaseGrid.innerHTML = storedProjects.map(p => `
+      <div class="showcase-card" data-category="${p.category ? p.category.toLowerCase().replace(/[^a-z0-9]/g, '') : 'all'}">
+        <div class="showcase-thumb">
+          <img src="${p.thumb}" alt="${p.title}">
+          <span class="showcase-badge ${p.badge === 'venture' ? 'badge-venture' : 'badge-client'}">${p.badge === 'venture' ? 'In-House Venture' : 'Client Engagement'}</span>
+        </div>
+        <div class="showcase-body">
+          <div class="showcase-cat">${p.category}</div>
+          <h3 class="showcase-title">${p.title}</h3>
+          <p class="showcase-desc">${p.desc}</p>
+          <div class="showcase-metrics">
+            ${p.budget ? `<div class="metric-pill"><i class="ri-money-dollar-circle-line"></i> ${p.budget}</div>` : ''}
+            ${p.roi ? `<div class="metric-pill"><i class="ri-line-chart-line"></i> ${p.roi}</div>` : ''}
+          </div>
+          <div class="showcase-actions">
+            <a href="project-details.html?id=${p.id}" class="btn-primary btn-sm">Case Study <i class="ri-arrow-right-line"></i></a>
+            ${p.projectUrl ? `<a href="${p.projectUrl}" target="_blank" class="btn-ghost btn-sm"><i class="ri-external-link-line"></i> Live Site</a>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Testimonials
+  const storedTestimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
+  const testiGrid = document.querySelector('.testimonials-grid');
+  if (storedTestimonials.length > 0 && testiGrid) {
+    testiGrid.innerHTML = storedTestimonials.map(t => `
+      <div class="testi-card">
+        <div class="testi-stars">${'★'.repeat(t.rating)}</div>
+        <p class="testi-quote">"${t.quote}"</p>
+        <div class="testi-author">
+          <strong>${t.name}</strong>
+          <span>${t.role}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // FAQs
+  const storedFaqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  const faqGrid = document.querySelector('.faq-grid');
+  if (storedFaqs.length > 0 && faqGrid) {
+    faqGrid.innerHTML = storedFaqs.map(f => `
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>${f.question}</h3>
+          <span class="faq-badge">${f.category}</span>
+        </div>
+        <div class="faq-answer">
+          <p>${f.answer}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', hydrateCmsPage);
+hydrateCmsPage();
 </script>
 
 </body>
