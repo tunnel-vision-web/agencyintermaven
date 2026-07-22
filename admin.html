@@ -929,34 +929,13 @@
         </select>
       </div>
 
-      <!-- Specialist Interactive Appointment & Availability Calendar -->
-      <div class="form-group" style="margin-top:16px;">
-        <label style="display:flex; justify-content:space-between; align-items:center;">
-          <span>Specialist Interactive Appointment Calendar</span>
-          <span style="font-size:11px; color:var(--lime); text-transform:none;">Click date to view / manage bookings</span>
-        </label>
-        
-        <div style="background:var(--bg3); border:1px solid var(--b2); border-radius:4px; padding:14px;">
-          <!-- Calendar Month Navigation Bar -->
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--b1);">
-            <button type="button" class="btn-action" style="padding:3px 8px; font-size:12px;" onclick="changeCalendarMonth(-1)"><i class="ri-arrow-left-s-line"></i> Prev Month</button>
-            <strong id="calMonthTitle" style="color:var(--tx); font-size:14px; font-family:'Space Grotesk',sans-serif;">July 2026</strong>
-            <button type="button" class="btn-action" style="padding:3px 8px; font-size:12px;" onclick="changeCalendarMonth(1)">Next Month <i class="ri-arrow-right-s-line"></i></button>
-          </div>
-          
-          <!-- Calendar Days Header -->
-          <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; text-align:center; font-size:11px; font-weight:700; color:var(--mu); margin-bottom:6px;">
-            <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
-          </div>
-          
-          <!-- Calendar Days Grid -->
-          <div id="teamCalendarGrid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px;"></div>
-          
-          <!-- Selected Date Details Panel -->
-          <div id="calSelectedDateDetails" style="margin-top:12px; padding-top:10px; border-top:1px solid var(--b1); font-size:12px; color:var(--mu);">
-            <span style="color:var(--lime); font-weight:700;">Select any calendar day</span> to view scheduled consultation appointments or adjust availability slots.
-          </div>
-        </div>
+      <!-- At-a-glance Schedule Button -->
+      <div class="form-group" style="margin-top:16px; background:var(--bg3); border:1px solid var(--b2); border-radius:4px; padding:14px; text-align:center;">
+        <label style="display:block; margin-bottom:8px; font-weight:700;">Specialist Availability &amp; 2-Week Calendar Schedule</label>
+        <button type="button" class="btn-action btn-lime" style="width:100%; justify-content:center; padding:10px; font-size:13px; font-weight:700;" onclick="openSpecialistSchedulerForMember(document.getElementById('tmId').value || '1')">
+          <i class="ri-calendar-event-line" style="font-size:16px;"></i> Open Calendar Picker &amp; Schedule Times
+        </button>
+        <div style="font-size:11.5px; color:var(--mu); margin-top:6px;">Select date up to 2 weeks ahead to view booked appointments and toggle standard available time slots.</div>
       </div>
 
       <div class="modal-footer">
@@ -968,8 +947,67 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     AI ASSIST REWRITE MODAL
+     SPECIALIST INTERACTIVE SCHEDULER & CALENDAR MODAL
 ═══════════════════════════════════════════════════════════════ -->
+<div class="admin-form-modal" id="specialistSchedulerModal">
+  <div class="modal-box" style="max-width:720px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--b1);">
+      <div>
+        <h3 id="schedModalTitle" style="margin:0; border:none; padding:0; font-size:18px;">Specialist Schedule Manager</h3>
+        <span style="font-size:12px; color:var(--mu);" id="schedModalSubtitle">Set date-specific availability &amp; view booked appointments (Up to 2 weeks ahead)</span>
+      </div>
+      <button type="button" class="btn-action" onclick="closeSmallModal('specialistSchedulerModal')"><i class="ri-close-line"></i></button>
+    </div>
+
+    <!-- 2-Column Layout: Calendar Picker on Left, Time Slots & Appts on Right -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+      
+      <!-- Left Column: Calendar Date Picker -->
+      <div style="background:var(--bg3); border:1px solid var(--b2); border-radius:4px; padding:14px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <button type="button" class="btn-action" style="padding:2px 6px; font-size:11px;" onclick="changeSchedMonth(-1)"><i class="ri-arrow-left-s-line"></i></button>
+          <strong id="schedCalMonthTitle" style="color:var(--tx); font-size:13px; font-family:'Space Grotesk',sans-serif;">July 2026</strong>
+          <button type="button" class="btn-action" style="padding:2px 6px; font-size:11px;" onclick="changeSchedMonth(1)"><i class="ri-arrow-right-s-line"></i></button>
+        </div>
+        
+        <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; text-align:center; font-size:10px; font-weight:700; color:var(--mu); margin-bottom:6px;">
+          <div>SU</div><div>MO</div><div>TU</div><div>WE</div><div>TH</div><div>FR</div><div>SA</div>
+        </div>
+        
+        <div id="schedCalendarGrid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px;"></div>
+        
+        <div style="font-size:11px; color:var(--lime); margin-top:10px; text-align:center; font-weight:600;">
+          <i class="ri-calendar-check-line"></i> Pick date within 2-week window
+        </div>
+      </div>
+
+      <!-- Right Column: Date Time Slots & Appointments Panel -->
+      <div style="display:flex; flex-direction:column; justify-content:space-between; background:var(--bg3); border:1px solid var(--b2); border-radius:4px; padding:14px;">
+        <div>
+          <div style="font-weight:700; font-size:14px; color:var(--lime); margin-bottom:8px;" id="schedSelectedDateHeader">July 22, 2026</div>
+          
+          <!-- Existing Booked Appointments Section -->
+          <div style="margin-bottom:14px;">
+            <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Booked Appointments:</div>
+            <div id="schedBookingsList" style="display:flex; flex-direction:column; gap:6px;"></div>
+          </div>
+
+          <!-- Standard Available Time Slots Toggle Grid -->
+          <div>
+            <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Standard Time Slots (Click to Toggle):</div>
+            <div id="schedTimeSlotsGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:6px;"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; padding-top:10px; border-top:1px solid var(--b1); display:flex; justify-content:flex-end; gap:8px;">
+          <button type="button" class="btn-action" onclick="closeSmallModal('specialistSchedulerModal')">Cancel</button>
+          <button type="button" class="btn-action btn-lime" onclick="saveSpecialistSchedule()"><i class="ri-save-line"></i> Save Schedule</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 <div class="admin-form-modal" id="aiAssistModal">
   <div class="modal-box" style="max-width:680px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--b1);">
@@ -1559,8 +1597,9 @@ function renderAdmin() {
         </div>
         <div style="margin-bottom:14px;"><span class="badge ${badgeClass}">${m.status}</span></div>
         <div class="tm-actions">
-          <button class="btn-action" onclick="editTeamMember(${m.id})"><i class="ri-edit-line"></i> Edit</button>
-          <button class="btn-action btn-danger" onclick="deleteTeamMember(${m.id})"><i class="ri-delete-bin-line"></i></button>
+          <button class="btn-action btn-lime" onclick="openSpecialistSchedulerForMember('${m.id}')"><i class="ri-calendar-event-line"></i> Schedule</button>
+          <button class="btn-action" onclick="editTeamMember('${m.id}')"><i class="ri-edit-line"></i> Edit</button>
+          <button class="btn-action btn-danger" onclick="deleteTeamMember('${m.id}')"><i class="ri-delete-bin-line"></i></button>
         </div>
       </div>`;
     }).join('');
@@ -2195,126 +2234,204 @@ function deleteProject(id) {
   renderAdmin();
 }
 
-// ─── TEAM MEMBERS & CALENDAR ───
-var teamCalYear = 2026;
-var teamCalMonth = 6; // July (0-indexed)
-var selectedTeamCalDay = 22;
+// ─── SPECIALIST SCHEDULER & 2-WEEK CALENDAR PICKER ───
+var currentSchedMemberId = null;
+var schedCalYear = 2026;
+var schedCalMonth = 6; // July (0-indexed)
+var selectedSchedDateStr = '2026-07-22';
+var standardTimeSlots = ['09:00 AM EST', '10:30 AM EST', '01:00 PM EST', '02:30 PM EST', '04:00 PM EST'];
 
-function changeCalendarMonth(delta) {
-  teamCalMonth += delta;
-  if (teamCalMonth > 11) {
-    teamCalMonth = 0;
-    teamCalYear++;
-  } else if (teamCalMonth < 0) {
-    teamCalMonth = 11;
-    teamCalYear--;
+function openSpecialistSchedulerForMember(memberId) {
+  currentSchedMemberId = memberId;
+  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  const member = team.find(x => String(x.id) === String(memberId));
+  
+  if (member) {
+    document.getElementById('schedModalTitle').innerText = 'Schedule & Availability — ' + member.name;
+    document.getElementById('schedModalSubtitle').innerText = member.role + ' • 2-Week Window Calendar Picker';
   }
-  renderTeamCalendar();
+  
+  const today = new Date(2026, 6, 22);
+  schedCalYear = today.getFullYear();
+  schedCalMonth = today.getMonth();
+  selectedSchedDateStr = formatDateKey(today);
+
+  showSmallModal('specialistSchedulerModal');
+  renderSchedCalendar();
 }
 
-function renderTeamCalendar() {
+function formatDateKey(dateObj) {
+  const y = dateObj.getFullYear();
+  const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const d = String(dateObj.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function changeSchedMonth(delta) {
+  schedCalMonth += delta;
+  if (schedCalMonth > 11) { schedCalMonth = 0; schedCalYear++; }
+  else if (schedCalMonth < 0) { schedCalMonth = 11; schedCalYear--; }
+  renderSchedCalendar();
+}
+
+function renderSchedCalendar() {
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const titleEl = document.getElementById('calMonthTitle');
-  const gridEl = document.getElementById('teamCalendarGrid');
-  if (titleEl) titleEl.innerText = monthNames[teamCalMonth] + ' ' + teamCalYear;
+  const titleEl = document.getElementById('schedCalMonthTitle');
+  const gridEl = document.getElementById('schedCalendarGrid');
+  if (titleEl) titleEl.innerText = monthNames[schedCalMonth] + ' ' + schedCalYear;
   if (!gridEl) return;
 
-  const firstDay = new Date(teamCalYear, teamCalMonth, 1).getDay();
-  const daysInMonth = new Date(teamCalYear, teamCalMonth + 1, 0).getDate();
+  const today = new Date(2026, 6, 22); // Simulated anchor today
+  const twoWeeksMax = new Date(today);
+  twoWeeksMax.setDate(today.getDate() + 14);
 
-  const currentMemberName = (document.getElementById('tmName') ? document.getElementById('tmName').value : '').trim();
+  const firstDay = new Date(schedCalYear, schedCalMonth, 1).getDay();
+  const daysInMonth = new Date(schedCalYear, schedCalMonth + 1, 0).getDate();
+
+  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  const member = team.find(x => String(x.id) === String(currentSchedMemberId));
+  const memberName = member ? member.name : '';
   const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
 
   let cellsHtml = '';
 
   for (let i = 0; i < firstDay; i++) {
-    cellsHtml += '<div style="padding:10px; background:rgba(255,255,255,0.02); border-radius:3px;"></div>';
+    cellsHtml += '<div style="padding:8px; background:rgba(255,255,255,0.02); border-radius:3px;"></div>';
   }
 
   for (let d = 1; d <= daysInMonth; d++) {
-    const isSelected = d === selectedTeamCalDay ? 'border:2px solid var(--lime); background:rgba(215,223,35,0.15);' : 'border:1px solid var(--b1); background:var(--bg2);';
-    
-    const hasBookings = leads.filter(l => {
-      const matchName = !currentMemberName || (l.techLead || '').toLowerCase().includes(currentMemberName.toLowerCase());
-      const matchDate = (l.date || '').includes(monthNames[teamCalMonth].slice(0, 3)) && (l.date || '').includes(String(d));
+    const cellDate = new Date(schedCalYear, schedCalMonth, d);
+    const dateKey = formatDateKey(cellDate);
+
+    const isWithin2Weeks = cellDate >= new Date(today.getFullYear(), today.getMonth(), today.getDate()) && cellDate <= twoWeeksMax;
+    const isSelected = dateKey === selectedSchedDateStr;
+
+    const dateBookings = leads.filter(l => {
+      const matchName = !memberName || (l.techLead || '').toLowerCase().includes(memberName.toLowerCase());
+      const matchDate = (l.date || '').includes(monthNames[schedCalMonth].slice(0, 3)) && (l.date || '').includes(String(d));
       return matchName && matchDate;
     });
 
-    const badge = hasBookings.length ? `<span style="font-size:9px; background:var(--lime); color:#08120f; font-weight:800; padding:1px 4px; border-radius:2px; display:block; margin-top:2px;">${hasBookings.length} Appt</span>` : '';
+    let borderBg = 'border:1px solid var(--b1); background:var(--bg2); opacity:0.4; cursor:not-allowed;';
+    if (isWithin2Weeks) {
+      borderBg = isSelected ? 'border:2px solid var(--lime); background:rgba(215,223,35,0.18); cursor:pointer;' : 'border:1px solid var(--b2); background:var(--bg2); cursor:pointer;';
+    }
+
+    const badge = dateBookings.length ? `<span style="font-size:9px; background:var(--lime); color:#08120f; font-weight:800; padding:1px 3px; border-radius:2px; display:block; margin-top:2px;">${dateBookings.length} Appt</span>` : '';
 
     cellsHtml += `
-      <div onclick="selectCalendarDate(${d})" style="padding:6px 4px; font-size:12px; font-weight:700; text-align:center; cursor:pointer; border-radius:3px; ${isSelected} transition:all 0.2s;">
-        <span style="color:${isSelected ? 'var(--lime)' : 'var(--tx)'};">${d}</span>
+      <div ${isWithin2Weeks ? `onclick="selectSchedDate('${dateKey}')"` : ''} style="padding:6px 2px; font-size:11px; font-weight:700; text-align:center; border-radius:3px; ${borderBg} transition:all 0.2s;">
+        <span style="color:${isSelected ? 'var(--lime)' : (isWithin2Weeks ? 'var(--tx)' : 'var(--mu2)')};">${d}</span>
         ${badge}
       </div>
     `;
   }
 
   gridEl.innerHTML = cellsHtml;
-  updateCalendarDateDetails();
+  renderSchedSelectedDatePanel();
 }
 
-function selectCalendarDate(day) {
-  selectedTeamCalDay = day;
-  renderTeamCalendar();
+function selectSchedDate(dateKey) {
+  selectedSchedDateStr = dateKey;
+  renderSchedCalendar();
 }
 
-function updateCalendarDateDetails() {
-  const detailsEl = document.getElementById('calSelectedDateDetails');
-  if (!detailsEl) return;
+function renderSchedSelectedDatePanel() {
+  const headerEl = document.getElementById('schedSelectedDateHeader');
+  const bookingsEl = document.getElementById('schedBookingsList');
+  const slotsEl = document.getElementById('schedTimeSlotsGrid');
 
+  if (!headerEl || !slotsEl) return;
+
+  const dateParts = selectedSchedDateStr.split('-');
+  const dateObj = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const currentMemberName = (document.getElementById('tmName') ? document.getElementById('tmName').value : '').trim();
+  const formattedDate = `${monthNames[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
+
+  headerEl.innerText = formattedDate;
+
+  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  const member = team.find(x => String(x.id) === String(currentSchedMemberId));
+  const memberName = member ? member.name : '';
   const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
 
-  const monthStr = monthNames[teamCalMonth];
-  const dateStr = monthStr + ' ' + selectedTeamCalDay + ', ' + teamCalYear;
-
   const dateBookings = leads.filter(l => {
-    const matchName = !currentMemberName || (l.techLead || '').toLowerCase().includes(currentMemberName.toLowerCase());
-    const matchDate = (l.date || '').includes(monthStr.slice(0, 3)) && (l.date || '').includes(String(selectedTeamCalDay));
+    const matchName = !memberName || (l.techLead || '').toLowerCase().includes(memberName.toLowerCase());
+    const matchDate = (l.date || '').includes(monthNames[dateObj.getMonth()].slice(0, 3)) && (l.date || '').includes(String(dateObj.getDate()));
     return matchName && matchDate;
   });
 
-  let html = `<strong style="color:var(--lime);">${dateStr} Overview:</strong><br>`;
-  
-  if (dateBookings.length) {
-    html += `<div style="margin-top:6px; display:flex; flex-direction:column; gap:6px;">`;
-    dateBookings.forEach(b => {
-      html += `
-        <div style="background:var(--bg3); border:1px solid var(--b2); padding:8px 10px; border-radius:3px;">
-          <strong style="color:var(--tx);">${b.name}</strong> (${b.company || 'Client'}) &bull; <span style="color:var(--sage-light);">${b.service}</span>
-          <div style="font-size:11px; color:var(--lime); font-weight:700; margin-top:2px;">Slot: ${b.date} &bull; Status: ${b.status}</div>
+  if (bookingsEl) {
+    if (dateBookings.length) {
+      bookingsEl.innerHTML = dateBookings.map(b => `
+        <div style="background:var(--bg2); border:1px solid var(--b2); padding:6px 10px; border-radius:3px; font-size:12px;">
+          <div style="font-weight:700; color:var(--tx);">${b.name} (${b.company || 'Client'})</div>
+          <div style="font-size:11px; color:var(--lime); margin-top:2px;">🔴 Booked: ${b.date} &bull; ${b.status}</div>
         </div>
-      `;
-    });
-    html += `</div>`;
-  } else {
-    html += `<span style="font-size:11.5px; color:var(--mu); display:block; margin-top:4px;">No booked consultation appointments on this date. Specialist is available for bookings.</span>`;
+      `).join('');
+    } else {
+      bookingsEl.innerHTML = '<div style="font-size:11.5px; color:var(--mu); font-style:italic;">No client appointments booked on this date.</div>';
+    }
   }
 
-  detailsEl.innerHTML = html;
+  const memberDateSlots = (member && member.dateSlots && member.dateSlots[selectedSchedDateStr])
+    ? member.dateSlots[selectedSchedDateStr]
+    : standardTimeSlots;
+
+  slotsEl.innerHTML = standardTimeSlots.map(slot => {
+    const isBooked = dateBookings.some(b => (b.date || '').includes(slot.split(' ')[0]));
+    const isAvailable = memberDateSlots.includes(slot);
+
+    if (isBooked) {
+      return `
+        <button type="button" class="btn-action" style="font-size:11px; padding:6px; background:rgba(255,0,0,0.15); border-color:#ff4d4d; color:#ff4d4d; cursor:not-allowed; justify-content:center;" title="Booked Appointment">
+          <i class="ri-checkbox-circle-fill"></i> ${slot} (Booked)
+        </button>
+      `;
+    } else if (isAvailable) {
+      return `
+        <button type="button" class="btn-action btn-lime" style="font-size:11px; padding:6px; justify-content:center;" onclick="toggleSchedTimeSlot('${slot}')">
+          <i class="ri-check-line"></i> ${slot} (Available)
+        </button>
+      `;
+    } else {
+      return `
+        <button type="button" class="btn-action" style="font-size:11px; padding:6px; opacity:0.6; justify-content:center;" onclick="toggleSchedTimeSlot('${slot}')">
+          <i class="ri-add-line"></i> ${slot} (Off)
+        </button>
+      `;
+    }
+  }).join('');
 }
 
-function openTeamMemberModal(id) {
+function toggleSchedTimeSlot(slot) {
   const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
-  const m = id ? team.find(x => String(x.id) === String(id)) : null;
+  const idx = team.findIndex(x => String(x.id) === String(currentSchedMemberId));
+  if (idx === -1) return;
 
-  document.getElementById('tmId').value = m ? m.id : '';
-  document.getElementById('tmName').value = m ? m.name : '';
-  document.getElementById('tmRole').value = m ? m.role : '';
-  document.getElementById('tmEmail').value = m ? m.email : '';
-  document.getElementById('tmSpeciality').value = m ? m.speciality : '';
-  document.getElementById('tmSlots').value = m ? m.slots : '';
-  document.getElementById('tmStatus').value = m ? m.status : 'Available';
+  if (!team[idx].dateSlots) team[idx].dateSlots = {};
+  if (!team[idx].dateSlots[selectedSchedDateStr]) {
+    team[idx].dateSlots[selectedSchedDateStr] = [...standardTimeSlots];
+  }
 
-  document.querySelectorAll('input[name="tmDay"]').forEach(cb => {
-    cb.checked = m && m.days ? m.days.includes(cb.value) : false;
-  });
+  const slotList = team[idx].dateSlots[selectedSchedDateStr];
+  const sIdx = slotList.indexOf(slot);
 
-  document.getElementById('teamModalTitle').innerText = m ? 'Edit Team Member & Availability Calendar' : 'Add Team Member';
-  showSmallModal('teamMemberModal');
-  renderTeamCalendar();
+  if (sIdx !== -1) {
+    slotList.splice(sIdx, 1);
+  } else {
+    slotList.push(slot);
+  }
+
+  team[idx].slots = slotList.join(', ');
+  localStorage.setItem('intermaven_team', JSON.stringify(team));
+  renderSchedSelectedDatePanel();
+}
+
+function saveSpecialistSchedule() {
+  closeSmallModal('specialistSchedulerModal');
+  renderAdmin();
+  alert('✅ Specialist schedule & 2-week calendar availability saved!');
 }
 
 // ─── CMS TESTIMONIALS ───
