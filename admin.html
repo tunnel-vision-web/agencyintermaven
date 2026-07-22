@@ -1215,6 +1215,28 @@
 </div>
 
 <script>
+  let storedProjs = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  let updatedProjs = false;
+  storedProjs.forEach(p => {
+    if (p.images) {
+      p.images.forEach(img => {
+        const oldUrl = img.url;
+        img.url = img.url.replace('_feat.png', '_features.png')
+                         .replace('_workflow.png', '_detail.png')
+                         .replace('_mob.png', '_mobile.png')
+                         .replace('atlanta_tv_mount_pro_features.png', 'atlanta_tv_mount_features.png')
+                         .replace('atlanta_tv_mount_pro_detail.png', 'atlanta_tv_mount_detail.png')
+                         .replace('atlanta_tv_mount_pro_mobile.png', 'atlanta_tv_mount_mobile.png')
+                         .replace('assets/intermaven.png', 'assets/intermaven_hero.png')
+                         .replace('assets/tunestream.png', 'assets/tunestream_hero.png');
+        if (oldUrl !== img.url) updatedProjs = true;
+      });
+    }
+  });
+  if (updatedProjs) {
+    localStorage.setItem('intermaven_projects', JSON.stringify(storedProjs));
+  }
+
 // ─── DEFAULT DATA ───
 const defaultLeads = [
   { id: 'LEAD-8841', name: 'Alex Morgan', email: 'alex@ventureco.com', company: 'VentureCo Global', service: 'Brand Identity & Strategy', techLead: 'Elena Rostova', date: 'July 22 @ 10:00 AM EST', status: 'Confirmed Appointment', notes: 'Interested in complete wordmark and design system.' },
@@ -1246,9 +1268,9 @@ const defaultProjects = [
     images: [
       { url: 'assets/atlanta_tv_mount_thumb.png', caption: 'Focused Brand Identity & Graphical Logo Header' },
       { url: 'assets/atlanta_tv_mount_pro.png', caption: 'Full Platform Hero Showcase & Live Booking Interface' },
-      { url: 'assets/atlanta_tv_mount_pro_feat.png', caption: 'Instant Quote Calculator & Feature Package Options' },
-      { url: 'assets/atlanta_tv_mount_pro_workflow.png', caption: 'Step-by-Step Installation Booking Workflow' },
-      { url: 'assets/atlanta_tv_mount_pro_mob.png', caption: 'Mobile-Optimized Booking Flow' }
+      { url: 'assets/atlanta_tv_mount_features.png', caption: 'Instant Quote Calculator & Feature Package Options' },
+      { url: 'assets/atlanta_tv_mount_detail.png', caption: 'Step-by-Step Installation Booking Workflow' },
+      { url: 'assets/atlanta_tv_mount_mobile.png', caption: 'Mobile-Optimized Booking Flow' }
     ]
   },
   {
@@ -1267,9 +1289,9 @@ const defaultProjects = [
     images: [
       { url: 'assets/tunemavens_thumb.png', caption: 'TuneMavens Brandmark & Graphical Thumbnail' },
       { url: 'assets/tunemavens.png', caption: 'Platform Landing Page & Catalog Search' },
-      { url: 'assets/tunemavens_feat.png', caption: 'Sync Licensing Workflows & Licensing Desk' },
-      { url: 'assets/tunemavens_workflow.png', caption: 'Rights Holder Dashboard' },
-      { url: 'assets/tunemavens_mob.png', caption: 'Mobile Catalog Browser' }
+      { url: 'assets/tunemavens_features.png', caption: 'Sync Licensing Workflows & Licensing Desk' },
+      { url: 'assets/tunemavens_detail.png', caption: 'Rights Holder Dashboard' },
+      { url: 'assets/tunemavens_mobile.png', caption: 'Mobile Catalog Browser' }
     ]
   },
   {
@@ -1287,10 +1309,10 @@ const defaultProjects = [
     fullDesc: '<h3>Executive Summary</h3><p>The core intelligence engine powering Intermaven Agency operations, providing client portals, CRM double opt-in validation, and AI pipeline node management.</p>',
     images: [
       { url: 'assets/intermaven_thumb.png', caption: 'Intermaven Brand & Network Thumbnail' },
-      { url: 'assets/intermaven.png', caption: 'Main Platform Hub' },
-      { url: 'assets/intermaven_feat.png', caption: 'Automated CRM & Node Manager' },
-      { url: 'assets/intermaven_workflow.png', caption: 'Pipeline Telemetry' },
-      { url: 'assets/intermaven_mob.png', caption: 'Mobile Ecosystem Dashboard' }
+      { url: 'assets/intermaven_hero.png', caption: 'Main Platform Hub' },
+      { url: 'assets/intermaven_features.png', caption: 'Automated CRM & Node Manager' },
+      { url: 'assets/intermaven_detail.png', caption: 'Pipeline Telemetry' },
+      { url: 'assets/intermaven_mobile.png', caption: 'Mobile Ecosystem Dashboard' }
     ]
   },
   {
@@ -1309,9 +1331,9 @@ const defaultProjects = [
     images: [
       { url: 'assets/syncmavens_thumb.png', caption: 'SyncMavens Focused Logo Banner' },
       { url: 'assets/sync_mavens.png', caption: 'Marketplace Interface' },
-      { url: 'assets/syncmavens_feat.png', caption: 'Curated Track Playlists' },
-      { url: 'assets/syncmavens_workflow.png', caption: 'Licensing Checkout Workflow' },
-      { url: 'assets/syncmavens_mob.png', caption: 'Mobile Player' }
+      { url: 'assets/syncmavens_features.png', caption: 'Curated Track Playlists' },
+      { url: 'assets/syncmavens_detail.png', caption: 'Licensing Checkout Workflow' },
+      { url: 'assets/syncmavens_mobile.png', caption: 'Mobile Player' }
     ]
   },
   {
@@ -1329,10 +1351,10 @@ const defaultProjects = [
     fullDesc: '<h3>Executive Summary</h3><p>High-fidelity audio streaming node engineered for low-latency playback and automated metadata tagging.</p>',
     images: [
       { url: 'assets/tunestream_thumb.png', caption: 'TuneStream Graphical Header' },
-      { url: 'assets/tunestream.png', caption: 'Streaming Engine Portal' },
-      { url: 'assets/tunestream_feat.png', caption: 'Lossless Streaming Quality Controls' },
-      { url: 'assets/tunestream_workflow.png', caption: 'Distribution Telemetry' },
-      { url: 'assets/tunestream_mob.png', caption: 'Mobile Streamer' }
+      { url: 'assets/tunestream_hero.png', caption: 'Streaming Engine Portal' },
+      { url: 'assets/tunestream_features.png', caption: 'Lossless Streaming Quality Controls' },
+      { url: 'assets/tunestream_detail.png', caption: 'Distribution Telemetry' },
+      { url: 'assets/tunestream_mobile.png', caption: 'Mobile Streamer' }
     ]
   },
   {

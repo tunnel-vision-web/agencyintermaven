@@ -245,6 +245,28 @@
 </footer>
 
 <script>
+  let storedProjs = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  let updatedProjs = false;
+  storedProjs.forEach(p => {
+    if (p.images) {
+      p.images.forEach(img => {
+        const oldUrl = img.url;
+        img.url = img.url.replace('_feat.png', '_features.png')
+                         .replace('_workflow.png', '_detail.png')
+                         .replace('_mob.png', '_mobile.png')
+                         .replace('atlanta_tv_mount_pro_features.png', 'atlanta_tv_mount_features.png')
+                         .replace('atlanta_tv_mount_pro_detail.png', 'atlanta_tv_mount_detail.png')
+                         .replace('atlanta_tv_mount_pro_mobile.png', 'atlanta_tv_mount_mobile.png')
+                         .replace('assets/intermaven.png', 'assets/intermaven_hero.png')
+                         .replace('assets/tunestream.png', 'assets/tunestream_hero.png');
+        if (oldUrl !== img.url) updatedProjs = true;
+      });
+    }
+  });
+  if (updatedProjs) {
+    localStorage.setItem('intermaven_projects', JSON.stringify(storedProjs));
+  }
+
 const defaultFullProjects = [
   { id: 1, title: 'TuneMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/tunemavens_thumb.png', desc: 'Sync licensing and catalogue acquisition platform built for music rights holders and sync supervisors.' },
   { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/intermaven_thumb.png', desc: 'The AI-powered SaaS ecosystem behind every project — credits, accounts, and automation, unified.' },
