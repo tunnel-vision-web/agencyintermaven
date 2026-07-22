@@ -2469,46 +2469,60 @@ function deleteTestimonial(id) {
 // ─── TEAM MEMBERS ───
 function openTeamMemberModal(id) {
   const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
-  const m = id ? team.find(x => x.id === id) : null;
+  const m = (id !== undefined && id !== null && id !== '') ? team.find(x => String(x.id) === String(id)) : null;
 
-  document.getElementById('tmId').value = m ? m.id : '';
-  document.getElementById('tmName').value = m ? m.name : '';
-  document.getElementById('tmRole').value = m ? m.role : '';
-  document.getElementById('tmEmail').value = m ? m.email : '';
-  document.getElementById('tmSpeciality').value = m ? m.speciality : '';
-  document.getElementById('tmSlots').value = m ? m.slots : '';
-  document.getElementById('tmStatus').value = m ? m.status : 'Available';
+  const elId = document.getElementById('tmId');
+  const elName = document.getElementById('tmName');
+  const elRole = document.getElementById('tmRole');
+  const elEmail = document.getElementById('tmEmail');
+  const elSpec = document.getElementById('tmSpeciality');
+  const elStatus = document.getElementById('tmStatus');
 
-  document.querySelectorAll('input[name="tmDay"]').forEach(cb => {
-    cb.checked = m ? (m.days || []).includes(cb.value) : false;
-  });
+  if (elId) elId.value = m ? m.id : '';
+  if (elName) elName.value = m ? m.name : '';
+  if (elRole) elRole.value = m ? m.role : '';
+  if (elEmail) elEmail.value = m ? m.email : '';
+  if (elSpec) elSpec.value = m ? m.speciality : '';
+  if (elStatus) elStatus.value = m ? m.status : 'Available';
 
-  document.getElementById('teamModalTitle').innerText = m ? 'Edit Team Member' : 'Add Team Member';
-  document.getElementById('teamMemberModal').classList.add('open');
+  const daysStr = m && m.days && m.days.length ? m.days.join(', ') : 'Mon, Wed, Fri';
+  const slotsStr = m && m.slots ? m.slots : '09:30 AM EST, 01:30 PM EST';
+  const summaryEl = document.getElementById('tmScheduleSummary');
+  if (summaryEl) {
+    summaryEl.innerText = `${daysStr} (${slotsStr})`;
+  }
+
+  const titleEl = document.getElementById('teamModalTitle');
+  if (titleEl) titleEl.innerText = m ? 'Edit Team Member Profile' : 'Add Team Member';
+
+  showSmallModal('teamMemberModal');
 }
 
 function editTeamMember(id) { openTeamMemberModal(id); }
 
 function saveTeamMember(e) {
   e.preventDefault();
-  const id = document.getElementById('tmId').value;
+  const idEl = document.getElementById('tmId');
+  const id = idEl ? idEl.value : '';
   const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
-  const days = [...document.querySelectorAll('input[name="tmDay"]:checked')].map(cb => cb.value);
+  const existing = id ? team.find(m => String(m.id) === String(id)) : null;
 
   const data = {
-    id: id ? parseInt(id) : Date.now(),
-    name: document.getElementById('tmName').value,
-    role: document.getElementById('tmRole').value,
-    email: document.getElementById('tmEmail').value,
-    speciality: document.getElementById('tmSpeciality').value,
-    days: days,
-    slots: document.getElementById('tmSlots').value,
-    status: document.getElementById('tmStatus').value
+    id: id ? (isNaN(parseInt(id)) ? id : parseInt(id)) : Date.now(),
+    name: document.getElementById('tmName') ? document.getElementById('tmName').value : '',
+    role: document.getElementById('tmRole') ? document.getElementById('tmRole').value : '',
+    email: document.getElementById('tmEmail') ? document.getElementById('tmEmail').value : '',
+    speciality: document.getElementById('tmSpeciality') ? document.getElementById('tmSpeciality').value : '',
+    days: existing && existing.days ? existing.days : ['Mon', 'Wed', 'Fri'],
+    slots: existing && existing.slots ? existing.slots : '09:30 AM EST, 01:30 PM EST',
+    dateSlots: existing && existing.dateSlots ? existing.dateSlots : {},
+    status: document.getElementById('tmStatus') ? document.getElementById('tmStatus').value : 'Available'
   };
 
   if (id) {
-    const idx = team.findIndex(m => m.id === parseInt(id));
+    const idx = team.findIndex(m => String(m.id) === String(id));
     if (idx !== -1) team[idx] = data;
+    else team.push(data);
   } else {
     team.push(data);
   }
