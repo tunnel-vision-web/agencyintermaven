@@ -30,7 +30,11 @@
       --b2: rgba(111,162,158,0.35);
       --r: 3px;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; scrollbar-width: thin; scrollbar-color: var(--sage) var(--bg2); }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: var(--bg3); border: 1px solid var(--b2); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--sage); }
     body { background: var(--bg); color: var(--tx); font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; }
 
     /* ─── Collapsible Sidebar ─── */
@@ -638,6 +642,7 @@
 
       <div id="mediaGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:18px;"></div>
       <div id="mediaEmptyMsg" style="display:none; padding:48px; text-align:center; color:var(--mu); background:var(--bg2); border:1px solid var(--b1); border-radius:4px;"><i class="ri-landscape-line" style="font-size:40px; display:block; margin-bottom:12px; color:var(--mu);"></i>No media assets found matching your filter.</div>
+      <div id="mediaPagination" style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding:16px 20px; background:var(--bg2); border:1px solid var(--b1); border-radius:4px;"></div>
     </div>
 </main>
 
@@ -923,6 +928,37 @@
           <option value="On Leave">On Leave</option>
         </select>
       </div>
+
+      <!-- Specialist Interactive Appointment & Availability Calendar -->
+      <div class="form-group" style="margin-top:16px;">
+        <label style="display:flex; justify-content:space-between; align-items:center;">
+          <span>Specialist Interactive Appointment Calendar</span>
+          <span style="font-size:11px; color:var(--lime); text-transform:none;">Click date to view / manage bookings</span>
+        </label>
+        
+        <div style="background:var(--bg3); border:1px solid var(--b2); border-radius:4px; padding:14px;">
+          <!-- Calendar Month Navigation Bar -->
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--b1);">
+            <button type="button" class="btn-action" style="padding:3px 8px; font-size:12px;" onclick="changeCalendarMonth(-1)"><i class="ri-arrow-left-s-line"></i> Prev Month</button>
+            <strong id="calMonthTitle" style="color:var(--tx); font-size:14px; font-family:'Space Grotesk',sans-serif;">July 2026</strong>
+            <button type="button" class="btn-action" style="padding:3px 8px; font-size:12px;" onclick="changeCalendarMonth(1)">Next Month <i class="ri-arrow-right-s-line"></i></button>
+          </div>
+          
+          <!-- Calendar Days Header -->
+          <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; text-align:center; font-size:11px; font-weight:700; color:var(--mu); margin-bottom:6px;">
+            <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
+          </div>
+          
+          <!-- Calendar Days Grid -->
+          <div id="teamCalendarGrid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px;"></div>
+          
+          <!-- Selected Date Details Panel -->
+          <div id="calSelectedDateDetails" style="margin-top:12px; padding-top:10px; border-top:1px solid var(--b1); font-size:12px; color:var(--mu);">
+            <span style="color:var(--lime); font-weight:700;">Select any calendar day</span> to view scheduled consultation appointments or adjust availability slots.
+          </div>
+        </div>
+      </div>
+
       <div class="modal-footer">
         <button type="button" class="btn-action" onclick="closeSmallModal('teamMemberModal')">Cancel</button>
         <button type="submit" class="btn-action btn-lime">Save Team Member</button>
@@ -1383,9 +1419,12 @@ const defaultMedia = [
   { id: 1, name: 'Hero Slide 1 — Studio Overview', url: 'assets/hero_slide1.png', type: 'PNG Image', size: '1.2 MB', date: 'July 20, 2026' },
   { id: 2, name: 'Hero Slide 2 — AI Workflows', url: 'assets/hero_slide2.png', type: 'PNG Image', size: '1.4 MB', date: 'July 21, 2026' },
   { id: 3, name: 'Hero Slide 3 — Platform Tools', url: 'assets/hero_slide3.png', type: 'PNG Image', size: '1.1 MB', date: 'July 22, 2026' },
-  { id: 4, name: 'Intermaven Wordmark Logo', url: 'assets/logo/header/logo.png', type: 'PNG Image', size: '340 KB', date: 'July 15, 2026' },
-  { id: 5, name: 'Mwanga Law Case Study Cover', url: 'assets/mwanga_law.png', type: 'PNG Image', size: '890 KB', date: 'July 18, 2026' },
-  { id: 6, name: 'Afya Plus Patient Portal Showcase', url: 'assets/afya_plus.png', type: 'PNG Image', size: '940 KB', date: 'July 19, 2026' }
+  { id: 4, name: 'Intermaven Header Logo', url: 'assets/logo/header/logo.png', type: 'PNG Image', size: '340 KB', date: 'July 15, 2026' },
+  { id: 5, name: 'Intermaven Footer Logo', url: 'assets/logo/footer/logo.png', type: 'PNG Image', size: '320 KB', date: 'July 15, 2026' },
+  { id: 6, name: 'Mwanga Law Case Study Cover', url: 'assets/mwanga_law.png', type: 'PNG Image', size: '890 KB', date: 'July 18, 2026' },
+  { id: 7, name: 'Afya Plus Patient Portal Showcase', url: 'assets/afya_plus.png', type: 'PNG Image', size: '940 KB', date: 'July 19, 2026' },
+  { id: 8, name: 'Tunemavens Audio App Platform', url: 'assets/tunemavens.png', type: 'PNG Image', size: '1.0 MB', date: 'July 17, 2026' },
+  { id: 9, name: 'Agency Favicon Icon', url: 'favicon.ico', type: 'ICO Image', size: '45 KB', date: 'July 10, 2026' }
 ];
 
 // ─── INIT ───
@@ -1882,6 +1921,7 @@ function closeSmartCrmModal() {
     el.classList.remove('open');
     el.style.display = 'none';
   }
+  switchPane('dashboard');
 }
 
 function switchCrmTab(tab) {
@@ -2153,6 +2193,128 @@ function deleteProject(id) {
   p = p.filter(x => String(x.id) !== String(id));
   localStorage.setItem('intermaven_projects', JSON.stringify(p));
   renderAdmin();
+}
+
+// ─── TEAM MEMBERS & CALENDAR ───
+var teamCalYear = 2026;
+var teamCalMonth = 6; // July (0-indexed)
+var selectedTeamCalDay = 22;
+
+function changeCalendarMonth(delta) {
+  teamCalMonth += delta;
+  if (teamCalMonth > 11) {
+    teamCalMonth = 0;
+    teamCalYear++;
+  } else if (teamCalMonth < 0) {
+    teamCalMonth = 11;
+    teamCalYear--;
+  }
+  renderTeamCalendar();
+}
+
+function renderTeamCalendar() {
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const titleEl = document.getElementById('calMonthTitle');
+  const gridEl = document.getElementById('teamCalendarGrid');
+  if (titleEl) titleEl.innerText = monthNames[teamCalMonth] + ' ' + teamCalYear;
+  if (!gridEl) return;
+
+  const firstDay = new Date(teamCalYear, teamCalMonth, 1).getDay();
+  const daysInMonth = new Date(teamCalYear, teamCalMonth + 1, 0).getDate();
+
+  const currentMemberName = (document.getElementById('tmName') ? document.getElementById('tmName').value : '').trim();
+  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+
+  let cellsHtml = '';
+
+  for (let i = 0; i < firstDay; i++) {
+    cellsHtml += '<div style="padding:10px; background:rgba(255,255,255,0.02); border-radius:3px;"></div>';
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const isSelected = d === selectedTeamCalDay ? 'border:2px solid var(--lime); background:rgba(215,223,35,0.15);' : 'border:1px solid var(--b1); background:var(--bg2);';
+    
+    const hasBookings = leads.filter(l => {
+      const matchName = !currentMemberName || (l.techLead || '').toLowerCase().includes(currentMemberName.toLowerCase());
+      const matchDate = (l.date || '').includes(monthNames[teamCalMonth].slice(0, 3)) && (l.date || '').includes(String(d));
+      return matchName && matchDate;
+    });
+
+    const badge = hasBookings.length ? `<span style="font-size:9px; background:var(--lime); color:#08120f; font-weight:800; padding:1px 4px; border-radius:2px; display:block; margin-top:2px;">${hasBookings.length} Appt</span>` : '';
+
+    cellsHtml += `
+      <div onclick="selectCalendarDate(${d})" style="padding:6px 4px; font-size:12px; font-weight:700; text-align:center; cursor:pointer; border-radius:3px; ${isSelected} transition:all 0.2s;">
+        <span style="color:${isSelected ? 'var(--lime)' : 'var(--tx)'};">${d}</span>
+        ${badge}
+      </div>
+    `;
+  }
+
+  gridEl.innerHTML = cellsHtml;
+  updateCalendarDateDetails();
+}
+
+function selectCalendarDate(day) {
+  selectedTeamCalDay = day;
+  renderTeamCalendar();
+}
+
+function updateCalendarDateDetails() {
+  const detailsEl = document.getElementById('calSelectedDateDetails');
+  if (!detailsEl) return;
+
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const currentMemberName = (document.getElementById('tmName') ? document.getElementById('tmName').value : '').trim();
+  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+
+  const monthStr = monthNames[teamCalMonth];
+  const dateStr = monthStr + ' ' + selectedTeamCalDay + ', ' + teamCalYear;
+
+  const dateBookings = leads.filter(l => {
+    const matchName = !currentMemberName || (l.techLead || '').toLowerCase().includes(currentMemberName.toLowerCase());
+    const matchDate = (l.date || '').includes(monthStr.slice(0, 3)) && (l.date || '').includes(String(selectedTeamCalDay));
+    return matchName && matchDate;
+  });
+
+  let html = `<strong style="color:var(--lime);">${dateStr} Overview:</strong><br>`;
+  
+  if (dateBookings.length) {
+    html += `<div style="margin-top:6px; display:flex; flex-direction:column; gap:6px;">`;
+    dateBookings.forEach(b => {
+      html += `
+        <div style="background:var(--bg3); border:1px solid var(--b2); padding:8px 10px; border-radius:3px;">
+          <strong style="color:var(--tx);">${b.name}</strong> (${b.company || 'Client'}) &bull; <span style="color:var(--sage-light);">${b.service}</span>
+          <div style="font-size:11px; color:var(--lime); font-weight:700; margin-top:2px;">Slot: ${b.date} &bull; Status: ${b.status}</div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  } else {
+    html += `<span style="font-size:11.5px; color:var(--mu); display:block; margin-top:4px;">No booked consultation appointments on this date. Specialist is available for bookings.</span>`;
+  }
+
+  detailsEl.innerHTML = html;
+}
+
+function openTeamMemberModal(id) {
+  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  const m = id ? team.find(x => String(x.id) === String(id)) : null;
+
+  document.getElementById('tmId').value = m ? m.id : '';
+  document.getElementById('tmName').value = m ? m.name : '';
+  document.getElementById('tmRole').value = m ? m.role : '';
+  document.getElementById('tmEmail').value = m ? m.email : '';
+  document.getElementById('tmSpeciality').value = m ? m.speciality : '';
+  document.getElementById('tmSlots').value = m ? m.slots : '';
+  document.getElementById('tmStatus').value = m ? m.status : 'Available';
+
+  document.querySelectorAll('input[name="tmDay"]').forEach(cb => {
+    cb.checked = m && m.days ? m.days.includes(cb.value) : false;
+  });
+
+  document.getElementById('teamModalTitle').innerText = m ? 'Edit Team Member & Availability Calendar' : 'Add Team Member';
+  showSmallModal('teamMemberModal');
+  renderTeamCalendar();
 }
 
 // ─── CMS TESTIMONIALS ───
@@ -2597,10 +2759,45 @@ function saveFaq(e) { if (e && e.preventDefault) e.preventDefault(); faqSave(); 
 function deleteFaq(id) { faqDel(id); }
 
 // ─── MEDIA LIBRARY HANDLERS ───
+let currentMediaPage = 1;
+const mediaItemsPerPage = 8; // 2 rows x 4 cols
+
+function changeMediaPage(delta) {
+  currentMediaPage += delta;
+  renderMediaLibrary();
+}
+
+function replaceMediaAsset(id) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = function() {
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        let media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+        const idx = media.findIndex(m => String(m.id) === String(id));
+        if (idx !== -1) {
+          media[idx].url = e.target.result;
+          media[idx].size = (file.size / 1024).toFixed(1) + ' KB';
+          media[idx].date = new Date().toLocaleDateString();
+          localStorage.setItem('intermaven_media_library', JSON.stringify(media));
+          renderMediaLibrary();
+          alert('✅ Media asset replaced successfully!');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  input.click();
+}
+
 function renderMediaLibrary() {
   const media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
   const container = document.getElementById('mediaGrid');
   const emptyMsg = document.getElementById('mediaEmptyMsg');
+  const paginationEl = document.getElementById('mediaPagination');
   const searchInput = document.getElementById('mediaSearchInput');
   const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
@@ -2611,12 +2808,19 @@ function renderMediaLibrary() {
   if (!filtered.length) {
     container.innerHTML = '';
     if (emptyMsg) emptyMsg.style.display = 'block';
+    if (paginationEl) paginationEl.style.display = 'none';
     return;
   }
 
   if (emptyMsg) emptyMsg.style.display = 'none';
 
-  container.innerHTML = filtered.map(m => `
+  const totalPages = Math.ceil(filtered.length / mediaItemsPerPage) || 1;
+  if (currentMediaPage > totalPages) currentMediaPage = totalPages;
+  if (currentMediaPage < 1) currentMediaPage = 1;
+
+  const paginated = filtered.slice((currentMediaPage - 1) * mediaItemsPerPage, currentMediaPage * mediaItemsPerPage);
+
+  container.innerHTML = paginated.map(m => `
     <div class="media-card" style="background:var(--bg2); border:1px solid var(--b2); border-radius:4px; overflow:hidden; display:flex; flex-direction:column; transition:transform 0.2s, border-color 0.2s;">
       <div style="height:140px; background:var(--bg3); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;">
         <img src="${m.url}" alt="${m.name}" style="width:100%; height:100%; object-fit:cover;">
@@ -2626,13 +2830,29 @@ function renderMediaLibrary() {
           <div style="font-weight:700; font-size:13px; color:var(--tx); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${m.name}">${m.name}</div>
           <div style="font-size:11px; color:var(--mu); margin-top:4px;">${m.type || 'Image'} &bull; ${m.size || 'Asset'}</div>
         </div>
-        <div style="display:flex; gap:6px; margin-top:12px;">
-          <button type="button" class="btn-action" style="flex:1; font-size:11px; padding:4px 6px; justify-content:center;" onclick="copyMediaUrl('${m.url}')"><i class="ri-file-copy-line"></i> Copy Path</button>
-          <button type="button" class="btn-action btn-danger" style="padding:4px 8px;" onclick="deleteMediaAsset(${m.id})" title="Delete Asset"><i class="ri-delete-bin-line"></i></button>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:12px;">
+          <div style="display:flex; gap:6px;">
+            <button type="button" class="btn-action" style="flex:1; font-size:11px; padding:4px 6px; justify-content:center;" onclick="copyMediaUrl('${m.url}')"><i class="ri-file-copy-line"></i> Copy Path</button>
+            <button type="button" class="btn-action btn-lime" style="font-size:11px; padding:4px 6px; justify-content:center;" onclick="replaceMediaAsset('${m.id}')"><i class="ri-refresh-line"></i> Replace</button>
+          </div>
+          <button type="button" class="btn-action btn-danger" style="padding:4px 8px; font-size:11px; justify-content:center;" onclick="deleteMediaAsset('${m.id}')" title="Delete Asset"><i class="ri-delete-bin-line"></i> Delete Asset</button>
         </div>
       </div>
     </div>
   `).join('');
+
+  if (paginationEl) {
+    if (filtered.length > mediaItemsPerPage) {
+      paginationEl.style.display = 'flex';
+      paginationEl.innerHTML = `
+        <button type="button" class="btn-action" ${currentMediaPage === 1 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''} onclick="changeMediaPage(-1)"><i class="ri-arrow-left-s-line"></i> Previous</button>
+        <span style="font-size:13px; color:var(--mu); font-weight:600;">Page ${currentMediaPage} of ${totalPages} (${filtered.length} total assets)</span>
+        <button type="button" class="btn-action" ${currentMediaPage === totalPages ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''} onclick="changeMediaPage(1)">Next <i class="ri-arrow-right-s-line"></i></button>
+      `;
+    } else {
+      paginationEl.style.display = 'none';
+    }
+  }
 }
 
 function copyMediaUrl(url) {
