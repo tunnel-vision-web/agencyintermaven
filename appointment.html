@@ -45,9 +45,25 @@
     .nav-logo img { width: 190px; height: auto; transition: transform .3s ease; transform-origin: left center; }
     body.scrolled .nav-logo img { transform: scale(0.86); }
     .nav-links { display: flex; align-items: center; gap: 40px; }
-    .nav-links a { font-size: 14.5px; font-weight: 500; color: #ffffff; transition: color .2s ease; padding: 4px 2px; }
+    .nav-links a { font-size: 14.5px; font-weight: 500; color: #ffffff; transition: color .2s ease; padding: 4px 2px; position: relative; }
     .nav-links a:hover, .nav-links a.active { color: var(--sage-light); }
-    .nav-signin-btn { background: var(--sage); color: #070f0e; border: 1px solid var(--sage); padding: 8px 20px; font-size: 12.5px; font-weight: 700; border-radius: 3px; cursor: pointer; }
+    .nav-links a::after {
+      content:''; position:absolute; left:0; bottom:-4px; width:0; height:1.5px;
+      background: var(--sage-light); transition: width .2s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-actions { display: flex; align-items: center; gap: 20px; }
+    .nav-auth-group { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .nav-signin-btn {
+      background: var(--sage); color: #070f0e; border: 1px solid var(--sage);
+      padding: 8px 20px; font-size: 12.5px; font-weight: 700; border-radius: 3px;
+      transition: all .2s ease; cursor: pointer; text-decoration: none; display: inline-block;
+    }
+    .nav-signin-btn:hover { background: var(--sage-light); border-color: var(--sage-light); color: #070f0e; box-shadow: 0 4px 16px rgba(111, 162, 158, 0.3); }
+    .nav-signup-subtext { font-size: 11px; font-weight: 500; color: var(--mu2); }
+    .nav-signup-subtext a { color: var(--mu); text-decoration: underline; text-underline-offset: 2px; transition: color .2s ease; }
+    .nav-signup-subtext a:hover { color: var(--lime); }
+    .hamburger { display: none; background: none; border: none; color: var(--tx); font-size: 24px; cursor: pointer; }
     .btn-primary { background: var(--lime); color: #08120f; padding: 11px 24px; border-radius: 3px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; border:none; cursor:pointer; }
     .btn-secondary { background: transparent; color: var(--tx); border: 1px solid var(--b2); padding: 10px 20px; border-radius: 3px; font-size: 13px; font-weight: 600; cursor: pointer; }
 
@@ -148,9 +164,15 @@
       <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
     </div>
-    <div>
+    <div class="nav-actions">
+      <div class="nav-auth-group">
+        <a href="admin.html" class="nav-signin-btn">Sign In</a>
+        <div class="nav-signup-subtext">
+          <a href="admin.html">Sign Up</a>
+        </div>
+      </div>
       <a href="appointment.html" class="btn-primary"><i class="ri-calendar-check-line"></i> Book Appointment</a>
-      <a href="admin.html" class="nav-signin-btn" style="margin-left:10px;">Sign In</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><i class="ri-menu-line"></i></button>
     </div>
   </div>
 </nav>

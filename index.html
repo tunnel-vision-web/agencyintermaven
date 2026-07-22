@@ -202,21 +202,11 @@ body.scrolled .nav-logo img { transform: scale(0.86); }
 .nav-actions { display: flex; align-items: center; gap: 20px; }
 .nav-auth-group { display: flex; flex-direction: column; align-items: center; gap: 3px; }
 .nav-signin-btn {
-  background: var(--sage);
-  color: #070f0e;
-  border: 1px solid var(--sage);
-  padding: 8px 20px;
-  font-size: 12.5px;
-  font-weight: 700;
-  border-radius: 3px;
-  transition: all .2s ease;
+  background: var(--sage); color: #070f0e; border: 1px solid var(--sage);
+  padding: 8px 20px; font-size: 12.5px; font-weight: 700; border-radius: 3px;
+  transition: all .2s ease; cursor: pointer; text-decoration: none; display: inline-block;
 }
-.nav-signin-btn:hover {
-  background: var(--sage-light);
-  border-color: var(--sage-light);
-  color: #070f0e;
-  box-shadow: 0 4px 16px rgba(111, 162, 158, 0.3);
-}
+.nav-signin-btn:hover { background: var(--sage-light); border-color: var(--sage-light); color: #070f0e; box-shadow: 0 4px 16px rgba(111, 162, 158, 0.3); }
 .nav-signup-subtext { font-size: 11px; font-weight: 500; color: var(--mu2); }
 .nav-signup-subtext a { color: var(--mu); text-decoration: underline; text-underline-offset: 2px; transition: color .2s ease; }
 .nav-signup-subtext a:hover { color: var(--lime); }
@@ -882,9 +872,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
     <div class="nav-actions">
       <div class="nav-auth-group">
-        <button type="button" class="btn-secondary nav-signin-btn" onclick="openAuthModal('signin')">Sign In</button>
+        <a href="admin.html" class="nav-signin-btn">Sign In</a>
         <div class="nav-signup-subtext">
-          <a href="#" onclick="openAuthModal('signup'); return false;">Sign Up</a>
+          <a href="admin.html">Sign Up</a>
         </div>
       </div>
       <a href="appointment.html" class="btn-primary"><i class="ri-calendar-check-line"></i> Book Appointment</a>
