@@ -1105,21 +1105,35 @@
      EXTRA-WIDE SMART CRM MODAL (Authenticated Intermaven CRM Portal)
 ═══════════════════════════════════════════════════════════════ -->
 <div class="admin-form-modal" id="smartCrmModal">
-  <div class="modal-box wide-modal" style="width:96%; max-width:1380px; max-height:92vh; display:flex; flex-direction:column; padding:0; overflow:hidden; background:var(--bg1); border:1px solid var(--b2); border-radius:12px;">
+  <div class="modal-box wide-modal" style="width:96%; max-width:1400px; height:92vh; display:flex; flex-direction:column; padding:0; overflow:hidden; background:var(--bg1); border:1px solid var(--b2); border-radius:12px;">
     <!-- Modal Header -->
-    <div style="background:var(--bg3); border-bottom:1px solid var(--b2); padding:16px 24px; height:68px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
+    <div style="background:var(--bg3); border-bottom:1px solid var(--b2); padding:14px 24px; height:64px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
       <div style="display:flex; align-items:center; gap:14px;">
-        <div style="width:42px; height:42px; background:rgba(215,223,35,0.15); border:1px solid var(--lime); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--lime); font-size:22px;">
+        <div style="width:40px; height:40px; background:rgba(215,223,35,0.15); border:1px solid var(--lime); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--lime); font-size:22px;">
           <i class="ri-contacts-book-2-fill"></i>
         </div>
         <div>
-          <h3 style="font-size:17px; font-weight:800; color:var(--tx); margin:0; display:flex; align-items:center; gap:10px;">
-            Intermaven Smart CRM Suite &amp; Client Intelligence
-            <span class="badge badge-success" style="font-size:10px; padding:3px 8px;"><i class="ri-shield-check-line"></i> Master Agency Portal</span>
+          <h3 style="font-size:16px; font-weight:800; color:var(--tx); margin:0; display:flex; align-items:center; gap:10px;">
+            Intermaven Smart CRM Suite (intermaven.io)
+            <span class="badge badge-success" style="font-size:10px; padding:3px 8px;"><i class="ri-shield-check-line"></i> Ecosystem SSO Active</span>
+            <span class="badge badge-success" style="font-size:10px; background:rgba(215,223,35,0.18); color:var(--lime); border:1px solid var(--lime); padding:3px 8px;"><i class="ri-flashlight-fill"></i> Master Tier</span>
           </h3>
-          <span style="font-size:12px; color:var(--mu);">Real-Time Agency Lead Tracking, Inquiries &amp; Consultation CRM</span>
+          <span style="font-size:11.5px; color:var(--mu);">Live Ecosystem Portal: <code style="color:var(--lime);">https://intermaven.io/crm</code> &bull; Unified Agency CRM</span>
         </div>
       </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button type="button" class="btn-action btn-lime" onclick="refreshCrmIframe()" style="font-size:12px; font-weight:700;"><i class="ri-refresh-line"></i> Sync &amp; Reload CRM</button>
+        <a id="crmExternalLink" href="https://intermaven.io/crm" target="_blank" class="btn-action" style="font-size:12px;"><i class="ri-external-link-line"></i> Launch Intermaven CRM (New Tab)</a>
+        <button type="button" class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:6px 14px; font-weight:700;"><i class="ri-close-line"></i> Close Modal</button>
+      </div>
+    </div>
+
+    <!-- Modal Body: Loaded intermaven.io CRM Iframe -->
+    <div style="padding:0; flex:1; background:#070f0e; overflow:hidden; position:relative;">
+      <iframe id="smartCrmIframe" src="https://intermaven.io/crm" class="crm-iframe" style="width:100%; height:100%; border:none; background:#070f0e;"></iframe>
+    </div>
+  </div>
+</div>
       <button type="button" class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:8px 18px; font-size:13px; font-weight:700;">
         <i class="ri-close-line" style="font-size:18px;"></i> Close Modal &amp; Return to Dashboard
       </button>
@@ -1955,6 +1969,49 @@
 </div>
 
 <script>
+
+// ─── EXACT TUNEMAVENS INTERMAVEN.IO CRM METHODOLOGY & DASHBOARD CLOSE REDIRECTION ───
+function getIntermavenCrmUrl() {
+  var token = localStorage.getItem('tunemavens_token') || localStorage.getItem('token') || 'master_agency_sso_key';
+  return 'https://intermaven.io/crm?token=' + encodeURIComponent(token) + '&auto_login=true';
+}
+
+function openSmartCrmModal() {
+  const modal = document.getElementById('smartCrmModal');
+  const iframe = document.getElementById('smartCrmIframe');
+  const extLink = document.getElementById('crmExternalLink');
+  
+  const crmUrl = getIntermavenCrmUrl();
+
+  if (iframe) {
+    iframe.src = crmUrl;
+  }
+  if (extLink) {
+    extLink.href = crmUrl;
+  }
+
+  showSmallModal('smartCrmModal');
+}
+
+function closeSmartCrmModal() {
+  closeSmallModal('smartCrmModal');
+  switchPane('dashboard');
+}
+
+function refreshCrmIframe() {
+  const iframe = document.getElementById('smartCrmIframe');
+  if (iframe) {
+    iframe.src = getIntermavenCrmUrl() + '&t=' + Date.now();
+  }
+  showToast('🔄 Reloading intermaven.io Smart CRM...', 'info');
+}
+
+window.getIntermavenCrmUrl = getIntermavenCrmUrl;
+window.openSmartCrmModal = openSmartCrmModal;
+window.closeSmartCrmModal = closeSmartCrmModal;
+window.refreshCrmIframe = refreshCrmIframe;
+
+
 
 // ─── NATIVE INTERMAVEN AGENCY CRM HANDLERS (ZERO 404 ERRORS) ───
 window.openSmartCrmModal = async function() {
