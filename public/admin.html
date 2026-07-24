@@ -8,6 +8,12 @@
   <meta http-equiv="expires" content="0">
   <title>Intermaven Agency — Admin Backend &amp; Smart CRM</title>
   <meta name="description" content="Intermaven Agency Admin — Lead CRM, Team Members, Availability, Call Preparation, Projects & Testimonials CMS.">
+<link rel="icon" href="assets/favicon/favicon.png" type="image/png">
+<meta property="og:title" content="Intermaven Agency Admin">
+<meta property="og:description" content="Lead CRM, Team Members, Availability, Call Preparation, Projects & Testimonials CMS.">
+<meta property="og:image" content="assets/intermaven_hero.png">
+<meta property="og:url" content="http://localhost:8080/">
+<meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sansation:wght@700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -195,7 +201,9 @@
     .prep-checklist { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
     .prep-check { display: flex; align-items: center; gap: 10px; background: var(--bg3); border: 1px solid var(--b1); padding: 10px 12px; border-radius: 3px; font-size: 13.5px; }
     .prep-check input { accent-color: var(--lime); width: 16px; height: 16px; }
+      #aiAssistModal { z-index: 10000 !important; }
   </style>
+  <script src="api.js"></script>
 </head>
 <body>
 
@@ -467,7 +475,10 @@
       <div class="table-card">
         <div class="table-header">
           <h3>CMS — Portfolio Projects &amp; In-House Ventures</h3>
-          <button class="btn-action btn-lime" onclick="openProjectModal()"><i class="ri-add-box-line"></i> Add Showcase Project</button>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button type="button" class="btn-action" style="background:var(--bg3); border:1px solid var(--b2); color:var(--tx);" onclick="openCategoriesModal()"><i class="ri-folder-settings-line"></i> Manage Categories</button>
+            <button type="button" class="btn-action btn-lime" onclick="openProjectModal()"><i class="ri-add-box-line"></i> Add Showcase Project</button>
+          </div>
         </div>
         <table>
           <thead>
@@ -736,6 +747,36 @@
 <!-- ═══════════════════════════════════════════════════════════════
      ADD / EDIT PROJECT CMS MODAL (WordPress Editor & Drag-Drop Uploader)
 ═══════════════════════════════════════════════════════════════ -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROJECT CATEGORIES MANAGEMENT MODAL
+═══════════════════════════════════════════════════════════════ -->
+<div class="admin-form-modal" id="categoriesModal" style="z-index: 10000;">
+  <div class="modal-box" style="max-width:560px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--b1);">
+      <h3 style="margin:0; border:none; padding:0; color:var(--lime); display:flex; align-items:center; gap:8px;">
+        <i class="ri-folder-settings-line"></i> Manage Project Categories
+      </h3>
+      <button type="button" class="btn-action" onclick="closeSmallModal('categoriesModal')"><i class="ri-close-line"></i></button>
+    </div>
+
+    <!-- Add New Category Form -->
+    <div style="display:flex; gap:10px; margin-bottom:20px;">
+      <input type="text" id="newCatName" placeholder="Enter new category name..." style="flex:1; background:var(--bg3); border:1px solid var(--b1); padding:9px 12px; border-radius:3px; color:var(--tx); font-size:13.5px;">
+      <button type="button" class="btn-action btn-lime" onclick="addProjectCategory()"><i class="ri-add-line"></i> Add Category</button>
+    </div>
+
+    <!-- List of Existing Categories -->
+    <div style="max-height:300px; overflow-y:auto; display:flex; flex-direction:column; gap:8px;" id="categoriesList">
+      <!-- Populated dynamically -->
+    </div>
+
+    <div class="modal-footer" style="margin-top:20px;">
+      <button type="button" class="btn-action" onclick="closeSmallModal('categoriesModal')">Close</button>
+    </div>
+  </div>
+</div>
+
 <div class="admin-form-modal" id="projectModal">
   <div class="modal-box wide-modal">
     <h3 id="projModalTitle">Edit Showcase Project Details</h3>
@@ -749,8 +790,18 @@
 
       <div class="form-row-2">
         <div class="form-group">
-          <label>Category</label>
-          <input type="text" id="pCat" required placeholder="Software &amp; Systems">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <label style="margin:0;">Project Categories (Select one or more)</label>
+            <button type="button" class="btn-action" style="padding:2px 8px; font-size:11.5px; background:var(--bg3); border:1px solid var(--b1);" onclick="toggleCategoryPanel()"><i class="ri-list-check"></i> <span id="catToggleBtnText">Toggle List</span></button>
+          </div>
+          <div id="pCategoriesSelectedBadge" style="background:var(--bg3); border:1px solid var(--b1); padding:8px 12px; border-radius:4px; font-size:13px; font-weight:600; color:var(--tx); margin-bottom:8px; display:flex; align-items:center; justify-content:space-between;">
+            <span id="pCategoriesSelectedText">Select Categories below...</span>
+            <i class="ri-price-tag-3-line" style="color:var(--lime);"></i>
+          </div>
+          <div id="pCategoriesPanel" style="background:var(--bg2); border:1px solid var(--b2); border-radius:4px; padding:10px; max-height:160px; overflow-y:auto; display:grid; grid-template-columns:repeat(2, 1fr); gap:8px;">
+            <!-- Dynamically populated checkboxes -->
+          </div>
+          <input type="hidden" id="pCat" required>
         </div>
         <div class="form-group">
           <label>Badge Type</label>
@@ -805,7 +856,7 @@
             <button type="button" class="wp-btn" onclick="execWpCommand('insertOrderedList')"><i class="ri-list-ordered"></i> Numbered</button>
             <button type="button" class="wp-btn" onclick="insertWpLink()"><i class="ri-link"></i> Link</button>
             <button type="button" class="wp-btn" onclick="execWpCommand('removeFormat')"><i class="ri-format-clear"></i> Clear</button>
-            <button type="button" class="wp-btn" style="background:rgba(215,223,35,0.15); color:var(--lime); font-weight:700; border-color:var(--lime);" onclick="triggerAiRewriteModal()"><i class="ri-magic-line"></i> ✨ AI Assist</button>
+            <button type="button" class="wp-btn" style="background:rgba(215,223,35,0.15); color:var(--lime); font-weight:700; border-color:var(--lime);" onclick="triggerAiRewriteModal('pFullDescEditor', 'pTitle')"><i class="ri-magic-line"></i> ✨ AI Assist</button>
           </div>
           <div class="wp-editor-area" id="pFullDescEditor" contenteditable="true">
             <h3>Executive Summary</h3>
@@ -1215,27 +1266,7 @@
 </div>
 
 <script>
-  let storedProjs = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
-  let updatedProjs = false;
-  storedProjs.forEach(p => {
-    if (p.images) {
-      p.images.forEach(img => {
-        const oldUrl = img.url;
-        img.url = img.url.replace('_feat.png', '_features.png')
-                         .replace('_workflow.png', '_detail.png')
-                         .replace('_mob.png', '_mobile.png')
-                         .replace('atlanta_tv_mount_pro_features.png', 'atlanta_tv_mount_features.png')
-                         .replace('atlanta_tv_mount_pro_detail.png', 'atlanta_tv_mount_detail.png')
-                         .replace('atlanta_tv_mount_pro_mobile.png', 'atlanta_tv_mount_mobile.png')
-                         .replace('assets/intermaven.png', 'assets/intermaven_hero.png')
-                         .replace('assets/tunestream.png', 'assets/tunestream_hero.png');
-        if (oldUrl !== img.url) updatedProjs = true;
-      });
-    }
-  });
-  if (updatedProjs) {
-    localStorage.setItem('intermaven_projects', JSON.stringify(storedProjs));
-  }
+  
 
 // ─── DEFAULT DATA ───
 const defaultLeads = [
@@ -1487,17 +1518,6 @@ const defaultMedia = [
 ];
 
 // ─── INIT ───
-if (!localStorage.getItem('intermaven_leads')) localStorage.setItem('intermaven_leads', JSON.stringify(defaultLeads));
-if (!localStorage.getItem('intermaven_crm')) localStorage.setItem('intermaven_crm', JSON.stringify(defaultCrm));
-if (!localStorage.getItem('intermaven_projects')) localStorage.setItem('intermaven_projects', JSON.stringify(defaultProjects));
-if (!localStorage.getItem('intermaven_testimonials')) localStorage.setItem('intermaven_testimonials', JSON.stringify(defaultTestimonials));
-if (!localStorage.getItem('intermaven_team')) localStorage.setItem('intermaven_team', JSON.stringify(defaultTeamMembers));
-if (!localStorage.getItem('intermaven_socials')) localStorage.setItem('intermaven_socials', JSON.stringify(defaultSocials));
-if (!localStorage.getItem('intermaven_services')) localStorage.setItem('intermaven_services', JSON.stringify(defaultServices));
-if (!localStorage.getItem('intermaven_hero_slides')) localStorage.setItem('intermaven_hero_slides', JSON.stringify(defaultHeroSlides));
-if (!localStorage.getItem('intermaven_faqs')) localStorage.setItem('intermaven_faqs', JSON.stringify(defaultFaqs));
-if (!localStorage.getItem('intermaven_settings')) localStorage.setItem('intermaven_settings', JSON.stringify(defaultSettings));
-if (!localStorage.getItem('intermaven_media_library')) localStorage.setItem('intermaven_media_library', JSON.stringify(defaultMedia));
 
 let activeLeadModalIdx = null;
 let leadsChartInst = null;
@@ -1549,12 +1569,12 @@ function switchPane(paneId, el) {
 }
 
 // ─── MAIN RENDER ───
-function renderAdmin() {
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
-  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
-  const projects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
-  const testimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
-  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+async function renderAdmin() {
+  const leads = await loadData('leads');
+  const crm = await loadData('crm');
+  const projects = await loadData('projects');
+  const testimonials = await loadData('testimonials');
+  const team = await loadData('team');
 
   // ─ Metrics ─
   document.getElementById('statLeads').innerText = leads.length;
@@ -1634,7 +1654,7 @@ function renderAdmin() {
         <td><strong>${p.title}</strong></td>
         <td>${p.category}</td>
         <td><span class="badge ${p.badge === 'venture' ? 'badge-info' : 'badge-success'}">${p.badge}</span></td>
-        <td><code style="font-size:12px; color:var(--mu);">${p.thumb}</code></td>
+        <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><code style="font-size:12px; color:var(--mu);" title="${p.thumb}">${(p.thumb && p.thumb.length > 35) ? (p.thumb.slice(0, 32) + '...') : (p.thumb || '—')}</code></td>
         <td>
           <button class="btn-action proj-edit-btn" data-id="${p.id}" onclick="openProjectModal('${p.id}')"><i class="ri-edit-line"></i> Edit</button>
           <button class="btn-action btn-danger proj-del-btn" data-id="${p.id}" onclick="deleteProject('${p.id}')"><i class="ri-delete-bin-line"></i></button>
@@ -1661,7 +1681,7 @@ function renderAdmin() {
   }
 
   // ─ Social Media Table ─
-  const socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+  const socials = await loadData('social');
   const socialsBody = document.getElementById('cmsSocialsBody');
   if (socialsBody) {
     socialsBody.innerHTML = socials.map(s => `
@@ -1679,7 +1699,7 @@ function renderAdmin() {
   }
 
   // ─ Services Table ─
-  const services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const services = await loadData('services');
   const servicesBody = document.getElementById('cmsServicesBody');
   if (servicesBody) {
     servicesBody.innerHTML = services.map(s => `
@@ -1697,7 +1717,7 @@ function renderAdmin() {
   }
 
   // ─ Hero Slides Table ─
-  var _hs = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  var _hs = await loadData('hero_slides');
   var heroBody = document.getElementById('cmsHeroSlidesBody');
   var heroEmpty = document.getElementById('heroSlidesEmptyMsg');
   if (heroBody) {
@@ -1727,7 +1747,7 @@ function renderAdmin() {
   }
 
   // ─ FAQs Table ─
-  const faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  const faqs = await loadData('faq');
   const faqsBody = document.getElementById('cmsFaqsBody');
   if (faqsBody) {
     faqsBody.innerHTML = faqs.map(f => `
@@ -1747,7 +1767,7 @@ function renderAdmin() {
   renderMediaLibrary();
 
   // ─ Global Site Settings Inputs ─
-  const settings = JSON.parse(localStorage.getItem('intermaven_settings') || '{}');
+  const settings = await loadData('settings');
   if (settings.agencyName) {
     if (document.getElementById('settingAgencyName')) document.getElementById('settingAgencyName').value = settings.agencyName || '';
     if (document.getElementById('settingPhone')) document.getElementById('settingPhone').value = settings.phone || '';
@@ -1829,8 +1849,8 @@ function renderDashboardCharts(leads, team, projects) {
 }
 
 // ─── LEAD DETAIL & CALL PREPARATION MODAL ───
-function openLeadDetailModal(idx) {
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+async function openLeadDetailModal(idx) {
+  const leads = await loadData('leads');
   const l = leads[idx];
   if (!l) return;
   activeLeadModalIdx = idx;
@@ -1848,17 +1868,17 @@ function openLeadDetailModal(idx) {
   document.getElementById('leadDetailModal').classList.add('open');
 }
 
-function saveLeadNotesModal() {
+async function saveLeadNotesModal() {
   if (activeLeadModalIdx === null) return;
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+  const leads = await loadData('leads');
   leads[activeLeadModalIdx].notes = document.getElementById('leadModalNotes').value;
-  localStorage.setItem('intermaven_leads', JSON.stringify(leads));
+  await saveData('leads', leads);
   closeSmallModal('leadDetailModal');
   renderAdmin();
   alert('Call preparation notes saved successfully!');
 }
 
-function deleteCurrentLeadModal() {
+async function deleteCurrentLeadModal() {
   if (activeLeadModalIdx === null) return;
   if (!confirm('Are you sure you want to delete this lead booking?')) return;
   deleteLead(activeLeadModalIdx);
@@ -1896,9 +1916,9 @@ function getIntermavenCrmUrl() {
   return 'https://intermaven.io/embed/crm' + tokenQuery;
 }
 
-function portAllDataToCrm() {
-  let crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+async function portAllDataToCrm() {
+  let crm = await loadData('crm');
+  const leads = await loadData('leads');
   
   if (crm.length === 0 && typeof defaultCrm !== 'undefined') {
     crm = [...defaultCrm];
@@ -1944,14 +1964,14 @@ function portAllDataToCrm() {
     }
   });
 
-  if (updated || !localStorage.getItem('intermaven_crm')) {
-    localStorage.setItem('intermaven_crm', JSON.stringify(crm));
+  if (updated || !await loadData('crm')) {
+    await saveData('crm', crm);
   }
 
   return crm;
 }
 
-function refreshCrmIframe() {
+async function refreshCrmIframe() {
   portAllDataToCrm();
   const iframe = document.getElementById('smartCrmIframe');
   const extLink = document.getElementById('crmExternalLink');
@@ -1964,7 +1984,7 @@ function refreshCrmIframe() {
   }
 }
 
-function openSmartCrmModal() {
+async function openSmartCrmModal() {
   portAllDataToCrm();
   refreshCrmIframe();
 
@@ -1984,7 +2004,7 @@ function closeSmartCrmModal() {
   switchPane('dashboard');
 }
 
-function switchCrmTab(tab) {
+async function switchCrmTab(tab) {
   const directoryTab = document.getElementById('crmTabDirectory');
   const leadsTab = document.getElementById('crmTabLeads');
   const embedTab = document.getElementById('crmTabEmbed');
@@ -2020,10 +2040,10 @@ function switchCrmTab(tab) {
   }
 }
 
-function filterCrmTable() {
+async function filterCrmTable() {
   const search = (document.getElementById('crmSearchInput')?.value || '').toLowerCase();
   const channelFilter = document.getElementById('crmChannelFilter')?.value || 'ALL';
-  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+  const crm = await loadData('crm');
 
   const filtered = crm.filter(item => {
     const matchesSearch = !search || 
@@ -2037,8 +2057,8 @@ function filterCrmTable() {
   renderCrmRows(filtered);
 }
 
-function renderCrmTable() {
-  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+async function renderCrmTable() {
+  const crm = await loadData('crm');
   renderCrmRows(crm);
 }
 
@@ -2067,8 +2087,8 @@ function renderCrmRows(items) {
   `).join('');
 }
 
-function renderCrmLeadsTable() {
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+async function renderCrmLeadsTable() {
+  const leads = await loadData('leads');
   const body = document.getElementById('crmModalLeadsBody');
   if (!body) return;
 
@@ -2090,22 +2110,22 @@ function renderCrmLeadsTable() {
   `).join('');
 }
 
-function toggleCrmOptIn(idx) {
-  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+async function toggleCrmOptIn(idx) {
+  const crm = await loadData('crm');
   if (crm[idx]) {
     crm[idx].doubleOptIn = !crm[idx].doubleOptIn;
     crm[idx].status = crm[idx].doubleOptIn ? 'Subscribed' : 'Pending';
-    localStorage.setItem('intermaven_crm', JSON.stringify(crm));
+    await saveData('crm', crm);
     renderCrmTable();
     renderAdmin();
   }
 }
 
-function deleteCrmContact(idx) {
+async function deleteCrmContact(idx) {
   if (!confirm('Remove this contact from Smart CRM?')) return;
-  const crm = JSON.parse(localStorage.getItem('intermaven_crm') || '[]');
+  const crm = await loadData('crm');
   crm.splice(idx, 1);
-  localStorage.setItem('intermaven_crm', JSON.stringify(crm));
+  await saveData('crm', crm);
   renderCrmTable();
   renderAdmin();
 }
@@ -2113,13 +2133,14 @@ function deleteCrmContact(idx) {
 // ─── CMS PROJECTS ───
 let tempCarouselImages = [];
 
-function openProjectModal(id) {
-  const projects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+async function openProjectModal(id) {
+  const projects = await loadData('projects');
   const p = (id !== undefined && id !== null && id !== '') ? projects.find(x => String(x.id) === String(id)) : null;
 
   document.getElementById('pId').value = p ? p.id : '';
   document.getElementById('pTitle').value = p ? p.title : '';
-  document.getElementById('pCat').value = p ? p.category : '';
+  const preselectedCats = p ? (p.categories || (p.category ? p.category.split(',').map(c => c.trim()) : [])) : [];
+  await renderCategoryCheckboxes(preselectedCats);
   document.getElementById('pBadge').value = p ? p.badge : 'venture';
   document.getElementById('pClient').value = p ? (p.client || '') : '';
   document.getElementById('pBudget').value = p ? (p.budget || '') : '';
@@ -2151,7 +2172,7 @@ function insertWpLink() {
   if (url) execWpCommand('createLink', url);
 }
 
-function renderAdminCarouselList() {
+async function renderAdminCarouselList() {
   const container = document.getElementById('adminCarouselList');
   if (!container) return;
 
@@ -2188,41 +2209,43 @@ function removeSlide(idx) {
   renderAdminCarouselList();
 }
 
-function handleDropFiles(e) {
+async function handleDropFiles(e) {
   e.preventDefault();
   const dt = e.dataTransfer;
   const files = dt ? dt.files : e.target.files;
   if (!files || !files.length) return;
 
-  Array.from(files).forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      const dataUrl = evt.target.result;
-      tempCarouselImages.push({
-        url: dataUrl,
-        caption: file.name.split('.')[0] + ' — Screenshot'
+  const title = document.getElementById('pTitle').value || 'Project';
+  for (const file of Array.from(files)) {
+    if (!file.type.startsWith('image/')) continue;
+    try {
+      const res = await uploadMedia(file);
+      const fileUrl = res.url;
+      tempCarouselImages.unshift({
+        url: fileUrl,
+        caption: title + ' — Screenshot'
       });
-      if (!document.getElementById('pThumb').value || document.getElementById('pThumb').value === 'assets/') {
-        document.getElementById('pThumb').value = dataUrl;
-      }
+      document.getElementById('pThumb').value = fileUrl;
       renderAdminCarouselList();
-    };
-    reader.readAsDataURL(file);
-  });
+    } catch(err) {
+      console.error('File upload failed:', err);
+      alert('Upload failed: ' + err.message);
+    }
+  }
 }
 
-function saveProject(e) {
+async function saveProject(e) {
   e.preventDefault();
   const id = document.getElementById('pId').value;
-  const projects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  const projects = await loadData('projects');
 
   const mainThumb = document.getElementById('pThumb').value || (tempCarouselImages.length ? tempCarouselImages[0].url : 'assets/tunemavens.png');
 
   const data = {
     id: id ? parseInt(id) : Date.now(),
     title: document.getElementById('pTitle').value,
-    category: document.getElementById('pCat').value,
+    category: selectedCategories.length ? selectedCategories.join(', ') : (document.getElementById('pCat').value || 'Branding'),
+    categories: selectedCategories.length ? [...selectedCategories] : (document.getElementById('pCat').value || 'Branding').split(',').map(c => c.trim()),
     badge: document.getElementById('pBadge').value,
     client: document.getElementById('pClient').value,
     budget: document.getElementById('pBudget').value,
@@ -2241,17 +2264,17 @@ function saveProject(e) {
     projects.unshift(data);
   }
 
-  localStorage.setItem('intermaven_projects', JSON.stringify(projects));
+  await saveData('projects', projects);
   closeSmallModal('projectModal');
   renderAdmin();
   alert('Project saved successfully! Check project-details.html to see your live changes.');
 }
 
-function deleteProject(id) {
+async function deleteProject(id) {
   if (!confirm('Are you sure you want to delete this project?')) return;
-  let p = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  let p = await loadData('projects');
   p = p.filter(x => String(x.id) !== String(id));
-  localStorage.setItem('intermaven_projects', JSON.stringify(p));
+  await saveData('projects', p);
   renderAdmin();
 }
 
@@ -2262,9 +2285,9 @@ var schedCalMonth = 6; // July (0-indexed)
 var selectedSchedDateStr = '2026-07-22';
 var standardTimeSlots = ['09:00 AM EST', '10:30 AM EST', '01:00 PM EST', '02:30 PM EST', '04:00 PM EST'];
 
-function openSpecialistSchedulerForMember(memberId) {
+async function openSpecialistSchedulerForMember(memberId) {
   currentSchedMemberId = memberId;
-  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  const team = await loadData('team');
   const member = team.find(x => String(x.id) === String(memberId));
   
   if (member) {
@@ -2295,7 +2318,7 @@ function changeSchedMonth(delta) {
   renderSchedCalendar();
 }
 
-function renderSchedCalendar() {
+async function renderSchedCalendar() {
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const titleEl = document.getElementById('schedCalMonthTitle');
   const gridEl = document.getElementById('schedCalendarGrid');
@@ -2309,10 +2332,10 @@ function renderSchedCalendar() {
   const firstDay = new Date(schedCalYear, schedCalMonth, 1).getDay();
   const daysInMonth = new Date(schedCalYear, schedCalMonth + 1, 0).getDate();
 
-  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  const team = await loadData('team');
   const member = team.find(x => String(x.id) === String(currentSchedMemberId));
   const memberName = member ? member.name : '';
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+  const leads = await loadData('leads');
 
   let cellsHtml = '';
 
@@ -2352,12 +2375,12 @@ function renderSchedCalendar() {
   renderSchedSelectedDatePanel();
 }
 
-function selectSchedDate(dateKey) {
+async function selectSchedDate(dateKey) {
   selectedSchedDateStr = dateKey;
   renderSchedCalendar();
 }
 
-function renderSchedSelectedDatePanel() {
+async function renderSchedSelectedDatePanel() {
   const headerEl = document.getElementById('schedSelectedDateHeader');
   const bookingsEl = document.getElementById('schedBookingsList');
   const slotsEl = document.getElementById('schedTimeSlotsGrid');
@@ -2371,10 +2394,10 @@ function renderSchedSelectedDatePanel() {
 
   headerEl.innerText = formattedDate;
 
-  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  const team = await loadData('team');
   const member = team.find(x => String(x.id) === String(currentSchedMemberId));
   const memberName = member ? member.name : '';
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+  const leads = await loadData('leads');
 
   const dateBookings = leads.filter(l => {
     const matchName = !memberName || (l.techLead || '').toLowerCase().includes(memberName.toLowerCase());
@@ -2425,8 +2448,8 @@ function renderSchedSelectedDatePanel() {
   }).join('');
 }
 
-function toggleSchedTimeSlot(slot) {
-  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+async function toggleSchedTimeSlot(slot) {
+  const team = await loadData('team');
   const idx = team.findIndex(x => String(x.id) === String(currentSchedMemberId));
   if (idx === -1) return;
 
@@ -2445,19 +2468,19 @@ function toggleSchedTimeSlot(slot) {
   }
 
   team[idx].slots = slotList.join(', ');
-  localStorage.setItem('intermaven_team', JSON.stringify(team));
+  await saveData('team', team);
   renderSchedSelectedDatePanel();
 }
 
-function saveSpecialistSchedule() {
+async function saveSpecialistSchedule() {
   closeSmallModal('specialistSchedulerModal');
   renderAdmin();
   alert('✅ Specialist schedule & 2-week calendar availability saved!');
 }
 
 // ─── CMS TESTIMONIALS ───
-function openTestimonialModal(id) {
-  const testimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
+async function openTestimonialModal(id) {
+  const testimonials = await loadData('testimonials');
   const t = (id !== undefined && id !== null && id !== '') ? testimonials.find(x => String(x.id) === String(id)) : null;
   document.getElementById('tId').value = t ? t.id : '';
   document.getElementById('tName').value = t ? t.name : '';
@@ -2468,10 +2491,10 @@ function openTestimonialModal(id) {
   showSmallModal('testiModal');
 }
 
-function saveTestimonial(e) {
+async function saveTestimonial(e) {
   e.preventDefault();
   const id = document.getElementById('tId').value;
-  const testimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
+  const testimonials = await loadData('testimonials');
   const quoteHtml = document.getElementById('tQuoteEditor') ? document.getElementById('tQuoteEditor').innerHTML : '';
   const data = {
     id: id ? parseInt(id) : Date.now(),
@@ -2486,21 +2509,21 @@ function saveTestimonial(e) {
   } else {
     testimonials.unshift(data);
   }
-  localStorage.setItem('intermaven_testimonials', JSON.stringify(testimonials));
+  await saveData('testimonials', testimonials);
   closeSmallModal('testiModal');
   renderAdmin();
 }
 
-function deleteTestimonial(id) {
-  let t = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
+async function deleteTestimonial(id) {
+  let t = await loadData('testimonials');
   t = t.filter(x => x.id !== id);
-  localStorage.setItem('intermaven_testimonials', JSON.stringify(t));
+  await saveData('testimonials', t);
   renderAdmin();
 }
 
 // ─── TEAM MEMBERS ───
-function openTeamMemberModal(id) {
-  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+async function openTeamMemberModal(id) {
+  const team = await loadData('team');
   const m = (id !== undefined && id !== null && id !== '') ? team.find(x => String(x.id) === String(id)) : null;
 
   const elId = document.getElementById('tmId');
@@ -2530,13 +2553,13 @@ function openTeamMemberModal(id) {
   showSmallModal('teamMemberModal');
 }
 
-function editTeamMember(id) { openTeamMemberModal(id); }
+async function editTeamMember(id) { openTeamMemberModal(id); }
 
-function saveTeamMember(e) {
+async function saveTeamMember(e) {
   e.preventDefault();
   const idEl = document.getElementById('tmId');
   const id = idEl ? idEl.value : '';
-  const team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  const team = await loadData('team');
   const existing = id ? team.find(m => String(m.id) === String(id)) : null;
 
   const data = {
@@ -2559,44 +2582,236 @@ function saveTeamMember(e) {
     team.push(data);
   }
 
-  localStorage.setItem('intermaven_team', JSON.stringify(team));
+  await saveData('team', team);
   closeSmallModal('teamMemberModal');
   renderAdmin();
 }
 
-function deleteTeamMember(id) {
+async function deleteTeamMember(id) {
   if (!confirm('Remove this team member?')) return;
-  let team = JSON.parse(localStorage.getItem('intermaven_team') || '[]');
+  let team = await loadData('team');
   team = team.filter(m => m.id !== id);
-  localStorage.setItem('intermaven_team', JSON.stringify(team));
+  await saveData('team', team);
   renderAdmin();
 }
 
 // ─── LEADS ───
-function deleteLead(idx) {
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+async function deleteLead(idx) {
+  const leads = await loadData('leads');
   leads.splice(idx, 1);
-  localStorage.setItem('intermaven_leads', JSON.stringify(leads));
+  await saveData('leads', leads);
   renderAdmin();
 }
 
-// ─── AI ASSIST REWRITE HANDLERS ───
-function triggerAiRewriteModal() {
-  document.getElementById('aiAssistModal').classList.add('open');
+// ─── CATEGORY MANAGEMENT & MULTI-SELECT HANDLERS ───
+let allProjectCategories = [];
+let selectedCategories = [];
+
+async function loadProjectCategories() {
+  allProjectCategories = await loadData('project_categories');
+  if (!allProjectCategories || !Array.isArray(allProjectCategories) || !allProjectCategories.length) {
+    allProjectCategories = [
+      { id: 'cat_1', name: 'Branding & Web' },
+      { id: 'cat_2', name: 'Software & Systems' },
+      { id: 'cat_3', name: 'AI & Automation' },
+      { id: 'cat_4', name: 'Branding & Media' },
+      { id: 'cat_5', name: 'Campaign & Advocacy' },
+      { id: 'cat_6', name: 'Branding' },
+      { id: 'cat_7', name: 'Interactive Design' }
+    ];
+  }
 }
 
-function applyAiCopy(optionNum) {
+async function openCategoriesModal() {
+  await loadProjectCategories();
+  renderCategoriesList();
+  showSmallModal('categoriesModal');
+}
+
+function renderCategoriesList() {
+  const container = document.getElementById('categoriesList');
+  if (!container) return;
+
+  if (!allProjectCategories.length) {
+    container.innerHTML = '<div style="color:var(--mu); font-size:13px; padding:12px; text-align:center;">No categories created yet. Add one above!</div>';
+    return;
+  }
+
+  container.innerHTML = allProjectCategories.map(cat => `
+    <div style="display:flex; align-items:center; justify-content:space-between; background:var(--bg3); border:1px solid var(--b1); padding:8px 12px; border-radius:4px;">
+      <input type="text" id="catInput_${cat.id}" value="${cat.name}" style="background:transparent; border:none; color:var(--tx); font-size:13.5px; font-weight:600; flex:1;">
+      <div style="display:flex; gap:6px;">
+        <button type="button" class="btn-action" style="padding:3px 8px; font-size:12px;" onclick="renameCategory('${cat.id}')"><i class="ri-check-line"></i> Save</button>
+        <button type="button" class="btn-action btn-danger" style="padding:3px 8px; font-size:12px;" onclick="deleteCategory('${cat.id}')"><i class="ri-delete-bin-line"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function addProjectCategory() {
+  const input = document.getElementById('newCatName');
+  const name = input ? input.value.trim() : '';
+  if (!name) { alert('Please enter a category name.'); return; }
+
+  await loadProjectCategories();
+  const newCat = { id: 'cat_' + Date.now(), name };
+  allProjectCategories.push(newCat);
+  await saveData('project_categories', allProjectCategories);
+
+  input.value = '';
+  renderCategoriesList();
+  await renderCategoryCheckboxes(selectedCategories);
+}
+
+async function renameCategory(id) {
+  const input = document.getElementById('catInput_' + id);
+  if (!input) return;
+  const newName = input.value.trim();
+  if (!newName) return;
+
+  await loadProjectCategories();
+  const cat = allProjectCategories.find(c => c.id === id);
+  if (cat) {
+    cat.name = newName;
+    await saveData('project_categories', allProjectCategories);
+    renderCategoriesList();
+    await renderCategoryCheckboxes(selectedCategories);
+    alert('Category renamed successfully!');
+  }
+}
+
+async function deleteCategory(id) {
+  if (!confirm('Are you sure you want to delete this category?')) return;
+  await loadProjectCategories();
+  allProjectCategories = allProjectCategories.filter(c => c.id !== id);
+  await saveData('project_categories', allProjectCategories);
+  renderCategoriesList();
+  await renderCategoryCheckboxes(selectedCategories);
+}
+
+function toggleCategoryPanel() {
+  const panel = document.getElementById('pCategoriesPanel');
+  const txt = document.getElementById('catToggleBtnText');
+  if (panel) {
+    if (panel.style.display === 'none') {
+      panel.style.display = 'grid';
+      if (txt) txt.innerText = 'Collapse List';
+    } else {
+      panel.style.display = 'none';
+      if (txt) txt.innerText = 'Expand List';
+    }
+  }
+}
+
+async function renderCategoryCheckboxes(preselectedList = []) {
+  await loadProjectCategories();
+  const panel = document.getElementById('pCategoriesPanel');
+  if (!panel) return;
+
+  selectedCategories = Array.isArray(preselectedList) ? [...preselectedList] : [];
+
+  panel.innerHTML = allProjectCategories.map(cat => {
+    const isChecked = selectedCategories.includes(cat.name);
+    return `
+      <label style="display:flex; align-items:center; gap:8px; padding:6px 10px; background:var(--bg3); border:1px solid var(--b1); border-radius:3px; cursor:pointer; font-size:12.5px; color:var(--tx); user-select:none;">
+        <input type="checkbox" value="${cat.name}" ${isChecked ? 'checked' : ''} onchange="handleCategoryCheck(this)" style="accent-color:var(--lime); width:15px; height:15px; cursor:pointer;">
+        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${cat.name}</span>
+      </label>
+    `;
+  }).join('');
+
+  updateCategoriesSelectedDisplay();
+}
+
+function handleCategoryCheck(checkbox) {
+  const val = checkbox.value;
+  if (checkbox.checked) {
+    if (!selectedCategories.includes(val)) selectedCategories.push(val);
+  } else {
+    selectedCategories = selectedCategories.filter(c => c !== val);
+  }
+  updateCategoriesSelectedDisplay();
+}
+
+function updateCategoriesSelectedDisplay() {
+  const textEl = document.getElementById('pCategoriesSelectedText');
+  const hiddenInput = document.getElementById('pCat');
+  
+  if (selectedCategories.length === 0) {
+    if (textEl) textEl.innerText = 'Select Categories below...';
+    if (textEl) textEl.style.color = 'var(--mu)';
+    if (hiddenInput) hiddenInput.value = '';
+  } else {
+    const catStr = selectedCategories.join(', ');
+    if (textEl) textEl.innerText = catStr;
+    if (textEl) textEl.style.color = 'var(--tx)';
+    if (hiddenInput) hiddenInput.value = catStr;
+  }
+}
+
+// ─── AI ASSIST REWRITE HANDLERS ───
+let currentAiTargetId = 'pFullDescEditor';
+let currentAiTargetTitleId = 'pTitle';
+
+async function triggerAiRewriteModal(targetId = 'pFullDescEditor', titleId = 'pTitle') {
+  currentAiTargetId = targetId;
+  currentAiTargetTitleId = titleId;
+
+  const titleEl = document.getElementById(titleId);
+  const targetEl = document.getElementById(targetId);
+  const itemTitle = titleEl ? (titleEl.value || titleEl.innerText || '') : 'Intermaven Agency Item';
+  const existingText = targetEl ? (targetEl.innerHTML || targetEl.value || '') : '';
+
+  document.getElementById('aiOpt1').innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Generating Executive & ROI copy...';
+  document.getElementById('aiOpt2').innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Generating Technical Architecture copy...';
+  document.getElementById('aiOpt3').innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Generating Transformation Story copy...';
+
+  showSmallModal('aiAssistModal');
+  const modalEl = document.getElementById('aiAssistModal');
+  if (modalEl) {
+    modalEl.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:100000!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
+  }
+
+  try {
+    const res = await generateAICopy({ title: itemTitle, text: existingText, targetId });
+    if (res && res.options && Array.isArray(res.options)) {
+      document.getElementById('aiOpt1').innerHTML = res.options[0].html;
+      document.getElementById('aiOpt2').innerHTML = res.options[1].html;
+      document.getElementById('aiOpt3').innerHTML = res.options[2].html;
+    }
+  } catch(err) {
+    console.warn('AI Copy generation API fallback:', err);
+    document.getElementById('aiOpt1').innerHTML = `<h3>Executive & ROI Summary</h3><p>Proprietary platform built for <strong>${itemTitle}</strong> to streamline operations and deliver high-impact telemetry.</p>`;
+    document.getElementById('aiOpt2').innerHTML = `<h3>Technical Architecture Highlights</h3><ul><li><strong>Scalable Core:</strong> Low-latency API architecture for ${itemTitle}.</li><li><strong>Automated Workflows:</strong> Real-time metadata pipeline processing.</li></ul>`;
+    document.getElementById('aiOpt3').innerHTML = `<h3>Transformation Case Study</h3><p>Intermaven Agency transformed legacy systems for <strong>${itemTitle}</strong> into a sleek, high-converting digital platform.</p>`;
+  }
+}
+
+async function applyAiCopy(optionNum) {
   const optEl = document.getElementById('aiOpt' + optionNum);
-  const editor = document.getElementById('pFullDescEditor');
-  if (optEl && editor) {
-    editor.innerHTML = optEl.innerHTML;
+  const targetEl = document.getElementById(currentAiTargetId);
+
+  if (optEl && targetEl) {
+    const aiHtml = optEl.innerHTML;
+    if (targetEl.isContentEditable || currentAiTargetId === 'pFullDescEditor') {
+      targetEl.innerHTML = aiHtml;
+    } else {
+      const tmp = document.createElement('DIV');
+      tmp.innerHTML = aiHtml;
+      targetEl.value = (tmp.textContent || tmp.innerText || '').trim();
+    }
     closeSmallModal('aiAssistModal');
-    alert('✨ AI rewrite applied successfully to the rich text editor!');
+
+    const toast = document.createElement('DIV');
+    toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:var(--lime); color:#000; padding:12px 20px; border-radius:4px; font-weight:700; z-index:999999; box-shadow:0 4px 12px rgba(0,0,0,0.4); font-size:14px;';
+    toast.innerHTML = '✨ AI copy applied successfully!';
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.remove(); }, 3000);
   }
 }
 
 // ─── SOCIAL MEDIA CMS HANDLERS ───
-function resolveSocialIcon(platform) {
+async function resolveSocialIcon(platform) {
   const p = (platform || '').toLowerCase();
   if (p.includes('instagram')) return 'ri-instagram-line';
   if (p.includes('twitter') || p.includes('x')) return 'ri-twitter-x-line';
@@ -2609,20 +2824,20 @@ function resolveSocialIcon(platform) {
   return 'ri-global-line';
 }
 
-function previewSocialIcon() {
+async function previewSocialIcon() {
   const p = document.getElementById('socPlatform').value;
   const resolved = resolveSocialIcon(p);
   document.getElementById('socIcon').value = resolved;
   updateSocialIconPreview();
 }
 
-function updateSocialIconPreview() {
+async function updateSocialIconPreview() {
   const iconClass = document.getElementById('socIcon').value || 'ri-global-line';
   document.getElementById('socIconPreview').innerHTML = `<i class="${iconClass}"></i>`;
 }
 
-function openSocialModal(id) {
-  const socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+async function openSocialModal(id) {
+  const socials = await loadData('social');
   const s = (id !== undefined && id !== null && id !== '') ? socials.find(x => String(x.id) === String(id)) : null;
 
   document.getElementById('socId').value = s ? s.id : '';
@@ -2636,10 +2851,10 @@ function openSocialModal(id) {
   showSmallModal('socialModal');
 }
 
-function saveSocialMedia(e) {
+async function saveSocialMedia(e) {
   e.preventDefault();
   const id = document.getElementById('socId').value;
-  const socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+  const socials = await loadData('social');
   
   const data = {
     id: id ? parseInt(id) : Date.now(),
@@ -2656,22 +2871,22 @@ function saveSocialMedia(e) {
     socials.push(data);
   }
 
-  localStorage.setItem('intermaven_socials', JSON.stringify(socials));
+  await saveData('social', socials);
   closeSmallModal('socialModal');
   renderAdmin();
 }
 
-function deleteSocialMedia(id) {
+async function deleteSocialMedia(id) {
   if (!confirm('Remove this social link?')) return;
-  let socials = JSON.parse(localStorage.getItem('intermaven_socials') || '[]');
+  let socials = await loadData('social');
   socials = socials.filter(s => String(s.id) !== String(id));
-  localStorage.setItem('intermaven_socials', JSON.stringify(socials));
+  await saveData('social', socials);
   renderAdmin();
 }
 
 // ─── SERVICES CMS HANDLERS ───
-function openServiceModal(id) {
-  const services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+async function openServiceModal(id) {
+  const services = await loadData('services');
   const s = (id !== undefined && id !== null && id !== '') ? services.find(x => String(x.id) === String(id)) : null;
 
   document.getElementById('svcId').value = s ? s.id : '';
@@ -2685,10 +2900,10 @@ function openServiceModal(id) {
   showSmallModal('serviceModal');
 }
 
-function saveService(e) {
+async function saveService(e) {
   e.preventDefault();
   const id = document.getElementById('svcId').value;
-  const services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const services = await loadData('services');
   const descHtml = document.getElementById('svcDescEditor') ? document.getElementById('svcDescEditor').innerHTML : '';
   const data = {
     id: id ? parseInt(id) : Date.now(),
@@ -2704,16 +2919,16 @@ function saveService(e) {
   } else {
     services.push(data);
   }
-  localStorage.setItem('intermaven_services', JSON.stringify(services));
+  await saveData('services', services);
   closeSmallModal('serviceModal');
   renderAdmin();
 }
 
-function deleteService(id) {
+async function deleteService(id) {
   if (!confirm('Remove this service offering?')) return;
-  let services = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  let services = await loadData('services');
   services = services.filter(s => String(s.id) !== String(id));
-  localStorage.setItem('intermaven_services', JSON.stringify(services));
+  await saveData('services', services);
   renderAdmin();
 }
 
@@ -2740,7 +2955,7 @@ function hsHandleFileSelect(input) {
     const file = input.files[0];
     if (!file.type.startsWith('image/')) { alert('Please select an image file.'); return; }
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = async function(e) {
       hsUpdatePreview(e.target.result);
     };
     reader.readAsDataURL(file);
@@ -2765,12 +2980,12 @@ function hsHandleDrop(e) {
 
 function hsOpen() { hsEdit(-1); }
 
-function hsEdit(editIdx) {
+async function hsEdit(editIdx) {
   console.log('[HeroCMS] hsEdit called with index:', editIdx);
   var modal = document.getElementById('heroSlideModal');
   if (!modal) { console.error('[HeroCMS] heroSlideModal missing'); return; }
 
-  var slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  var slides = await loadData('hero_slides');
   var idx = (editIdx !== undefined && editIdx !== null && editIdx !== '') ? parseInt(editIdx) : -1;
   if (isNaN(idx) || idx < 0 || idx >= slides.length) idx = -1;
   var h = idx >= 0 ? slides[idx] : null;
@@ -2798,7 +3013,7 @@ function hsClose() {
   }
 }
 
-function hsSave() {
+async function hsSave() {
   console.log('[HeroCMS] hsSave called');
   var title = (document.getElementById('hsTitle').value || '').trim();
   var lead  = document.getElementById('hsLeadEditor') ? (document.getElementById('hsLeadEditor').innerHTML || '').trim() : '';
@@ -2808,7 +3023,7 @@ function hsSave() {
   if (!title) { alert('Title is required.'); document.getElementById('hsTitle').focus(); return; }
   if (!lead)  { alert('Lead paragraph is required.'); return; }
 
-  var slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  var slides = await loadData('hero_slides');
 
   if (idx >= 0 && idx < slides.length) {
     slides[idx] = { id: slides[idx].id || Date.now(), title: title, lead: lead, bg: bg };
@@ -2816,33 +3031,33 @@ function hsSave() {
     slides.push({ id: Date.now(), title: title, lead: lead, bg: bg });
   }
 
-  localStorage.setItem('intermaven_hero_slides', JSON.stringify(slides));
+  await saveData('hero_slides', slides);
   hsClose();
   renderAdmin();
   alert('✅ Hero Slide saved! Open index.html to see it live in the carousel.');
 }
 
-function hsDel(idx) {
+async function hsDel(idx) {
   if (!confirm('Delete this hero slide?')) return;
-  var slides = JSON.parse(localStorage.getItem('intermaven_hero_slides') || '[]');
+  var slides = await loadData('hero_slides');
   slides.splice(idx, 1);
-  localStorage.setItem('intermaven_hero_slides', JSON.stringify(slides));
+  await saveData('hero_slides', slides);
   renderAdmin();
 }
 
 // Keep old names as aliases for any remaining references
 function openHeroSlideModal(i) { hsEdit(typeof i === 'undefined' ? -1 : i); }
-function heroSlideSave() { hsSave(); }
-function heroSlideDelete(i) { hsDel(i); }
+async function heroSlideSave() { hsSave(); }
+async function heroSlideDelete(i) { hsDel(i); }
 
 // ─── FAQS CMS HANDLERS ───
-function faqOpen() { faqEdit(''); }
+async function faqOpen() { faqEdit(''); }
 
-function faqEdit(id) {
+async function faqEdit(id) {
   console.log('[FaqCMS] faqEdit called with id:', id);
   var modal = document.getElementById('faqModal');
   if (!modal) { console.error('[FaqCMS] faqModal missing'); return; }
-  var faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  var faqs = await loadData('faq');
   var f = (id !== undefined && id !== null && id !== '') ? faqs.find(function(x) { return String(x.id) === String(id); }) : null;
 
   document.getElementById('faqId').value       = f ? f.id : '';
@@ -2857,7 +3072,7 @@ function faqEdit(id) {
   modal.classList.add('open');
 }
 
-function faqClose() {
+async function faqClose() {
   var modal = document.getElementById('faqModal');
   if (modal) {
     modal.classList.remove('open');
@@ -2865,7 +3080,7 @@ function faqClose() {
   }
 }
 
-function faqSave() {
+async function faqSave() {
   console.log('[FaqCMS] faqSave called');
   var id       = document.getElementById('faqId').value;
   var question = (document.getElementById('faqQuestion').value || '').trim();
@@ -2875,7 +3090,7 @@ function faqSave() {
   if (!question) { alert('Please enter a question.'); document.getElementById('faqQuestion').focus(); return; }
   if (!answer)   { alert('Please enter an answer.'); return; }
 
-  var faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  var faqs = await loadData('faq');
   var data = {
     id: id ? (isNaN(parseInt(id)) ? id : parseInt(id)) : Date.now(),
     question: question,
@@ -2891,35 +3106,35 @@ function faqSave() {
     faqs.push(data);
   }
 
-  localStorage.setItem('intermaven_faqs', JSON.stringify(faqs));
+  await saveData('faq', faqs);
   faqClose();
   renderAdmin();
   alert('✅ FAQ saved successfully!');
 }
 
-function faqDel(id) {
+async function faqDel(id) {
   if (!confirm('Remove this FAQ item?')) return;
-  var faqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  var faqs = await loadData('faq');
   faqs = faqs.filter(function(f) { return String(f.id) !== String(id); });
-  localStorage.setItem('intermaven_faqs', JSON.stringify(faqs));
+  await saveData('faq', faqs);
   renderAdmin();
 }
 
 // Aliases for backward compatibility
-function openFaqModal(id) { faqEdit(id); }
-function saveFaq(e) { if (e && e.preventDefault) e.preventDefault(); faqSave(); }
-function deleteFaq(id) { faqDel(id); }
+async function openFaqModal(id) { faqEdit(id); }
+async function saveFaq(e) { if (e && e.preventDefault) e.preventDefault(); faqSave(); }
+async function deleteFaq(id) { faqDel(id); }
 
 // ─── MEDIA LIBRARY HANDLERS ───
 let currentMediaPage = 1;
 const mediaItemsPerPage = 8; // 2 rows x 4 cols
 
-function changeMediaPage(delta) {
+async function changeMediaPage(delta) {
   currentMediaPage += delta;
   renderMediaLibrary();
 }
 
-function replaceMediaAsset(id) {
+async function replaceMediaAsset(id) {
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = 'image/*';
@@ -2927,14 +3142,14 @@ function replaceMediaAsset(id) {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       const reader = new FileReader();
-      reader.onload = function(e) {
-        let media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+      reader.onload = async function(e) {
+        let media = await loadData('media');
         const idx = media.findIndex(m => String(m.id) === String(id));
         if (idx !== -1) {
           media[idx].url = e.target.result;
           media[idx].size = (file.size / 1024).toFixed(1) + ' KB';
           media[idx].date = new Date().toLocaleDateString();
-          localStorage.setItem('intermaven_media_library', JSON.stringify(media));
+          await saveData('media', media);
           renderMediaLibrary();
           alert('✅ Media asset replaced successfully!');
         }
@@ -2945,8 +3160,8 @@ function replaceMediaAsset(id) {
   input.click();
 }
 
-function renderMediaLibrary() {
-  let media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+async function renderMediaLibrary() {
+  let media = await loadData('media');
   let updatedMedia = false;
   defaultMedia.forEach(asset => {
     if (!media.some(m => m.url === asset.url)) {
@@ -2954,8 +3169,8 @@ function renderMediaLibrary() {
       updatedMedia = true;
     }
   });
-  if (updatedMedia || !localStorage.getItem('intermaven_media_library')) {
-    localStorage.setItem('intermaven_media_library', JSON.stringify(media));
+  if (updatedMedia || !await loadData('media')) {
+    await saveData('media', media);
   }
 
   const container = document.getElementById('mediaGrid');
@@ -3030,42 +3245,34 @@ function copyMediaUrl(url) {
   }
 }
 
-function deleteMediaAsset(id) {
+async function deleteMediaAsset(id) {
   if (!confirm('Remove this asset from Media Library?')) return;
-  let media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
+  let media = await loadData('media');
   media = media.filter(m => String(m.id) !== String(id));
-  localStorage.setItem('intermaven_media_library', JSON.stringify(media));
+  await saveData('media', media);
   renderMediaLibrary();
 }
 
-function handleMediaFileUpload(input) {
+async function handleMediaFileUpload(input) {
   if (!input.files || !input.files.length) return;
   const files = Array.from(input.files);
-  let media = JSON.parse(localStorage.getItem('intermaven_media_library') || '[]');
 
   let processed = 0;
-  files.forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const dataUrl = e.target.result;
-      media.unshift({
-        id: Date.now() + Math.floor(Math.random() * 1000),
-        name: file.name.split('.')[0],
-        url: dataUrl,
-        type: (file.type ? file.type.split('/')[1].toUpperCase() : 'PNG') + ' Image',
-        size: (file.size / 1024).toFixed(1) + ' KB',
-        date: new Date().toLocaleDateString()
-      });
+  for (const file of files) {
+    if (!file.type.startsWith('image/')) continue;
+    try {
+      await uploadMedia(file);
       processed++;
-      if (processed === files.length) {
-        localStorage.setItem('intermaven_media_library', JSON.stringify(media));
-        renderMediaLibrary();
-        alert(`✅ Uploaded ${processed} new media asset(s) to Agency Library!`);
-      }
-    };
-    reader.readAsDataURL(file);
-  });
+    } catch(e) {
+      console.error('Upload failed', e);
+    }
+  }
+  
+  if (processed > 0) {
+    mediaLibrary = await loadData('media');
+    renderMediaLibrary();
+    alert('✅ Uploaded ' + processed + ' new media asset(s) to Agency Library!');
+  }
 }
 
 function handleMediaDrop(e) {
@@ -3078,7 +3285,7 @@ function handleMediaDrop(e) {
 }
 
 // ─── SITE SETTINGS HANDLERS ───
-function saveSiteSettings(e) {
+async function saveSiteSettings(e) {
   e.preventDefault();
   const data = {
     agencyName: document.getElementById('settingAgencyName').value,
@@ -3087,26 +3294,24 @@ function saveSiteSettings(e) {
     address: document.getElementById('settingAddress').value,
     tagline: document.getElementById('settingTagline').value
   };
-  localStorage.setItem('intermaven_settings', JSON.stringify(data));
+  await saveData('settings', data);
   alert('✨ Global site settings saved successfully!');
   renderAdmin();
 }
 
 // ─── EVENT DELEGATION & CLICK OUTSIDE MODAL TO CLOSE ───
 document.addEventListener('click', function(e) {
-  // If clicked directly on backdrop overlay outside inner modal box
+  // Close modal when clicking directly on the backdrop overlay
   if (e.target.classList.contains('admin-form-modal') || e.target.classList.contains('wide-modal-overlay')) {
-    if (e.target._openTimestamp && (Date.now() - e.target._openTimestamp < 400)) {
-      console.log('[Modal] Ignored immediate backdrop close (prevented auto-closing modal)');
+    if (e.target._openTimestamp && (Date.now() - e.target._openTimestamp < 300)) {
       return;
     }
     console.log('[Modal] Closing modal via backdrop click on:', e.target.id);
-    e.target.classList.remove('open');
-    e.target.style.cssText = 'display:none!important;';
+    closeSmallModal(e.target.id);
     return;
   }
+
   var b;
-  // Hero row buttons now use inline onclick — no delegation needed
   if ((b = e.target.closest('.proj-edit-btn'))) { openProjectModal(b.getAttribute('data-id')); return; }
   if ((b = e.target.closest('.proj-del-btn'))) { deleteProject(b.getAttribute('data-id')); return; }
   if ((b = e.target.closest('.testi-edit-btn'))) { openTestimonialModal(b.getAttribute('data-id')); return; }
@@ -3121,7 +3326,6 @@ document.addEventListener('click', function(e) {
 
 // ─── INIT ───
 renderAdmin();
-
 
 </script>
 

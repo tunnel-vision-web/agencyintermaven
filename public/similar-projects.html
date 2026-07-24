@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="assets/favicon/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Similar Projects — Intermaven Agency</title>
+  <title>Similar Projects ΓÇö Intermaven Agency</title>
   <meta name="description" content="Explore similar case studies and projects by category and discipline.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -315,6 +317,7 @@
       .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <script src="api.js"></script>
 </head>
 <body>
 
@@ -378,7 +381,7 @@
         <a href="index.html">
           <img src="assets/logo/footer/logo.png" alt="Intermaven Agency" class="footer-logo-img">
         </a>
-        <p>Brand identity, interactive design, and software ecosystems — built with two decades of craft and an AI-assisted delivery pipeline.</p>
+        <p>Brand identity, interactive design, and software ecosystems ΓÇö built with two decades of craft and an AI-assisted delivery pipeline.</p>
         <div class="footer-socials">
           <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
           <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
@@ -434,16 +437,16 @@
 <script>
 const defaultFullProjects = [
   { id: 1, title: 'TuneMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/tunemavens_thumb.png', desc: 'Sync licensing and catalogue acquisition platform built for music rights holders and sync supervisors.' },
-  { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/intermaven_thumb.png', desc: 'The AI-powered SaaS ecosystem behind every project — credits, accounts, and automation, unified.' },
+  { id: 2, title: 'Intermaven Network Suite', category: 'AI & Automation', badge: 'venture', thumb: 'assets/intermaven_thumb.png', desc: 'The AI-powered SaaS ecosystem behind every project ΓÇö credits, accounts, and automation, unified.' },
   { id: 3, title: 'Atlanta TV Mount PRO', category: 'Branding & Web', badge: 'venture', thumb: 'assets/atlanta_tv_mount_thumb.png', desc: 'Live quote calculation booking web app for an Atlanta home services enterprise.' },
   { id: 7, title: 'SyncMavens Platform', category: 'Software & Systems', badge: 'venture', thumb: 'assets/syncmavens_thumb.png', desc: 'Sync marketplace sub-platform, brand-extended from the TuneMavens family of products.' },
   { id: 8, title: 'TuneStream Engine', category: 'AI & Automation', badge: 'venture', thumb: 'assets/tunestream_thumb.png', desc: 'Audio delivery engine and dynamic rights catalog distribution system.' },
-  { id: 4, title: 'Jua Capital', category: 'Branding', badge: 'client', thumb: 'assets/jua_capital.png', desc: 'Investor-grade identity system for an East African venture firm.' },
+  { id: 4, title: 'Blu X Media', category: 'Branding & Media', badge: 'client', thumb: 'assets/uploads/blu_x_media_1784836456485.png', desc: 'Brand platform, visual identity, and media production.' },
   { id: 5, title: 'Mwanga Law', category: 'Branding', badge: 'client', thumb: 'assets/mwanga_law.png', desc: 'Distinguished wordmark and legal digital presence.' },
   { id: 6, title: 'Afya Plus Clinics', category: 'Branding', badge: 'client', thumb: 'assets/afya_plus.png', desc: 'Healthcare brand identity and patient portal design.' }
 ];
 
-let projects = JSON.parse(localStorage.getItem('intermaven_projects') || 'null');
+let projects = JSON.parse(null || 'null');
 if (!projects || !projects.length || !projects[0].images) {
   projects = defaultFullProjects;
 }

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="assets/favicon/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Services &amp; Solutions — Intermaven Agency</title>
@@ -132,6 +134,7 @@
     .powered-by { font-size: 13px; color: var(--mu2); display: flex; align-items: center; gap: 14px; }
     .powered-by a { color: var(--sage-light); font-weight: 600; }
   </style>
+  <script src="api.js"></script>
 </head>
 <body>
 
@@ -275,9 +278,9 @@ window.addEventListener('scroll', () => {
 
 <script>
 // ===== DYNAMIC LIVE CMS HYDRATION (localStorage Sync) =====
-function hydrateCmsPage() {
+async function hydrateCmsPage() {
   // Services
-  const storedServices = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const storedServices = await loadData('services');
   const servicesGrid = document.querySelector('.services-grid');
   if (storedServices.length > 0 && servicesGrid) {
     servicesGrid.innerHTML = storedServices.map(s => `
@@ -294,7 +297,7 @@ function hydrateCmsPage() {
   }
 
   // Showcase Projects
-  const storedProjects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  const storedProjects = await loadData('projects');
   const showcaseGrid = document.querySelector('.showcase-grid');
   if (storedProjects.length > 0 && showcaseGrid) {
     showcaseGrid.innerHTML = storedProjects.map(p => `
@@ -321,7 +324,7 @@ function hydrateCmsPage() {
   }
 
   // Testimonials
-  const storedTestimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
+  const storedTestimonials = await loadData('testimonials');
   const testiGrid = document.querySelector('.testimonials-grid');
   if (storedTestimonials.length > 0 && testiGrid) {
     testiGrid.innerHTML = storedTestimonials.map(t => `
@@ -337,7 +340,7 @@ function hydrateCmsPage() {
   }
 
   // FAQs
-  const storedFaqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  const storedFaqs = await loadData('faq');
   const faqGrid = document.querySelector('.faq-grid');
   if (storedFaqs.length > 0 && faqGrid) {
     faqGrid.innerHTML = storedFaqs.map(f => `

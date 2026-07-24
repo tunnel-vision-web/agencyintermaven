@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="assets/favicon/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agency Profile — Intermaven Agency</title>
-  <meta name="description" content="Two decades of brand identity, interactive design, and custom software craft — combined with an AI-assisted delivery pipeline.">
+  <title>Testimonials &amp; Reviews — Intermaven Agency</title>
+  <meta name="description" content="What venture founders, executive leads, and product directors say about working with Intermaven Agency.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sansation:wght@700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -15,11 +17,9 @@
       --bg2: #0d1a18;
       --bg3: #122421;
       --ca: rgba(18,36,33,0.72);
-      --ch: rgba(26,48,44,0.9);
       --sage: #6fa29e;
       --sage-light: #a8c9c5;
       --lime: #d7df23;
-      --lime-hover: #e4ec30;
       --tx: #f6f8f7;
       --mu: #9fb5b1;
       --mu2: #657b77;
@@ -100,15 +100,15 @@
     .page-hero-content p { color: var(--mu); font-size: 17px; max-width: 660px; margin: 0 auto; text-wrap: balance; }
 
     section { padding: 50px 0; }
-    .eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--lime); margin-bottom: 10px; display: block; }
-    h2 { font-family: 'Sansation', sans-serif; font-size: 32px; margin-bottom: 16px; text-wrap: balance; text-align: center; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-    .card { background: var(--ca); border: 1px solid var(--b1); border-radius: 3px; padding: 32px; backdrop-filter: blur(10px); }
-    
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 40px auto 0; max-width: 960px; }
-    .stat-card { background: var(--bg2); border: 1px solid var(--b2); border-radius: 3px; padding: 24px; text-align: center; }
-    .stat-num { font-family: 'Sansation', sans-serif; font-size: 42px; color: var(--lime); font-weight: 700; }
-    .stat-label { font-size: 13px; color: var(--mu); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 4px; }
+
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; }
+    .testi-card { background: var(--ca); border: 1px solid var(--b1); border-radius: 3px; padding: 32px 28px; backdrop-filter: blur(12px); display: flex; flex-direction: column; }
+    .testi-quote { font-size: 15px; color: var(--tx); font-style: italic; flex: 1; margin-bottom: 20px; line-height: 1.7; }
+    .testi-author { display: flex; align-items: center; gap: 14px; padding-top: 16px; border-top: 1px solid var(--b1); }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 3px; background: var(--sage); color: #070f0e; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; }
+    .testi-name { font-weight: 700; font-size: 15px; }
+    .testi-role { font-size: 12.5px; color: var(--mu); }
+    .stars { color: var(--lime); margin-bottom: 14px; }
 
     footer { background: var(--bg3); border-top: 1px solid var(--b1); padding: 60px 0 30px; }
     .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 40px; border-bottom: 1px solid var(--b1); }
@@ -123,6 +123,7 @@
     .powered-by { font-size: 13px; color: var(--mu2); display: flex; align-items: center; gap: 14px; }
     .powered-by a { color: var(--sage-light); font-weight: 600; }
   </style>
+  <script src="api.js"></script>
 </head>
 <body>
 
@@ -130,10 +131,10 @@
   <div class="container">
     <a href="index.html" class="nav-logo"><img src="assets/logo/header/logo.png" alt="Intermaven Agency — Brand Intelligence"></a>
     <div class="nav-links">
-      <a href="profile.html" class="active">Profile</a>
+      <a href="profile.html">Profile</a>
       <a href="services.html">Services</a>
       <a href="showcase.html">Showcase</a>
-      <a href="testimonials.html">Testimonials</a>
+      <a href="testimonials.html" class="active">Testimonials</a>
       <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
     </div>
@@ -152,47 +153,52 @@
 
 <header class="page-hero-inner">
   <div class="hero-bg-container">
-    <div class="hero-bg-layer" style="background-image: url('assets/header_profile.png');"></div>
+    <div class="hero-bg-layer" style="background-image: url('assets/header_testimonials.png');"></div>
     <div class="hero-bg-overlay"></div>
   </div>
   <div class="container page-hero-content">
-    <h1>Agency Profile &amp; Ethos</h1>
-    <p>We turn ambitious ventures into market-ready brand ecosystems — pairing 20+ years of creative direction with the AI-assisted pipeline of right now.</p>
+    <h1>Testimonials &amp; Partnership Reviews</h1>
+    <p>See why tech leads, enterprise founders, and product managers trust Intermaven Agency for mission-critical builds.</p>
   </div>
 </header>
 
 <section>
   <div class="container">
-    <div class="grid-2">
-      <div>
-        <span class="eyebrow">Studio Discipline</span>
-        <h2 style="text-align:left;">High-End Craft, Accelerated by Modern Tooling</h2>
-        <p style="color:var(--mu); margin-bottom:18px;">Intermaven Agency was established to solve a fundamental problem in modern digital growth: legacy agencies move too slowly, while automated tools lack brand discipline and tactical execution.</p>
-        <p style="color:var(--mu);">We bridge that exact gap. Every strategic decision, brand mark, and architectural system is overseen by seasoned tech leads and account managers — backed by the Intermaven Network delivery engine.</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+        <p class="testi-quote">"Intermaven delivered our entire brand identity and React platform in under 4 weeks. Their AI-assisted workflow saved us months of iteration."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JM</div>
+          <div>
+            <div class="testi-name">Julian Vance</div>
+            <div class="testi-role">Founder &amp; Managing Director, Jua Capital</div>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <h3 style="margin-bottom:14px; font-size:22px;">The Intermaven Promise</h3>
-        <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; color:var(--tx);">
-          <li><i class="ri-checkbox-circle-fill" style="color:var(--lime);"></i> <strong>No Hanging Words:</strong> Design precision sitewide.</li>
-          <li><i class="ri-checkbox-circle-fill" style="color:var(--lime);"></i> <strong>Direct Lead Sync:</strong> All bookings flow into Smart CRM.</li>
-          <li><i class="ri-checkbox-circle-fill" style="color:var(--lime);"></i> <strong>In-House Ecosystems:</strong> Battle-tested on our own products.</li>
-          <li><i class="ri-checkbox-circle-fill" style="color:var(--lime);"></i> <strong>Transparent Execution:</strong> Direct human hand-holding.</li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-num">20+</div>
-        <div class="stat-label">Years Industry Craft</div>
+      <div class="testi-card">
+        <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+        <p class="testi-quote">"The level of design discipline is astounding. No hanging words, perfectly aligned grid systems, and a direct line to our tech lead."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SK</div>
+          <div>
+            <div class="testi-name">Sarah Kalu</div>
+            <div class="testi-role">Head of Product, Afya Plus Clinics</div>
+          </div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-num">140+</div>
-        <div class="stat-label">Ventures Launched</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">AI Workflow Default</div>
+
+      <div class="testi-card">
+        <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+        <p class="testi-quote">"Working with Intermaven gave our law firm the gravity and modern edge our enterprise corporate clients expect. Highly recommended."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">DM</div>
+          <div>
+            <div class="testi-name">David Mwanga</div>
+            <div class="testi-role">Senior Partner, Mwanga Law</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -244,6 +250,92 @@
 window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 50);
 });
+</script>
+
+
+<script>
+// ===== DYNAMIC LIVE CMS HYDRATION (localStorage Sync) =====
+async function hydrateCmsPage() {
+  // Services
+  const storedServices = await loadData('services');
+  const servicesGrid = document.querySelector('.services-grid');
+  if (storedServices.length > 0 && servicesGrid) {
+    servicesGrid.innerHTML = storedServices.map(s => `
+      <div class="svc-card">
+        <div class="svc-icon"><i class="${s.icon || 'ri-fingerprint-line'}"></i></div>
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <div class="svc-actions">
+          <a href="appointment.html?service=${s.param || 'consulting'}" class="btn-primary btn-sm">Book Service</a>
+          <a href="similar-projects.html?category=${encodeURIComponent(s.category || 'Branding')}" class="btn-ghost">View Similar <i class="ri-arrow-right-line"></i></a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Showcase Projects
+  const storedProjects = await loadData('projects');
+  const showcaseGrid = document.querySelector('.showcase-grid');
+  if (storedProjects.length > 0 && showcaseGrid) {
+    showcaseGrid.innerHTML = storedProjects.map(p => `
+      <div class="showcase-card" data-category="${p.category ? p.category.toLowerCase().replace(/[^a-z0-9]/g, '') : 'all'}">
+        <div class="showcase-thumb">
+          <img src="${p.thumb}" alt="${p.title}">
+          <span class="showcase-badge ${p.badge === 'venture' ? 'badge-venture' : 'badge-client'}">${p.badge === 'venture' ? 'In-House Venture' : 'Client Engagement'}</span>
+        </div>
+        <div class="showcase-body">
+          <div class="showcase-cat">${p.category}</div>
+          <h3 class="showcase-title">${p.title}</h3>
+          <p class="showcase-desc">${p.desc}</p>
+          <div class="showcase-metrics">
+            ${p.budget ? `<div class="metric-pill"><i class="ri-money-dollar-circle-line"></i> ${p.budget}</div>` : ''}
+            ${p.roi ? `<div class="metric-pill"><i class="ri-line-chart-line"></i> ${p.roi}</div>` : ''}
+          </div>
+          <div class="showcase-actions">
+            <a href="project-details.html?id=${p.id}" class="btn-primary btn-sm">Case Study <i class="ri-arrow-right-line"></i></a>
+            ${p.projectUrl ? `<a href="${p.projectUrl}" target="_blank" class="btn-ghost btn-sm"><i class="ri-external-link-line"></i> Live Site</a>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Testimonials
+  const storedTestimonials = await loadData('testimonials');
+  const testiGrid = document.querySelector('.testimonials-grid');
+  if (storedTestimonials.length > 0 && testiGrid) {
+    testiGrid.innerHTML = storedTestimonials.map(t => `
+      <div class="testi-card">
+        <div class="testi-stars">${'★'.repeat(t.rating)}</div>
+        <p class="testi-quote">"${t.quote}"</p>
+        <div class="testi-author">
+          <strong>${t.name}</strong>
+          <span>${t.role}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // FAQs
+  const storedFaqs = await loadData('faq');
+  const faqGrid = document.querySelector('.faq-grid');
+  if (storedFaqs.length > 0 && faqGrid) {
+    faqGrid.innerHTML = storedFaqs.map(f => `
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>${f.question}</h3>
+          <span class="faq-badge">${f.category}</span>
+        </div>
+        <div class="faq-answer">
+          <p>${f.answer}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', hydrateCmsPage);
+hydrateCmsPage();
 </script>
 
 </body>

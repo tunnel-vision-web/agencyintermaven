@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="assets/favicon/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Studio — Intermaven Agency</title>
-  <meta name="description" content="Get in touch with Intermaven Agency tech leads and account managers for project inquiries and studio partnerships.">
+  <title>Agency Profile — Intermaven Agency</title>
+  <meta name="description" content="Two decades of brand identity, interactive design, and custom software craft — combined with an AI-assisted delivery pipeline.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sansation:wght@700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -15,9 +17,11 @@
       --bg2: #0d1a18;
       --bg3: #122421;
       --ca: rgba(18,36,33,0.72);
+      --ch: rgba(26,48,44,0.9);
       --sage: #6fa29e;
       --sage-light: #a8c9c5;
       --lime: #d7df23;
+      --lime-hover: #e4ec30;
       --tx: #f6f8f7;
       --mu: #9fb5b1;
       --mu2: #657b77;
@@ -99,13 +103,14 @@
 
     section { padding: 50px 0; }
     .eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--lime); margin-bottom: 10px; display: block; }
-
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-    .contact-card { background: var(--ca); border: 1px solid var(--b1); border-radius: 3px; padding: 36px; backdrop-filter: blur(12px); }
-    .form-group { margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
-    .form-group label { font-size: 12px; font-weight: 700; color: var(--mu); text-transform: uppercase; }
-    .form-group input, .form-group textarea, .form-group select { background: var(--bg3); border: 1px solid var(--b2); border-radius: 3px; padding: 12px; color: var(--tx); font-family: 'Outfit', sans-serif; font-size: 14px; }
-    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--sage); }
+    h2 { font-family: 'Sansation', sans-serif; font-size: 32px; margin-bottom: 16px; text-wrap: balance; text-align: center; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .card { background: var(--ca); border: 1px solid var(--b1); border-radius: 3px; padding: 32px; backdrop-filter: blur(10px); }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 40px auto 0; max-width: 960px; }
+    .stat-card { background: var(--bg2); border: 1px solid var(--b2); border-radius: 3px; padding: 24px; text-align: center; }
+    .stat-num { font-family: 'Sansation', sans-serif; font-size: 42px; color: var(--lime); font-weight: 700; }
+    .stat-label { font-size: 13px; color: var(--mu); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 4px; }
 
     footer { background: var(--bg3); border-top: 1px solid var(--b1); padding: 60px 0 30px; }
     .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 40px; border-bottom: 1px solid var(--b1); }
@@ -120,6 +125,7 @@
     .powered-by { font-size: 13px; color: var(--mu2); display: flex; align-items: center; gap: 14px; }
     .powered-by a { color: var(--sage-light); font-weight: 600; }
   </style>
+  <script src="api.js"></script>
 </head>
 <body>
 
@@ -127,12 +133,12 @@
   <div class="container">
     <a href="index.html" class="nav-logo"><img src="assets/logo/header/logo.png" alt="Intermaven Agency — Brand Intelligence"></a>
     <div class="nav-links">
-      <a href="profile.html">Profile</a>
+      <a href="profile.html" class="active">Profile</a>
       <a href="services.html">Services</a>
       <a href="showcase.html">Showcase</a>
       <a href="testimonials.html">Testimonials</a>
       <a href="faq.html">FAQ</a>
-      <a href="contact.html" class="active">Contact</a>
+      <a href="contact.html">Contact</a>
     </div>
     <div class="nav-actions">
       <div class="nav-auth-group">
@@ -149,51 +155,47 @@
 
 <header class="page-hero-inner">
   <div class="hero-bg-container">
-    <div class="hero-bg-layer" style="background-image: url('assets/header_appointment.png');"></div>
+    <div class="hero-bg-layer" style="background-image: url('assets/header_profile.png');"></div>
     <div class="hero-bg-overlay"></div>
   </div>
   <div class="container page-hero-content">
-    <h1>Contact Our Team</h1>
-    <p>Reach out to discuss new venture builds, agency partnerships, or custom AI automation integrations.</p>
+    <h1>Agency Profile &amp; Ethos</h1>
+    <p>We turn ambitious ventures into market-ready brand ecosystems — pairing 20+ years of creative direction with the AI-assisted pipeline of right now.</p>
   </div>
 </header>
 
 <section>
   <div class="container">
     <div class="grid-2">
-      <div class="contact-card">
-        <h3 style="font-size:22px; margin-bottom:20px;">Send a Direct Message</h3>
-        <form id="contactForm" onsubmit="handleContactSubmit(event)">
-          <div class="form-group">
-            <label for="cName">Your Name</label>
-            <input type="text" id="cName" placeholder="Alex Morgan" required>
-          </div>
-          <div class="form-group">
-            <label for="cEmail">Work Email</label>
-            <input type="email" id="cEmail" placeholder="alex@company.com" required>
-          </div>
-          <div class="form-group">
-            <label for="cMsg">Message</label>
-            <textarea id="cMsg" rows="4" placeholder="Tell us about your venture scope or project timeline..." required></textarea>
-          </div>
-          <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">Send Message <i class="ri-send-plane-line"></i></button>
-        </form>
+      <div>
+        <span class="eyebrow">Studio Discipline</span>
+        <h2 style="text-align:left;">High-End Craft, Accelerated by Modern Tooling</h2>
+        <p style="color:var(--mu); margin-bottom:18px;">Intermaven Agency was established to solve a fundamental problem in modern digital growth: legacy agencies move too slowly, while automated tools lack brand discipline and tactical execution.</p>
+        <p style="color:var(--mu);">We bridge that exact gap. Every strategic decision, brand mark, and architectural system is overseen by seasoned tech leads and account managers — backed by the Intermaven Network delivery engine.</p>
       </div>
+      <div class="card">
+        <h3 style="margin-bottom:14px; font-size:22px;">The Intermaven Promise</h3>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; color:var(--tx);">
+          <li><i class="ri-checkbox-circle-fill" style="color:var(--lime);"></i> <strong>No Hanging Words:</strong> Design precision sitewide.</li>
+          <li><i class="ri-checkbox-circle-fill" style="color:var(--lime);"></i> <strong>Direct Lead Sync:</strong> All bookings flow into Smart CRM.</li>
+          <li><i class="ri-checkbox-circle-fill" style="color:var(--lime);"></i> <strong>In-House Ecosystems:</strong> Battle-tested on our own products.</li>
+          <li><i class="ri-checkbox-circle-fill" style="color:var(--lime);"></i> <strong>Transparent Execution:</strong> Direct human hand-holding.</li>
+        </ul>
+      </div>
+    </div>
 
-      <div style="display:flex; flex-direction:column; gap:20px;">
-        <div class="contact-card">
-          <span class="eyebrow">Studio Location</span>
-          <h3 style="font-size:20px; margin-bottom:10px;">Intermaven Agency Hub</h3>
-          <p style="color:var(--mu); margin-bottom:14px;"><i class="ri-map-pin-2-line" style="color:var(--lime);"></i> Atlanta Studio &amp; Virtual Global Delivery Network</p>
-          <p style="color:var(--mu);"><i class="ri-mail-line" style="color:var(--lime);"></i> hello@intermaven.agency</p>
-        </div>
-
-        <div class="contact-card" style="background:linear-gradient(135deg, rgba(111,162,158,0.12), rgba(215,223,35,0.08));">
-          <span class="eyebrow">Prefer A Scheduled Meeting?</span>
-          <h3 style="font-size:20px; margin-bottom:10px;">Book a Free Tech Lead Consultation</h3>
-          <p style="color:var(--mu); margin-bottom:16px;">Schedule a 30-minute video session to map your project requirements directly into our Smart CRM.</p>
-          <a href="appointment.html" class="btn-primary"><i class="ri-calendar-event-line"></i> Book Appointment Now</a>
-        </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years Industry Craft</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">140+</div>
+        <div class="stat-label">Ventures Launched</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">AI Workflow Default</div>
       </div>
     </div>
   </div>
@@ -245,29 +247,6 @@
 window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 50);
 });
-
-function handleContactSubmit(e) {
-  e.preventDefault();
-  const name = document.getElementById('cName').value;
-  const email = document.getElementById('cEmail').value;
-  const msg = document.getElementById('cMsg').value;
-
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
-  leads.unshift({
-    id: 'LEAD-' + Date.now().toString().slice(-4),
-    name: name,
-    email: email,
-    service: 'Direct Inquiry',
-    techLead: 'Unassigned',
-    date: new Date().toLocaleDateString(),
-    status: 'New Inquiry',
-    notes: msg
-  });
-  localStorage.setItem('intermaven_leads', JSON.stringify(leads));
-
-  alert('Thank you, ' + name + '! Your message has been recorded in the Intermaven Smart CRM admin.');
-  document.getElementById('contactForm').reset();
-}
 </script>
 
 </body>

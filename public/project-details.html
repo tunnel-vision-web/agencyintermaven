@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="assets/favicon/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Details — Intermaven Agency</title>
+  <title>Project Details ΓÇö Intermaven Agency</title>
   <meta name="description" content="Detailed case study and project overview from Intermaven Agency showcase.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -493,6 +495,7 @@
       .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <script src="api.js"></script>
 </head>
 <body>
 
@@ -634,7 +637,7 @@
         <a href="index.html">
           <img src="assets/logo/footer/logo.png" alt="Intermaven Agency" class="footer-logo-img">
         </a>
-        <p>Brand identity, interactive design, and software ecosystems — built with two decades of craft and an AI-assisted delivery pipeline.</p>
+        <p>Brand identity, interactive design, and software ecosystems ΓÇö built with two decades of craft and an AI-assisted delivery pipeline.</p>
         <div class="footer-socials">
           <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
           <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
@@ -688,7 +691,7 @@
 </footer>
 
 <script>
-  let storedProjs = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  let storedProjs = JSON.parse(null || '[]');
   let updatedProjs = false;
   storedProjs.forEach(p => {
     if (p.images) {
@@ -707,7 +710,7 @@
     }
   });
   if (updatedProjs) {
-    localStorage.setItem('intermaven_projects', JSON.stringify(storedProjs));
+    
   }
 
 // Extended project dataset defaults if localStorage is empty
@@ -732,10 +735,10 @@ const defaultFullProjects = [
     roi: '4.8x Licensing Revenue',
     projectUrl: 'https://www.tunemavens.com/',
     images: [
-      { url: 'assets/tunemavens_hero.png', caption: 'TuneMavens Platform — Main Desktop Interface & Rights Portal' },
-      { url: 'assets/tunemavens_features.png', caption: 'TuneMavens Platform — Core Catalogue Clearance & Track Licensing' },
-      { url: 'assets/tunemavens_detail.png', caption: 'TuneMavens Platform — Workflow Engine & Licensing Specifications' },
-      { url: 'assets/tunemavens_mobile.png', caption: 'TuneMavens Platform — Responsive Mobile Application View' }
+      { url: 'assets/tunemavens_hero.png', caption: 'TuneMavens Platform ΓÇö Main Desktop Interface & Rights Portal' },
+      { url: 'assets/tunemavens_features.png', caption: 'TuneMavens Platform ΓÇö Core Catalogue Clearance & Track Licensing' },
+      { url: 'assets/tunemavens_detail.png', caption: 'TuneMavens Platform ΓÇö Workflow Engine & Licensing Specifications' },
+      { url: 'assets/tunemavens_mobile.png', caption: 'TuneMavens Platform ΓÇö Responsive Mobile Application View' }
     ]
   },
   {
@@ -744,7 +747,7 @@ const defaultFullProjects = [
     category: 'AI & Automation',
     badge: 'venture',
     thumb: 'assets/intermaven_thumb.png',
-    desc: 'The AI-powered SaaS ecosystem behind every project — credits, accounts, and automation, unified.',
+    desc: 'The AI-powered SaaS ecosystem behind every project ΓÇö credits, accounts, and automation, unified.',
     fullDesc: `<h3>Platform Overview</h3>
 <p>The Intermaven Network Suite serves as the digital spine powering client account synchronization, automated lead routing, and project credit tracking across all agency ventures.</p>
 <h3>Ecosystem Features</h3>
@@ -758,10 +761,10 @@ const defaultFullProjects = [
     roi: '+340% Workflow Efficiency',
     projectUrl: 'https://intermaven.io/',
     images: [
-      { url: 'assets/intermaven_hero.png', caption: 'Intermaven Network Suite — Main Desktop Command Center' },
-      { url: 'assets/intermaven_features.png', caption: 'Intermaven Network Suite — AI Workflow Automation & Credit Management' },
-      { url: 'assets/intermaven_detail.png', caption: 'Intermaven Network Suite — System Integration & Portal Architecture' },
-      { url: 'assets/intermaven_mobile.png', caption: 'Intermaven Network Suite — Mobile Responsive Dashboard' }
+      { url: 'assets/intermaven_hero.png', caption: 'Intermaven Network Suite ΓÇö Main Desktop Command Center' },
+      { url: 'assets/intermaven_features.png', caption: 'Intermaven Network Suite ΓÇö AI Workflow Automation & Credit Management' },
+      { url: 'assets/intermaven_detail.png', caption: 'Intermaven Network Suite ΓÇö System Integration & Portal Architecture' },
+      { url: 'assets/intermaven_mobile.png', caption: 'Intermaven Network Suite ΓÇö Mobile Responsive Dashboard' }
     ]
   },
   {
@@ -785,10 +788,10 @@ const defaultFullProjects = [
     projectUrl: 'https://atlantatvmount.com/',
     btnText: 'Launch Live Booking Web App',
     images: [
-      { url: 'assets/atlanta_tv_mount_hero.png', caption: 'Atlanta TV Mount PRO — Live Desktop Web Application Landing Page' },
-      { url: 'assets/atlanta_tv_mount_features.png', caption: 'Atlanta TV Mount PRO — Instant Quote Calculator & Package Options' },
-      { url: 'assets/atlanta_tv_mount_detail.png', caption: 'Atlanta TV Mount PRO — Service Booking & Installation Scheduling' },
-      { url: 'assets/atlanta_tv_mount_mobile.png', caption: 'Atlanta TV Mount PRO — Mobile Booking Interface' }
+      { url: 'assets/atlanta_tv_mount_hero.png', caption: 'Atlanta TV Mount PRO ΓÇö Live Desktop Web Application Landing Page' },
+      { url: 'assets/atlanta_tv_mount_features.png', caption: 'Atlanta TV Mount PRO ΓÇö Instant Quote Calculator & Package Options' },
+      { url: 'assets/atlanta_tv_mount_detail.png', caption: 'Atlanta TV Mount PRO ΓÇö Service Booking & Installation Scheduling' },
+      { url: 'assets/atlanta_tv_mount_mobile.png', caption: 'Atlanta TV Mount PRO ΓÇö Mobile Booking Interface' }
     ]
   },
   {
@@ -811,10 +814,10 @@ const defaultFullProjects = [
     roi: '3.8x Marketplace Split Speed',
     projectUrl: 'https://syncmavens.com/',
     images: [
-      { url: 'assets/syncmavens_hero.png', caption: 'SyncMavens Platform — Marketplace Landing Page & Audio Index' },
-      { url: 'assets/syncmavens_features.png', caption: 'SyncMavens Platform — Sync Licensing Directory & Track Search' },
-      { url: 'assets/syncmavens_detail.png', caption: 'SyncMavens Platform — Catalogue Metadata & Split Clearance' },
-      { url: 'assets/syncmavens_mobile.png', caption: 'SyncMavens Platform — Mobile Audio Preview & Licensing View' }
+      { url: 'assets/syncmavens_hero.png', caption: 'SyncMavens Platform ΓÇö Marketplace Landing Page & Audio Index' },
+      { url: 'assets/syncmavens_features.png', caption: 'SyncMavens Platform ΓÇö Sync Licensing Directory & Track Search' },
+      { url: 'assets/syncmavens_detail.png', caption: 'SyncMavens Platform ΓÇö Catalogue Metadata & Split Clearance' },
+      { url: 'assets/syncmavens_mobile.png', caption: 'SyncMavens Platform ΓÇö Mobile Audio Preview & Licensing View' }
     ]
   },
   {
@@ -837,18 +840,18 @@ const defaultFullProjects = [
     roi: '+280% Streaming Throughput',
     projectUrl: 'https://tunestream.co/',
     images: [
-      { url: 'assets/tunestream_hero.png', caption: 'TuneStream Engine — Audio Delivery Engine & Network Portal' },
-      { url: 'assets/tunestream_features.png', caption: 'TuneStream Engine — Real-time Audio Distribution & Waveform Analysis' },
-      { url: 'assets/tunestream_detail.png', caption: 'TuneStream Engine — Rights Ingestion & Streaming Infrastructure' },
-      { url: 'assets/tunestream_mobile.png', caption: 'TuneStream Engine — Mobile Player & Streaming Dashboard' }
+      { url: 'assets/tunestream_hero.png', caption: 'TuneStream Engine ΓÇö Audio Delivery Engine & Network Portal' },
+      { url: 'assets/tunestream_features.png', caption: 'TuneStream Engine ΓÇö Real-time Audio Distribution & Waveform Analysis' },
+      { url: 'assets/tunestream_detail.png', caption: 'TuneStream Engine ΓÇö Rights Ingestion & Streaming Infrastructure' },
+      { url: 'assets/tunestream_mobile.png', caption: 'TuneStream Engine ΓÇö Mobile Player & Streaming Dashboard' }
     ]
   },
   {
     id: 4,
-    title: 'Jua Capital',
+    title: 'Blu X Media',
     category: 'Branding',
     badge: 'client',
-    thumb: 'assets/jua_capital.png',
+    thumb: 'assets/uploads/blu_x_media_1784836456485.png',
     desc: 'Investor-grade identity system for an East African fintech, pairing a sunrise mark with a sharp typographic system.',
     fullDesc: `<h3>Brand Identity Case Study</h3>
 <p>Jua Capital is an East African venture capital firm supporting high-growth tech founders. Intermaven designed a complete brand ecosystem reflecting warmth, institutional trust, and forward momentum.</p>`,
@@ -900,26 +903,42 @@ const defaultFullProjects = [
 ];
 
 // Load project dataset from localStorage or fall back to defaults
-let storedProjects = localStorage.getItem('intermaven_projects');
-let projects = storedProjects ? JSON.parse(storedProjects) : defaultFullProjects;
-if (!storedProjects) {
-  localStorage.setItem('intermaven_projects', JSON.stringify(defaultFullProjects));
+let projects = defaultFullProjects;
+let project = projects[0];
+let currentSlideIdx = 0;
+let carouselImages = [];
+
+async function initProjectDetailsPage() {
+  try {
+    const loaded = await loadData('projects');
+    if (loaded && Array.isArray(loaded) && loaded.length > 0) {
+      projects = loaded;
+    }
+  } catch(e) {
+    console.warn('API load failed, using default dataset:', e);
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const rawId = urlParams.get('id');
+  project = projects.find(p => String(p.id) === String(rawId)) || projects[0];
+
+  if (project.thumb && project.images && project.images.length) {
+    project.images[0].url = project.thumb;
+  }
+
+  carouselImages = project.images && project.images.length ? project.images : [
+    { url: project.thumb || 'assets/tunemavens.png', caption: project.title + ' — Main Overview' }
+  ];
+
+renderProjectPage();
 }
 
-// Parse URL parameter ?id=...
-const urlParams = new URLSearchParams(window.location.search);
-const currentId = parseInt(urlParams.get('id')) || 3;
-const project = projects.find(p => p.id === currentId) || projects[0];
-
-// State for carousel
-let currentSlideIdx = 0;
-let carouselImages = project.images && project.images.length ? project.images : [
-  { url: project.thumb || 'assets/tunemavens.png', caption: project.title + ' — Main Overview' }
-];
+document.addEventListener('DOMContentLoaded', initProjectDetailsPage);
+initProjectDetailsPage();
 
 // Render Page Content
 function renderProjectPage() {
-  document.title = `${project.title} — Intermaven Agency Showcase`;
+  document.title = `${project.title} ΓÇö Intermaven Agency Showcase`;
   document.getElementById('bcProjectName').innerText = project.title;
   document.getElementById('pMainTitle').innerText = project.title;
   document.getElementById('pCatTag').innerText = project.category || 'Showcase Project';
@@ -1023,14 +1042,14 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') nextSlide();
 });
 
-renderProjectPage();
+// renderProjectPage called inside initProjectDetailsPage()
 </script>
 
 <script>
 // ===== DYNAMIC LIVE CMS HYDRATION (localStorage Sync) =====
 function hydrateCmsPage() {
   // Services
-  const storedServices = JSON.parse(localStorage.getItem('intermaven_services') || '[]');
+  const storedServices = JSON.parse(null || '[]');
   const servicesGrid = document.querySelector('.services-grid');
   if (storedServices.length > 0 && servicesGrid) {
     servicesGrid.innerHTML = storedServices.map(s => `
@@ -1047,7 +1066,7 @@ function hydrateCmsPage() {
   }
 
   // Showcase Projects
-  const storedProjects = JSON.parse(localStorage.getItem('intermaven_projects') || '[]');
+  const storedProjects = JSON.parse(null || '[]');
   const showcaseGrid = document.querySelector('.showcase-grid');
   if (storedProjects.length > 0 && showcaseGrid) {
     showcaseGrid.innerHTML = storedProjects.map(p => `
@@ -1074,12 +1093,12 @@ function hydrateCmsPage() {
   }
 
   // Testimonials
-  const storedTestimonials = JSON.parse(localStorage.getItem('intermaven_testimonials') || '[]');
+  const storedTestimonials = JSON.parse(null || '[]');
   const testiGrid = document.querySelector('.testimonials-grid');
   if (storedTestimonials.length > 0 && testiGrid) {
     testiGrid.innerHTML = storedTestimonials.map(t => `
       <div class="testi-card">
-        <div class="testi-stars">${'★'.repeat(t.rating)}</div>
+        <div class="testi-stars">${'Γÿà'.repeat(t.rating)}</div>
         <p class="testi-quote">"${t.quote}"</p>
         <div class="testi-author">
           <strong>${t.name}</strong>
@@ -1090,7 +1109,7 @@ function hydrateCmsPage() {
   }
 
   // FAQs
-  const storedFaqs = JSON.parse(localStorage.getItem('intermaven_faqs') || '[]');
+  const storedFaqs = JSON.parse(null || '[]');
   const faqGrid = document.querySelector('.faq-grid');
   if (storedFaqs.length > 0 && faqGrid) {
     faqGrid.innerHTML = storedFaqs.map(f => `

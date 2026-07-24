@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="assets/favicon/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Consultation — Intermaven Agency</title>
@@ -150,6 +152,7 @@
     .powered-by { font-size: 13px; color: var(--mu2); display: flex; align-items: center; gap: 14px; }
     .powered-by a { color: var(--sage-light); font-weight: 600; }
   </style>
+  <script src="api.js"></script>
 </head>
 <body>
 
@@ -400,7 +403,7 @@ function selectSlot(slotStr, el) {
   selectedBookingSlot = slotStr;
 }
 
-function submitWizardAppointment() {
+async function submitWizardAppointment() {
   const name = document.getElementById('wName').value;
   const email = document.getElementById('wEmail').value;
   const phone = document.getElementById('wPhone').value;
@@ -422,9 +425,9 @@ function submitWizardAppointment() {
     notes: '2-Step Wizard Booking'
   };
 
-  const leads = JSON.parse(localStorage.getItem('intermaven_leads') || '[]');
+  const leads = await loadData('leads');
   leads.unshift(newLead);
-  localStorage.setItem('intermaven_leads', JSON.stringify(leads));
+  await saveData('leads', leads);
 
   // Direct real-time sync to Intermaven Smart CRM Backend API
   try {

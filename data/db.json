@@ -1,0 +1,796 @@
+{
+  "users": [],
+  "projects": [
+    {
+      "id": 9,
+      "title": "Walker for NABIP VP Campaign",
+      "category": "Branding & Web, Branding, Interactive Design",
+      "categories": [
+        "Branding & Web",
+        "Branding",
+        "Interactive Design"
+      ],
+      "badge": "client",
+      "client": "Walker for NABIP Campaign Committee",
+      "budget": "$1500",
+      "roi": "Voter re-engagement and user database retentione",
+      "projectUrl": "https://keepwalkingwithwalkerfornabipvicepresident.com/",
+      "thumb": "assets/uploads/walker_nabip_campaign.jpg",
+      "desc": "Strategic digital campaign platform, visual identity, and member engagement portal for the NABIP Vice Presidential campaign.",
+      "fullDesc": "<h3>Campaign Strategy &amp; Digital Literature Portal</h3>\n<p>Keep Walking with Walker is a nationwide advocacy and leadership campaign for the National Association of Benefits and Insurance Professionals (NABIP). Intermaven architected a bold, mobile-first campaign platform, digital manifesto, member video hub, and election pledge system built for maximum voter mobilization.</p>\n<h3>Key Project Deliverables</h3>\n<ul>\n  <li><strong>Executive Brand Identity:</strong> High-trust presidential visual design system, typography, and advocacy graphics.</li>\n  <li><strong>Voter Engagement Engine:</strong> Interactive policy platform, endorsement portal, and event tracking interface.</li>\n  <li><strong>High-Performance Infrastructure:</strong> Built for multi-device speed, accessibility, and high-volume grassroots engagement on using WordPress CMS for the content management</li>\n</ul>",
+      "images": [
+        {
+          "url": "assets/uploads/walker_nabip_campaign.jpg",
+          "caption": "Keep Walking with Walker — Live Campaign Hero Portal"
+        },
+        {
+          "url": "assets/uploads/walker_vision.jpg",
+          "caption": "Vision & Key Leadership Platform Pillars"
+        },
+        {
+          "url": "assets/uploads/walker_leadership.jpg",
+          "caption": "Bold, Innovative & Visionary Advocacy Overview"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Atlanta TV Mount PRO",
+      "category": "Branding & Web",
+      "badge": "venture",
+      "thumb": "assets/atlanta_tv_mount_thumb.png",
+      "client": "Atlanta TV Mount PRO Inc.",
+      "budget": "$45,000",
+      "roi": "340% Booking Conversion",
+      "projectUrl": "https://atlantatvmount.com/",
+      "btnText": "Launch Live Booking Web App",
+      "desc": "Live quote calculation and booking web application engineered for home services, featuring automated customer scheduling.",
+      "fullDesc": "<h3>Executive Summary</h3><p>Atlanta TV Mount PRO is an automated web platform designed to streamline high-velocity home service bookings across the greater Atlanta metropolitan area.</p><h3>Key System Features</h3><ul><li><strong>Instant Online Estimator:</strong> Real-time price calculation based on screen size, mount type, and wall surface material.</li><li><strong>Automated Scheduling:</strong> Direct calendar integration with immediate SMS and email customer confirmations.</li><li><strong>Mobile-Optimized UX:</strong> Ultra-responsive mobile booking flow tailored for local search conversion.</li></ul>",
+      "images": [
+        {
+          "url": "assets/atlanta_tv_mount_thumb.png",
+          "caption": "Focused Brand Identity & Graphical Logo Header"
+        },
+        {
+          "url": "assets/atlanta_tv_mount_pro.png",
+          "caption": "Full Platform Hero Showcase & Live Booking Interface"
+        },
+        {
+          "url": "assets/atlanta_tv_mount_features.png",
+          "caption": "Instant Quote Calculator & Feature Package Options"
+        },
+        {
+          "url": "assets/atlanta_tv_mount_detail.png",
+          "caption": "Step-by-Step Installation Booking Workflow"
+        },
+        {
+          "url": "assets/atlanta_tv_mount_mobile.png",
+          "caption": "Mobile-Optimized Booking Flow"
+        }
+      ],
+      "categories": [
+        "Branding & Web"
+      ]
+    },
+    {
+      "id": 1,
+      "title": "TuneMavens Platform",
+      "category": "Software & Systems",
+      "badge": "venture",
+      "thumb": "assets/tunemavens_thumb.png",
+      "client": "TuneMavens Inc.",
+      "budget": "$85,000",
+      "roi": "220% Revenue Acceleration",
+      "projectUrl": "https://www.tunemavens.com/",
+      "btnText": "Launch Music Platform",
+      "desc": "Sync licensing platform built for music rights holders and catalog managers.",
+      "fullDesc": "<h3>Executive Summary</h3><p>TuneMavens provides music rights holders with automated catalog management, sync placement tracking, and royalty distribution workflows.</p><h3>Technical Architecture</h3><ul><li>Acoustic fingerprinting engine for automatic track detection.</li><li>Instant licensing agreement generator.</li><li>Multi-currency payout gateway.</li></ul>",
+      "images": [
+        {
+          "url": "assets/tunemavens_thumb.png",
+          "caption": "TuneMavens Brandmark & Graphical Thumbnail"
+        },
+        {
+          "url": "assets/tunemavens.png",
+          "caption": "Platform Landing Page & Catalog Search"
+        },
+        {
+          "url": "assets/tunemavens_features.png",
+          "caption": "Sync Licensing Workflows & Licensing Desk"
+        },
+        {
+          "url": "assets/tunemavens_detail.png",
+          "caption": "Rights Holder Dashboard"
+        },
+        {
+          "url": "assets/tunemavens_mobile.png",
+          "caption": "Mobile Catalog Browser"
+        }
+      ],
+      "categories": [
+        "Software & Systems"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Intermaven Network Suite",
+      "category": "AI & Automation",
+      "badge": "venture",
+      "thumb": "assets/intermaven_thumb.png",
+      "client": "Intermaven Agency",
+      "budget": "Internal Venture",
+      "roi": "4.8x Production Velocity",
+      "projectUrl": "https://intermaven.io/",
+      "btnText": "Explore intermaven.io",
+      "desc": "SaaS engine powering automated agency delivery and Smart CRM workflows.",
+      "fullDesc": "<h3>Executive Summary</h3><p>The core intelligence engine powering Intermaven Agency operations, providing client portals, CRM double opt-in validation, and AI pipeline node management.</p>",
+      "images": [
+        {
+          "url": "assets/intermaven_thumb.png",
+          "caption": "Intermaven Brand & Network Thumbnail"
+        },
+        {
+          "url": "assets/intermaven_hero.png",
+          "caption": "Main Platform Hub"
+        },
+        {
+          "url": "assets/intermaven_features.png",
+          "caption": "Automated CRM & Node Manager"
+        },
+        {
+          "url": "assets/intermaven_detail.png",
+          "caption": "Pipeline Telemetry"
+        },
+        {
+          "url": "assets/intermaven_mobile.png",
+          "caption": "Mobile Ecosystem Dashboard"
+        }
+      ],
+      "categories": [
+        "AI & Automation"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "SyncMavens Platform",
+      "category": "Software & Systems",
+      "badge": "venture",
+      "thumb": "assets/syncmavens_thumb.png",
+      "client": "SyncMavens Group",
+      "budget": "$60,000",
+      "roi": "180% Licensing Speed",
+      "projectUrl": "https://syncmavens.com/",
+      "btnText": "Launch SyncMavens",
+      "desc": "Sync marketplace sub-platform, brand-extended from TuneMavens.",
+      "fullDesc": "<h3>Executive Summary</h3><p>SyncMavens facilitates rapid sync placements for TV, film, and commercial media productions.</p>",
+      "images": [
+        {
+          "url": "assets/syncmavens_thumb.png",
+          "caption": "SyncMavens Focused Logo Banner"
+        },
+        {
+          "url": "assets/sync_mavens.png",
+          "caption": "Marketplace Interface"
+        },
+        {
+          "url": "assets/syncmavens_features.png",
+          "caption": "Curated Track Playlists"
+        },
+        {
+          "url": "assets/syncmavens_detail.png",
+          "caption": "Licensing Checkout Workflow"
+        },
+        {
+          "url": "assets/syncmavens_mobile.png",
+          "caption": "Mobile Player"
+        }
+      ],
+      "categories": [
+        "Software & Systems"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "TuneStream Engine",
+      "category": "AI & Automation",
+      "badge": "venture",
+      "thumb": "assets/tunestream_thumb.png",
+      "client": "TuneStream Co.",
+      "budget": "$50,000",
+      "roi": "99.9% Uptime Stream Delivery",
+      "projectUrl": "https://tunestream.co/",
+      "btnText": "Launch TuneStream",
+      "desc": "Audio delivery engine and dynamic rights catalog distribution system.",
+      "fullDesc": "<h3>Executive Summary</h3><p>High-fidelity audio streaming node engineered for low-latency playback and automated metadata tagging.</p>",
+      "images": [
+        {
+          "url": "assets/tunestream_thumb.png",
+          "caption": "TuneStream Graphical Header"
+        },
+        {
+          "url": "assets/tunestream_hero.png",
+          "caption": "Streaming Engine Portal"
+        },
+        {
+          "url": "assets/tunestream_features.png",
+          "caption": "Lossless Streaming Quality Controls"
+        },
+        {
+          "url": "assets/tunestream_detail.png",
+          "caption": "Distribution Telemetry"
+        },
+        {
+          "url": "assets/tunestream_mobile.png",
+          "caption": "Mobile Streamer"
+        }
+      ],
+      "categories": [
+        "AI & Automation"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Blu X Media",
+      "category": "Branding & Media",
+      "badge": "client",
+      "client": "Blu X Media Inc.",
+      "budget": "$500",
+      "roi": "+250% Engagement",
+      "projectUrl": "",
+      "thumb": "assets/uploads/blu_x_media_1784836456485.png",
+      "desc": "Complete visual identity guidelines, brand identity and theme for Blu X Media, an Atlanta-based video/photo agency.",
+      "fullDesc": "<h3>Executive Summary</h3><p>Complete visual identity guidelines, brand identity, and theme for Blu X Media, an Atlanta-based video and photography agency.</p><h3>Key System Features</h3><ul><li><strong>Brand Identity:</strong> Modern wordmark, visual guidelines, and design system.</li><li><strong>Media Portfolio:</strong> High-performance media showcase and client engagement portal.</li></ul>",
+      "images": [
+        {
+          "url": "assets/uploads/blu_x_media_1784836456485.png",
+          "caption": "Blu X Media — Brand Guidelines"
+        }
+      ],
+      "categories": [
+        "Branding & Media"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Mwanga Law",
+      "category": "Branding",
+      "badge": "client",
+      "thumb": "assets/mwanga_law.png",
+      "client": "Mwanga Law Group",
+      "budget": "$28,000",
+      "roi": "150% Inquiries Growth",
+      "projectUrl": "https://intermaven.io",
+      "btnText": "View Legal Portfolio",
+      "desc": "Distinguished legal wordmark and digital presence.",
+      "fullDesc": "<h3>Executive Summary</h3><p>Distinguished legal brand identity, stationary suite, and client consultation web portal.</p>",
+      "images": [
+        {
+          "url": "assets/mwanga_law.png",
+          "caption": "Wordmark & Stationery"
+        }
+      ],
+      "categories": [
+        "Branding"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Afya Plus Clinics",
+      "category": "Branding",
+      "badge": "client",
+      "thumb": "assets/afya_plus.png",
+      "client": "Afya Plus Healthcare",
+      "budget": "$40,000",
+      "roi": "+4,000 Registered Patients",
+      "projectUrl": "https://intermaven.io",
+      "btnText": "Explore Clinic Portal",
+      "desc": "Healthcare brand identity and patient portal design.",
+      "fullDesc": "<h3>Executive Summary</h3><p>Comprehensive patient portal UX and healthcare brand system built for multi-location clinics.</p>",
+      "images": [
+        {
+          "url": "assets/afya_plus.png",
+          "caption": "Patient Portal Design"
+        }
+      ],
+      "categories": [
+        "Branding"
+      ]
+    }
+  ],
+  "leads": [
+    {
+      "id": "LEAD-8841",
+      "name": "Alex Morgan",
+      "email": "alex@ventureco.com",
+      "company": "VentureCo Global",
+      "service": "Brand Identity & Strategy",
+      "techLead": "Elena Rostova",
+      "date": "July 22 @ 10:00 AM EST",
+      "status": "Confirmed Appointment",
+      "notes": "Interested in complete wordmark and design system."
+    },
+    {
+      "id": "LEAD-8842",
+      "name": "Sophia Chen",
+      "email": "sophia@fintechplus.io",
+      "company": "Fintech Plus Inc",
+      "service": "AI Workflow Automation",
+      "techLead": "Tariq Al-Mansoor",
+      "date": "July 23 @ 02:00 PM EST",
+      "status": "Confirmed Appointment",
+      "notes": "Automated lead distribution and customer support AI agent."
+    },
+    {
+      "id": "LEAD-8843",
+      "name": "Marcus Brody",
+      "email": "brody@brodylaw.com",
+      "company": "Brody Law Group",
+      "service": "Custom Ecosystem Build",
+      "techLead": "Marcus Sterling",
+      "date": "July 24 @ 04:30 PM EST",
+      "status": "In Review",
+      "notes": "Client portal with custom document generation."
+    },
+    {
+      "id": "LEAD-8844",
+      "name": "David Vance",
+      "email": "vance@juacapital.org",
+      "company": "Jua Capital",
+      "service": "Interactive & Web Design",
+      "techLead": "Elena Rostova",
+      "date": "July 25 @ 10:00 AM EST",
+      "status": "New Inquiry",
+      "notes": "Vite/React interactive portal refresh."
+    }
+  ],
+  "media": [
+    {
+      "id": 1,
+      "name": "Hero Slide 1 — Studio Overview",
+      "url": "assets/hero_slide1.png",
+      "type": "PNG Image",
+      "size": "702 KB",
+      "date": "July 20, 2026"
+    },
+    {
+      "id": 2,
+      "name": "Hero Slide 2 — AI Workflows",
+      "url": "assets/hero_slide2.png",
+      "type": "PNG Image",
+      "size": "783 KB",
+      "date": "July 21, 2026"
+    },
+    {
+      "id": 3,
+      "name": "Hero Slide 3 — Platform Tools",
+      "url": "assets/hero_slide3.png",
+      "type": "PNG Image",
+      "size": "675 KB",
+      "date": "July 22, 2026"
+    },
+    {
+      "id": 4,
+      "name": "Intermaven Header Logo",
+      "url": "assets/logo/header/logo.png",
+      "type": "PNG Image",
+      "size": "10 KB",
+      "date": "July 15, 2026"
+    },
+    {
+      "id": 5,
+      "name": "Intermaven Footer Logo",
+      "url": "assets/logo/footer/logo.png",
+      "type": "PNG Image",
+      "size": "10 KB",
+      "date": "July 15, 2026"
+    },
+    {
+      "id": 6,
+      "name": "Mwanga Law Case Study Cover",
+      "url": "assets/mwanga_law.png",
+      "type": "PNG Image",
+      "size": "689 KB",
+      "date": "July 18, 2026"
+    },
+    {
+      "id": 7,
+      "name": "Afya Plus Patient Portal Showcase",
+      "url": "assets/afya_plus.png",
+      "type": "PNG Image",
+      "size": "663 KB",
+      "date": "July 19, 2026"
+    },
+    {
+      "id": 8,
+      "name": "Tunemavens Audio App Platform",
+      "url": "assets/tunemavens.png",
+      "type": "PNG Image",
+      "size": "727 KB",
+      "date": "July 17, 2026"
+    },
+    {
+      "id": 9,
+      "name": "SyncMavens Realtime Platform",
+      "url": "assets/sync_mavens.png",
+      "type": "PNG Image",
+      "size": "727 KB",
+      "date": "July 18, 2026"
+    },
+    {
+      "id": 10,
+      "name": "Imora Holdings Enterprise Portal",
+      "url": "assets/imora_holdings.png",
+      "type": "PNG Image",
+      "size": "704 KB",
+      "date": "July 19, 2026"
+    },
+    {
+      "id": 11,
+      "name": "Jua Capital Fintech Showcase",
+      "url": "assets/jua_capital.png",
+      "type": "PNG Image",
+      "size": "686 KB",
+      "date": "July 19, 2026"
+    },
+    {
+      "id": 12,
+      "name": "Atlanta TV Mount Pro",
+      "url": "assets/atlanta_tv_mount_pro.png",
+      "type": "PNG Image",
+      "size": "604 KB",
+      "date": "July 20, 2026"
+    },
+    {
+      "id": 13,
+      "name": "Profile Page Hero Header",
+      "url": "assets/header_profile.png",
+      "type": "PNG Image",
+      "size": "855 KB",
+      "date": "July 20, 2026"
+    },
+    {
+      "id": 14,
+      "name": "Services Page Hero Header",
+      "url": "assets/header_services.png",
+      "type": "PNG Image",
+      "size": "794 KB",
+      "date": "July 20, 2026"
+    },
+    {
+      "id": 15,
+      "name": "Showcase Page Hero Header",
+      "url": "assets/header_showcase.png",
+      "type": "PNG Image",
+      "size": "653 KB",
+      "date": "July 20, 2026"
+    },
+    {
+      "id": 16,
+      "name": "Testimonials Hero Header",
+      "url": "assets/header_testimonials.png",
+      "type": "PNG Image",
+      "size": "675 KB",
+      "date": "July 20, 2026"
+    },
+    {
+      "id": 17,
+      "name": "FAQ Page Hero Header",
+      "url": "assets/header_faq.png",
+      "type": "PNG Image",
+      "size": "783 KB",
+      "date": "July 20, 2026"
+    },
+    {
+      "id": 18,
+      "name": "Appointment Hero Header",
+      "url": "assets/header_appointment.png",
+      "type": "PNG Image",
+      "size": "717 KB",
+      "date": "July 20, 2026"
+    },
+    {
+      "id": 19,
+      "name": "Agency Favicon Icon",
+      "url": "favicon.ico",
+      "type": "ICO Image",
+      "size": "45 KB",
+      "date": "July 10, 2026"
+    }
+  ],
+  "settings": {
+    "agencyName": "Intermaven Agency",
+    "phone": "+1 (404) 555-0199",
+    "email": "hello@intermaven.agency",
+    "address": "Peachtree St NW, Atlanta GA 30309",
+    "tagline": "Brand identity, interactive design, and software ecosystems — built with two decades of craft."
+  },
+  "team": [
+    {
+      "id": 1,
+      "name": "Marcus Sterling",
+      "role": "Lead Software Architect",
+      "email": "marcus@intermaven.agency",
+      "speciality": "Full Stack, System Architecture, AI Pipelines",
+      "days": [
+        "Mon",
+        "Wed",
+        "Fri"
+      ],
+      "slots": "09:30 AM EST, 01:30 PM EST, 04:00 PM EST",
+      "status": "Available"
+    },
+    {
+      "id": 2,
+      "name": "Elena Rostova",
+      "role": "Creative Director",
+      "email": "elena@intermaven.agency",
+      "speciality": "Brand Identity, UI/UX, Visual Strategy",
+      "days": [
+        "Tue",
+        "Thu",
+        "Fri"
+      ],
+      "slots": "10:00 AM EST, 02:00 PM EST, 04:30 PM EST",
+      "status": "Available"
+    },
+    {
+      "id": 3,
+      "name": "Tariq Al-Mansoor",
+      "role": "AI Automation Lead",
+      "email": "tariq@intermaven.agency",
+      "speciality": "AI Workflows, CRM Automation, SaaS Architecture",
+      "days": [
+        "Mon",
+        "Tue",
+        "Thu"
+      ],
+      "slots": "09:00 AM EST, 11:30 AM EST, 03:00 PM EST",
+      "status": "Available"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "title": "Brand Identity & Strategy",
+      "icon": "ri-fingerprint-line",
+      "desc": "Logos, systems, positioning and voice — brand foundations built to survive contact with the real market.",
+      "param": "branding",
+      "category": "Branding"
+    },
+    {
+      "id": 2,
+      "title": "Interactive & Web Design",
+      "icon": "ri-layout-4-line",
+      "desc": "Marketing sites and digital experiences designed to convert traffic into pipeline.",
+      "param": "web",
+      "category": "Branding & Web"
+    },
+    {
+      "id": 3,
+      "title": "Software UI/UX Design",
+      "icon": "ri-smartphone-line",
+      "desc": "Responsive interfaces for your product, dashboard, or platform — designed around real users.",
+      "param": "uiux",
+      "category": "Branding & Web"
+    },
+    {
+      "id": 4,
+      "title": "Custom Software Ecosystems",
+      "icon": "ri-stack-line",
+      "desc": "Multi-platform builds, from first MVP to full ecosystem — architecture built to scale.",
+      "param": "ecosystem",
+      "category": "Software & Systems"
+    },
+    {
+      "id": 5,
+      "title": "Workflow & AI Automation",
+      "icon": "ri-flow-chart",
+      "desc": "We map how your operation runs, then automate what is repetitive.",
+      "param": "automation",
+      "category": "AI & Automation"
+    },
+    {
+      "id": 6,
+      "title": "Digital Transformation Consulting",
+      "icon": "ri-lightbulb-flash-line",
+      "desc": "Expert guidance on where AI fits in your business.",
+      "param": "consulting",
+      "category": "AI & Automation"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Julian Vance",
+      "role": "Founder, Jua Capital",
+      "rating": 5,
+      "quote": "Intermaven delivered our entire brand identity and React platform in under 4 weeks. Their AI-assisted workflow saved us months of iteration."
+    },
+    {
+      "id": 2,
+      "name": "Sarah Kalu",
+      "role": "Head of Product, Afya Plus",
+      "rating": 5,
+      "quote": "The level of design discipline is astounding. No hanging words, perfectly aligned grid systems, and a direct line to our tech lead."
+    },
+    {
+      "id": 3,
+      "name": "David Mwanga",
+      "role": "Senior Partner, Mwanga Law",
+      "rating": 5,
+      "quote": "Working with Intermaven gave our law firm the gravity and modern edge our enterprise clients expect. Highly recommended."
+    }
+  ],
+  "social": [
+    {
+      "id": 1,
+      "platform": "Instagram",
+      "url": "https://instagram.com/intermaven",
+      "iconClass": "ri-instagram-line",
+      "visible": true
+    },
+    {
+      "id": 2,
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/company/intermaven",
+      "iconClass": "ri-linkedin-fill",
+      "visible": true
+    },
+    {
+      "id": 3,
+      "platform": "YouTube",
+      "url": "https://youtube.com/@intermaven",
+      "iconClass": "ri-youtube-line",
+      "visible": true
+    },
+    {
+      "id": 4,
+      "platform": "WhatsApp",
+      "url": "https://wa.me/10000000000",
+      "iconClass": "ri-whatsapp-line",
+      "visible": true
+    }
+  ],
+  "faq": [
+    {
+      "id": 1,
+      "question": "How long does a typical studio project take?",
+      "category": "General & Engagements",
+      "answer": "Standard brand identity & web projects complete in 3 to 5 weeks. Custom software ecosystems range from 6 to 10 weeks depending on SOW scope."
+    },
+    {
+      "id": 2,
+      "question": "Do we receive full ownership of source code and design files?",
+      "category": "IP & Governance",
+      "answer": "Yes. Upon final invoice settlement, all custom design files, Figma components, and source code are assigned 100% to your company."
+    },
+    {
+      "id": 3,
+      "question": "How do Intermaven Network Credits work?",
+      "category": "SaaS & Credits",
+      "answer": "Intermaven Network Credits allow clients to self-serve automated CRM pipelines, AI node execution, and landing page generators on intermaven.io."
+    }
+  ],
+  "crm": [
+    {
+      "id": "CRM-PORT-7061",
+      "name": "David Vance",
+      "email": "vance@juacapital.org",
+      "channel": "EMAIL",
+      "doubleOptIn": true,
+      "source": "Lead Booking (Jua Capital)",
+      "date": "July 25",
+      "status": "Subscribed"
+    },
+    {
+      "id": "CRM-PORT-9088",
+      "name": "Marcus Brody",
+      "email": "brody@brodylaw.com",
+      "channel": "EMAIL",
+      "doubleOptIn": true,
+      "source": "Lead Booking (Brody Law Group)",
+      "date": "July 24",
+      "status": "Subscribed"
+    },
+    {
+      "id": "CRM-PORT-7144",
+      "name": "Sophia Chen",
+      "email": "sophia@fintechplus.io",
+      "channel": "EMAIL",
+      "doubleOptIn": true,
+      "source": "Lead Booking (Fintech Plus Inc)",
+      "date": "July 23",
+      "status": "Subscribed"
+    },
+    {
+      "id": "CRM-PORT-1254",
+      "name": "Alex Morgan",
+      "email": "alex@ventureco.com",
+      "channel": "EMAIL",
+      "doubleOptIn": true,
+      "source": "Lead Booking (VentureCo Global)",
+      "date": "July 22",
+      "status": "Subscribed"
+    },
+    {
+      "id": "CRM-001",
+      "email": "founder@juacapital.org",
+      "name": "Julian Vance",
+      "channel": "EMAIL",
+      "doubleOptIn": true,
+      "source": "Landing Page Updates",
+      "date": "2026-07-18",
+      "status": "Subscribed"
+    },
+    {
+      "id": "CRM-002",
+      "email": "techlead@afyaplus.com",
+      "name": "Sarah Kalu",
+      "channel": "WHATSAPP",
+      "doubleOptIn": true,
+      "source": "Newsletter Modal",
+      "date": "2026-07-19",
+      "status": "Subscribed"
+    },
+    {
+      "id": "CRM-003",
+      "email": "mwangalaw@legal.com",
+      "name": "David Mwanga",
+      "channel": "EMAIL",
+      "doubleOptIn": true,
+      "source": "Footer Signup",
+      "date": "2026-07-20",
+      "status": "Subscribed"
+    }
+  ],
+  "hero_slides": [
+    {
+      "id": 1,
+      "title": "Building Iconic Brands for the <em>AI Era</em>.",
+      "lead": "Intermaven Agency turns ambitious ventures into market-ready brands — from the wordmark to the software running behind it.",
+      "bg": "assets/hero_slide1.png"
+    },
+    {
+      "id": 2,
+      "title": "Accelerating Vision Through <em>AI Workflows</em>.",
+      "lead": "We design and build on AI-assisted workflows by default — so your brand, interface, and operations move at market speed.",
+      "bg": "assets/hero_slide2.png"
+    },
+    {
+      "id": 3,
+      "title": "Build & Launch on <em>Your Own Terms</em>.",
+      "lead": "Through intermaven.io, self-serve the tools our own studio runs on — on a credit system built for speed.",
+      "bg": "assets/hero_slide3.png"
+    }
+  ],
+  "project_categories": [
+    {
+      "id": "cat_1",
+      "name": "Branding & Web"
+    },
+    {
+      "id": "cat_2",
+      "name": "Software & Systems"
+    },
+    {
+      "id": "cat_3",
+      "name": "AI & Automation"
+    },
+    {
+      "id": "cat_4",
+      "name": "Branding & Media"
+    },
+    {
+      "id": "cat_5",
+      "name": "Campaign & Advocacy"
+    },
+    {
+      "id": "cat_6",
+      "name": "Branding"
+    },
+    {
+      "id": "cat_7",
+      "name": "Interactive Design"
+    }
+  ]
+}
