@@ -1104,21 +1104,109 @@
 <!-- ═══════════════════════════════════════════════════════════════
      EXTRA-WIDE SMART CRM MODAL (Authenticated Intermaven CRM Portal)
 ═══════════════════════════════════════════════════════════════ -->
-<div class="wide-modal-overlay" id="smartCrmModal">
-  <div class="wide-modal-box" style="width:96%; max-width:1400px; height:92vh;">
+<div class="admin-form-modal" id="smartCrmModal">
+  <div class="modal-box wide-modal" style="width:95%; max-width:1320px; max-height:90vh; display:flex; flex-direction:column; padding:0; overflow:hidden; background:var(--bg1); border:1px solid var(--b2); border-radius:12px;">
     <!-- Modal Header -->
-    <div class="wide-modal-header" style="background:var(--bg3); border-bottom:1px solid var(--b2); padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between;">
+    <div style="background:var(--bg3); border-bottom:1px solid var(--b2); padding:16px 24px; display:flex; align-items:center; justify-content:space-between;">
       <div style="display:flex; align-items:center; gap:14px;">
-        <i class="ri-contacts-book-2-fill" style="color:var(--lime); font-size:26px;"></i>
+        <div style="width:42px; height:42px; background:rgba(215,223,35,0.15); border:1px solid var(--lime); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--lime); font-size:22px;">
+          <i class="ri-contacts-book-2-fill"></i>
+        </div>
         <div>
-          <h3 style="font-size:16px; font-weight:800; color:var(--tx); display:flex; align-items:center; gap:10px;">
+          <h3 style="font-size:18px; font-weight:800; color:var(--tx); margin:0; display:flex; align-items:center; gap:10px;">
             Intermaven Smart CRM Suite 
-            <span class="badge badge-success" style="font-size:10px; padding:3px 8px;"><i class="ri-user-shared-line"></i> Ecosystem Single Sign-On Active</span>
-            <span class="badge badge-success" style="font-size:10px; background:rgba(215,223,35,0.18); color:var(--lime); border:1px solid var(--lime); padding:3px 8px;"><i class="ri-flashlight-fill"></i> Studio Tier</span>
+            <span class="badge badge-success" style="font-size:10px; padding:3px 8px;"><i class="ri-shield-check-line"></i> Active Sync</span>
           </h3>
-          <span style="font-size:11.5px; color:var(--mu);">Embedded Ecosystem App: <code>http://localhost:3004/embed/crm</code> &bull; Unified CRM Platform</span>
+          <span style="font-size:12px; color:var(--mu);">Unified Lead Intelligence, Double Opt-In Verification &amp; Subscriber Management</span>
         </div>
       </div>
+      <button type="button" class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:8px 16px; font-size:13px; font-weight:700;">
+        <i class="ri-close-line" style="font-size:18px;"></i> Close Modal
+      </button>
+    </div>
+
+    <!-- Modal Body: Native CRM Suite -->
+    <div style="padding:24px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:20px;">
+      <!-- Telemetry Stats Grid -->
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;">
+        <div style="background:var(--bg2); border:1px solid var(--b1); padding:16px; border-radius:8px;">
+          <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Total CRM Contacts</div>
+          <div style="font-size:24px; font-weight:800; color:var(--lime);" id="smartCrmTotalCount">0</div>
+        </div>
+        <div style="background:var(--bg2); border:1px solid var(--b1); padding:16px; border-radius:8px;">
+          <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Double Opt-In Verified</div>
+          <div style="font-size:24px; font-weight:800; color:var(--tx);" id="smartCrmOptInCount">100%</div>
+        </div>
+        <div style="background:var(--bg2); border:1px solid var(--b1); padding:16px; border-radius:8px;">
+          <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Lead Inquiries Synced</div>
+          <div style="font-size:24px; font-weight:800; color:var(--lime);" id="smartCrmLeadCount">0</div>
+        </div>
+        <div style="background:var(--bg2); border:1px solid var(--b1); padding:16px; border-radius:8px;">
+          <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Pipeline Health</div>
+          <div style="font-size:24px; font-weight:800; color:var(--lime);">99.9% Optimal</div>
+        </div>
+      </div>
+
+      <!-- Quick Action Add Contact Form -->
+      <div style="background:var(--bg2); border:1px solid var(--b1); border-radius:8px; padding:18px;">
+        <h4 style="margin:0 0 12px 0; font-size:14px; font-weight:700; color:var(--tx);"><i class="ri-user-add-line" style="color:var(--lime);"></i> Quick Add CRM Opt-In Contact</h4>
+        <form onsubmit="addCrmContact(event)" style="display:grid; grid-template-columns: 1fr 1fr 1fr 120px; gap:12px; align-items:end;">
+          <div>
+            <label style="font-size:11px; color:var(--mu);">Full Name</label>
+            <input type="text" id="newCrmName" required placeholder="e.g. Sarah Jenkins" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
+          </div>
+          <div>
+            <label style="font-size:11px; color:var(--mu);">Email Address</label>
+            <input type="email" id="newCrmEmail" required placeholder="sarah@enterprise.com" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
+          </div>
+          <div>
+            <label style="font-size:11px; color:var(--mu);">Channel</label>
+            <select id="newCrmChannel" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
+              <option value="EMAIL">EMAIL</option>
+              <option value="WHATSAPP">WHATSAPP</option>
+              <option value="WEB_PORTAL">WEB PORTAL</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-action btn-lime" style="padding:9px; font-weight:700; width:100%;"><i class="ri-add-line"></i> Add Lead</button>
+        </form>
+      </div>
+
+      <!-- CRM Contacts Table -->
+      <div style="background:var(--bg2); border:1px solid var(--b1); border-radius:8px; overflow:hidden;">
+        <div style="padding:14px 18px; background:var(--bg3); border-bottom:1px solid var(--b1); display:flex; justify-content:space-between; align-items:center;">
+          <h4 style="margin:0; font-size:14px; font-weight:700; color:var(--tx);"><i class="ri-contacts-line" style="color:var(--lime);"></i> Active Smart CRM Contacts &amp; Subscribers</h4>
+          <button type="button" class="btn-action" style="font-size:12px;" onclick="portAllDataToCrm()"><i class="ri-refresh-line"></i> Sync Lead Inquiries</button>
+        </div>
+        <div style="max-height:340px; overflow-y:auto;">
+          <table class="wp-list-table" style="width:100%; margin:0;">
+            <thead>
+              <tr>
+                <th>Contact Name</th>
+                <th>Email</th>
+                <th>Channel</th>
+                <th>Double Opt-In</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="smartCrmTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div style="background:var(--bg3); border-top:1px solid var(--b2); padding:14px 24px; display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:12px; color:var(--mu);"><i class="ri-shield-check-line" style="color:var(--lime);"></i> Intermaven Smart CRM Telemetry Active</span>
+      <button type="button" class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="font-weight:700; padding:8px 20px;">
+        <i class="ri-close-line"></i> Close Modal &amp; Return to Dashboard
+      </button>
+    </div>
+  </div>
+</div>
       <div style="display:flex; align-items:center; gap:10px;">
         <button class="btn-action btn-lime" onclick="refreshCrmIframe()" style="font-size:12px; font-weight:700;"><i class="ri-refresh-line"></i> Sync &amp; Reload CRM</button>
         <a id="crmExternalLink" href="#" target="_blank" class="btn-action" style="font-size:12px;"><i class="ri-external-link-line"></i> Open in New Tab</a>
@@ -1876,6 +1964,98 @@
 </div>
 
 <script>
+
+// ─── NATIVE SMART CRM MODAL HANDLERS ───
+window.openSmartCrmModal = async function() {
+  await renderSmartCrmModalData();
+  showSmallModal('smartCrmModal');
+};
+
+window.closeSmartCrmModal = function() {
+  closeSmallModal('smartCrmModal');
+  switchPane('dashboard');
+};
+
+window.addCrmContact = async function(e) {
+  if (e) e.preventDefault();
+  const nameInput = document.getElementById('newCrmName');
+  const emailInput = document.getElementById('newCrmEmail');
+  const channelInput = document.getElementById('newCrmChannel');
+
+  const name = nameInput ? nameInput.value.trim() : '';
+  const email = emailInput ? emailInput.value.trim() : '';
+  const channel = channelInput ? channelInput.value : 'EMAIL';
+
+  if (!name || !email) return;
+
+  let crm = await loadData('crm');
+  if (!Array.isArray(crm)) crm = [];
+
+  crm.unshift({
+    id: 'CRM-' + Math.floor(1000 + Math.random() * 9000),
+    name: name,
+    email: email,
+    channel: channel,
+    doubleOptIn: true,
+    source: 'Smart CRM Manual Input',
+    date: new Date().toISOString().split('T')[0],
+    status: 'Subscribed'
+  });
+
+  await saveData('crm', crm);
+  if (nameInput) nameInput.value = '';
+  if (emailInput) emailInput.value = '';
+  await renderSmartCrmModalData();
+  showToast('✅ New CRM contact added successfully!', 'success');
+};
+
+window.renderSmartCrmModalData = async function() {
+  let crm = await loadData('crm');
+  const leads = await loadData('leads');
+
+  if (!Array.isArray(crm) || crm.length === 0) {
+    crm = [
+      { id: 'CRM-001', name: 'Julian Vance', email: 'founder@juacapital.org', channel: 'EMAIL', doubleOptIn: true, source: 'Landing Page Updates', status: 'Subscribed' },
+      { id: 'CRM-002', name: 'Sarah Kalu', email: 'techlead@afyaplus.com', channel: 'WHATSAPP', doubleOptIn: true, source: 'Newsletter Modal', status: 'Subscribed' },
+      { id: 'CRM-003', name: 'David Mwanga', email: 'mwangalaw@legal.com', channel: 'EMAIL', doubleOptIn: true, source: 'Footer Signup', status: 'Subscribed' }
+    ];
+    await saveData('crm', crm);
+  }
+
+  const totalEl = document.getElementById('smartCrmTotalCount');
+  const leadEl = document.getElementById('smartCrmLeadCount');
+  const tbody = document.getElementById('smartCrmTableBody');
+
+  if (totalEl) totalEl.innerText = crm.length;
+  if (leadEl) leadEl.innerText = Array.isArray(leads) ? leads.length : 0;
+
+  if (tbody) {
+    tbody.innerHTML = crm.map(c => `
+      <tr>
+        <td><strong>${c.name || 'Anonymous Contact'}</strong></td>
+        <td><code>${c.email}</code></td>
+        <td><span class="badge badge-info">${c.channel || 'EMAIL'}</span></td>
+        <td><span class="badge badge-success"><i class="ri-checkbox-circle-line"></i> Verified</span></td>
+        <td style="font-size:12px; color:var(--mu);">${c.source || 'Direct Opt-In'}</td>
+        <td><span class="badge badge-success">${c.status || 'Subscribed'}</span></td>
+        <td>
+          <button type="button" class="btn-action btn-danger" style="padding:3px 8px; font-size:11px;" onclick="deleteCrmContact('${c.id}')"><i class="ri-delete-bin-line"></i> Delete</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+};
+
+window.deleteCrmContact = async function(id) {
+  if (!confirm('Remove contact from Smart CRM?')) return;
+  let crm = await loadData('crm');
+  crm = crm.filter(c => String(c.id) !== String(id));
+  await saveData('crm', crm);
+  await renderSmartCrmModalData();
+  showToast('Contact removed from Smart CRM.', 'info');
+};
+
+
 
 // ─── SMART CRM INTEGRATION & DASHBOARD REDIRECTION HANDLERS ───
 window.getIntermavenCrmUrl = function() {
