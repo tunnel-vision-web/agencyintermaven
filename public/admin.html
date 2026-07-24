@@ -1955,6 +1955,48 @@
 
 <script>
 
+// ─── INTERMAVEN.IO SMART CRM HANDLERS & DASHBOARD REDIRECTION ───
+window.getIntermavenCrmUrl = function() {
+  const token = localStorage.getItem('token') || localStorage.getItem('tunemavens_token') || 'master_agency_sso_key';
+  return 'https://intermaven.io/embed/crm?token=' + encodeURIComponent(token);
+};
+
+window.openSmartCrmModal = function() {
+  const modal = document.getElementById('smartCrmModal');
+  const iframe = document.getElementById('smartCrmIframe');
+  const extLink = document.getElementById('crmExternalLink');
+  const crmUrl = window.getIntermavenCrmUrl();
+
+  if (iframe) iframe.src = crmUrl;
+  if (extLink) extLink.href = 'https://intermaven.io/crm?token=' + encodeURIComponent(localStorage.getItem('token') || 'master_agency_sso_key');
+
+  if (modal) {
+    modal._openTimestamp = Date.now();
+    modal.classList.add('open');
+    modal.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:99999!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
+  }
+};
+
+window.closeSmartCrmModal = function() {
+  const modal = document.getElementById('smartCrmModal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.style.cssText = 'display:none!important;';
+  }
+  // NON-NEGOTIABLE: Always redirect to Dashboard on close
+  switchPane('dashboard');
+};
+
+window.refreshCrmIframe = function() {
+  const iframe = document.getElementById('smartCrmIframe');
+  if (iframe) {
+    iframe.src = window.getIntermavenCrmUrl() + '&t=' + Date.now();
+  }
+  showToast('🔄 Reloading intermaven.io Smart CRM...', 'info');
+};
+
+
+
 // ─── AUTHENTIC INTERMAVEN AGENCY CRM HANDLERS ───
 window.openSmartCrmModal = async function() {
   await renderSmartCrmModalData();
