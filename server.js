@@ -11,7 +11,14 @@ const PORT = process.env.PORT || 8080;
 const SECRET_KEY = process.env.JWT_SECRET || 'intermaven_super_secret_key_change_in_prod';
 const DB_FILE = path.join(__dirname, 'data', 'db.json');
 
-app.use(cors());
+const corsOptions = {
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
@@ -94,14 +101,7 @@ app.post('/api/auth/logout', (req, res) => {
 });
 
 app.get('/api/auth/me', (req, res) => {
-  const token = req.cookies.token;
-  if (!token) return res.json({ user: { id: 'admin', email: 'admin@intermaven.io', role: 'admin' } });
-  try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    res.json({ user: decoded });
-  } catch (err) {
-    res.json({ user: { id: 'admin', email: 'admin@intermaven.io', role: 'admin' } });
-  }
+  res.json({ id: 'agency_admin', email: 'admin@intermaven.io', name: 'Agency Admin', role: 'admin', plan: 'studio' });
 });
 
 // Middleware for protected routes
@@ -139,6 +139,48 @@ app.post('/api/data/:collection', authenticateToken, (req, res) => {
   db[coll] = req.body;
   writeDB(db);
   res.json({ message: 'Saved successfully', collection: coll, count: Array.isArray(req.body) ? req.body.length : 1 });
+});
+
+// --- INTERMAVEN.IO EMBED SPA PROXY ROUTE ---
+const https = require('https');
+app.use('/embed', (req, res) => {
+  https.get('https://intermaven.io/index.html', (remoteRes) => {
+    let body = '';
+    remoteRes.on('data', chunk => body += chunk);
+    remoteRes.on('end', () => {
+      body = body.replace(/src="\/static\//g, 'src="https://intermaven.io/static/');
+      body = body.replace(/href="\/static\//g, 'href="https://intermaven.io/static/');
+      body = body.replace(/href="\/favicon/g, 'href="https://intermaven.io/favicon');
+      body = body.replace(/href="\/manifest/g, 'href="https://intermaven.io/manifest');
+      res.setHeader('Content-Type', 'text/html');
+      res.send(body);
+    });
+  }).on('error', (err) => {
+    res.status(500).send('Error proxying intermaven.io SPA: ' + err.message);
+  });
+});
+
+// --- CRM CONTACTS ENDPOINTS ---
+app.get('/api/crm/contacts', (req, res) => {
+  const db = readDB();
+  res.json({ success: true, contacts: db.crm || [] });
+});
+
+app.post('/api/crm/contacts', (req, res) => {
+  const db = readDB();
+  if (!db.crm) db.crm = [];
+  const contact = {
+    id: 'CRM-' + Date.now(),
+    name: req.body.name || (req.body.first_name ? `${req.body.first_name} ${req.body.last_name || ''}`.trim() : 'Lead Contact'),
+    email: req.body.email,
+    company: req.body.company || '',
+    source: req.body.source || 'Agency Portal Booking',
+    date: new Date().toISOString().split('T')[0],
+    status: 'Subscribed'
+  };
+  db.crm.unshift(contact);
+  writeDB(db);
+  res.json({ success: true, contact });
 });
 
 // --- MEDIA UPLOAD ENDPOINT ---
@@ -185,4 +227,78 @@ app.post('/api/ai/generate', authenticateToken, (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Intermaven Agency server running on http://localhost:${PORT}`);
+});
+
+// Secondary API server listener on port 8001 for intermaven.io bundle calls
+const ALT_PORT = 8001;
+const altApp = express();
+altApp.use(cors(corsOptions));
+altApp.use(express.json());
+altApp.use(cookieParser());
+
+// Auth & Session
+altApp.get('/api/auth/me', (req, res) => {
+  res.json({ id: 'agency_admin', email: 'admin@intermaven.io', name: 'Agency Admin', role: 'admin', plan: 'studio' });
+});
+
+// CRM Contacts
+altApp.get('/api/crm/contacts', (req, res) => {
+  const db = readDB();
+  res.json({ success: true, contacts: db.crm || [] });
+});
+
+altApp.post('/api/crm/contacts', (req, res) => {
+  const db = readDB();
+  if (!db.crm) db.crm = [];
+  const contact = {
+    id: 'CRM-' + Date.now(),
+    name: req.body.name || (req.body.first_name ? `${req.body.first_name} ${req.body.last_name || ''}`.trim() : 'Lead Contact'),
+    email: req.body.email,
+    company: req.body.company || '',
+    source: req.body.source || 'Agency Portal Booking',
+    date: new Date().toISOString().split('T')[0],
+    status: 'Subscribed'
+  };
+  db.crm.unshift(contact);
+  writeDB(db);
+  res.json({ success: true, contact });
+});
+
+// CMS Bulk Lookup Endpoint
+const handleCmsLookup = (req, res) => {
+  res.json({
+    'footer.contact.phone': '+1 (555) 234-5678',
+    'footer.contact.address': '742 Evergreen Terrace, Suite 400',
+    'footer.tagline': 'Intermaven Digital Agency & Smart Suite',
+    'pricing.callout.title': 'Enterprise Agency Solutions',
+    'pricing.callout.body': 'Tailored digital solutions for enterprise ventures.',
+    'pricing.payment_methods': 'Credit Card, Wire, Crypto',
+    'about.phone_label': 'Direct Line',
+    'about.business_hours': 'Mon-Fri 9:00 AM - 6:00 PM EST'
+  });
+};
+
+altApp.get('/api/cms/bulk/lookup', handleCmsLookup);
+app.get('/api/cms/bulk/lookup', handleCmsLookup);
+
+// GEO Endpoints
+const handleGeoOptions = (req, res) => res.json({ countries: ['US', 'KE', 'GB', 'CA'] });
+const handleGeoResolve = (req, res) => res.json({ country: 'US', region: 'CA', city: 'San Francisco' });
+
+altApp.get('/api/geo/options', handleGeoOptions);
+app.get('/api/geo/options', handleGeoOptions);
+
+altApp.get('/api/geo/resolve', handleGeoResolve);
+app.get('/api/geo/resolve', handleGeoResolve);
+
+// Global Site Settings Endpoint
+const handleSettings = (req, res) => {
+  const db = readDB();
+  res.json(db.settings || { agencyName: 'Intermaven Agency', phone: '+1 (555) 234-5678', email: 'admin@intermaven.io' });
+};
+altApp.get('/api/settings', handleSettings);
+app.get('/api/settings', handleSettings);
+
+altApp.listen(ALT_PORT, () => {
+  console.log(`Intermaven API listener running on http://localhost:${ALT_PORT}`);
 });

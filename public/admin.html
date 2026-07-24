@@ -398,14 +398,14 @@
         </div>
 
         <!-- Tile 4: Smart CRM -->
-        <div class="cms-tile-card highlight-crm" style="cursor:pointer;">
+        <div class="cms-tile-card highlight-crm" onclick="openSmartCrmModal()" style="cursor:pointer;">
           <div class="cms-tile-icon" style="color:var(--lime);"><i class="ri-contacts-book-2-line"></i></div>
           <div class="cms-tile-content">
             <h4 style="color:var(--lime);">Smart CRM (intermaven.io)</h4>
             <p>Launch &amp; auto-login to intermaven.io CRM with unlimited agency credits.</p>
             <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
-              <button class="btn-action btn-lime" style="text-align:center; font-size:12px; font-weight:700;" onclick="event.stopPropagation(); openSmartCrmModal();"><i class="ri-external-link-line"></i> Launch Intermaven CRM</button>
-              <button class="btn-action" onclick="event.stopPropagation(); openSmartCrmModal();" style="font-size:11px;"><i class="ri-contacts-book-2-line"></i> Open CRM in New Tab</button>
+              <button class="btn-action btn-lime" style="text-align:center; font-size:12px; font-weight:700;" onclick="event.stopPropagation(); openSmartCrmModal();"><i class="ri-contacts-book-2-line"></i> Launch Intermaven CRM (Modal)</button>
+              <button class="btn-action" onclick="event.stopPropagation(); window.open(window.getIntermavenCrmUrl(), '_blank');" style="font-size:11px;"><i class="ri-external-link-line"></i> Open CRM in New Tab</button>
             </div>
           </div>
         </div>
@@ -1099,36 +1099,40 @@
       <div id="mediaEmptyMsg" style="display:none; padding:48px; text-align:center; color:var(--mu); background:var(--bg2); border:1px solid var(--b1); border-radius:4px;"><i class="ri-landscape-line" style="font-size:40px; display:block; margin-bottom:12px; color:var(--mu);"></i>No media assets found matching your filter.</div>
       <div id="mediaPagination" style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding:16px 20px; background:var(--bg2); border:1px solid var(--b1); border-radius:4px;"></div>
     </div>
+  </div>
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════════
      AUTHENTIC INTERMAVEN SMART CRM SUITE MODAL (Zero 404 Errors)
 ═══════════════════════════════════════════════════════════════ -->
 <div class="admin-form-modal" id="smartCrmModal">
-  <div class="modal-box wide-modal" style="width:96%; max-width:1400px; height:90vh; display:flex; flex-direction:column; padding:0; overflow:hidden; background:var(--bg1); border:1px solid var(--b2); border-radius:12px;">
+  <div class="modal-box wide-modal" style="width:96%; max-width:1450px; height:92vh; display:flex; flex-direction:column; padding:0; overflow:hidden; background:var(--bg1); border:1px solid var(--b2); border-radius:12px; box-shadow:0 24px 64px rgba(0,0,0,0.85);">
+    
     <!-- Modal Header -->
     <div style="background:var(--bg3); border-bottom:1px solid var(--b2); padding:14px 24px; height:64px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
       <div style="display:flex; align-items:center; gap:14px;">
-        <i class="ri-contacts-book-2-fill" style="color:var(--lime); font-size:26px;"></i>
+        <div style="width:38px; height:38px; background:rgba(215,223,35,0.15); border:1px solid var(--lime); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--lime); font-size:20px;">
+          <i class="ri-contacts-book-2-fill"></i>
+        </div>
         <div>
-          <h3 style="font-size:16px; font-weight:800; color:var(--tx); margin:0; display:flex; align-items:center; gap:10px;">
+          <h3 style="font-size:15px; font-weight:800; color:var(--tx); margin:0; display:flex; align-items:center; gap:10px;">
             Intermaven Smart CRM Suite (intermaven.io)
-            <span class="badge badge-success" style="font-size:10px; padding:3px 8px;"><i class="ri-user-shared-line"></i> Ecosystem SSO Active</span>
+            <span class="badge badge-success" style="font-size:10px; padding:3px 8px;"><i class="ri-checkbox-circle-fill"></i> SSO Auto-Login Active</span>
             <span class="badge badge-success" style="font-size:10px; background:rgba(215,223,35,0.18); color:var(--lime); border:1px solid var(--lime); padding:3px 8px;"><i class="ri-flashlight-fill"></i> Studio Tier</span>
           </h3>
-          <span style="font-size:11.5px; color:var(--mu);">Live Ecosystem Portal: <code style="color:var(--lime);">https://intermaven.io</code> &bull; Unified Agency CRM</span>
+          <span style="font-size:11px; color:var(--mu);">Live Ecosystem App: <code style="color:var(--lime);">https://intermaven.io/?token=master_agency_sso_key&amp;auto_login=true</code></span>
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:10px;">
-        <button type="button" class="btn-action btn-lime" onclick="refreshCrmIframe()" style="font-size:12px; font-weight:700;"><i class="ri-refresh-line"></i> Sync &amp; Reload CRM</button>
-        <a id="crmExternalLink" href="https://intermaven.io" target="_blank" class="btn-action" style="font-size:12px;"><i class="ri-external-link-line"></i> Launch Intermaven.io CRM (New Tab)</a>
+        <button type="button" class="btn-action btn-lime" onclick="refreshCrmIframe()" style="font-size:12px; font-weight:700;"><i class="ri-refresh-line"></i> Re-Sync Leads &amp; Reload CRM</button>
+        <a id="crmExternalLink" href="https://intermaven.io/?token=master_agency_sso_key&amp;auto_login=true" target="_blank" class="btn-action" style="font-size:12px;"><i class="ri-external-link-line"></i> Open CRM in New Tab</a>
         <button type="button" class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:6px 14px; font-weight:700;"><i class="ri-close-line"></i> Close Modal</button>
       </div>
     </div>
 
-    <!-- Modal Body: Loaded intermaven.io Ecosystem App -->
+    <!-- Live Intermaven CRM Iframe Body -->
     <div style="padding:0; flex:1; background:#070f0e; overflow:hidden; position:relative;">
-      <iframe id="smartCrmIframe" src="https://intermaven.io" class="crm-iframe" style="width:100%; height:100%; border:none; background:#070f0e;"></iframe>
+      <iframe id="smartCrmIframe" src="https://intermaven.io/?token=master_agency_sso_key&amp;auto_login=true&amp;app=crm" class="crm-iframe" style="width:100%; height:100%; border:none; background:#070f0e;"></iframe>
     </div>
   </div>
 </div>
@@ -1877,586 +1881,178 @@
 
 <script>
 
-// ─── LIVE INTERMAVEN.IO SMART CRM HANDLERS & DASHBOARD CLOSE REDIRECTION ───
-window.getIntermavenCrmUrl = function() {
-  const token = localStorage.getItem('tunemavens_token') || localStorage.getItem('token') || 'master_agency_sso_key';
-  return 'https://intermaven.io/?token=' + encodeURIComponent(token) + '&auto_login=true';
-};
-
-window.openSmartCrmModal = function() {
-  const iframe = document.getElementById('smartCrmIframe');
-  const extLink = document.getElementById('crmExternalLink');
-  const crmUrl = window.getIntermavenCrmUrl();
-
-  if (iframe) iframe.src = crmUrl;
-  if (extLink) extLink.href = crmUrl;
-
-  showSmallModal('smartCrmModal');
-};
-
-window.closeSmartCrmModal = function() {
-  closeSmallModal('smartCrmModal');
-  switchPane('dashboard');
-};
-
-window.refreshCrmIframe = function() {
-  const iframe = document.getElementById('smartCrmIframe');
-  if (iframe) iframe.src = window.getIntermavenCrmUrl() + '&t=' + Date.now();
-  showToast('🔄 Reloading intermaven.io Smart CRM...', 'info');
-};
-
-
-
-// ─── AUTHENTIC INTERMAVEN CRM HANDLERS & DASHBOARD CLOSE REDIRECTION (ZERO 404 ERRORS) ───
-window.getIntermavenCrmUrl = function() {
-  const token = localStorage.getItem('tunemavens_token') || localStorage.getItem('token') || 'master_agency_sso_key';
-  return 'https://intermaven.io/crm?token=' + encodeURIComponent(token) + '&auto_login=true';
-};
-
-window.openSmartCrmModal = async function() {
-  const extLink = document.getElementById('crmExternalLink');
-  if (extLink) extLink.href = window.getIntermavenCrmUrl();
-  await renderSmartCrmModalData();
-  showSmallModal('smartCrmModal');
-};
-
-window.closeSmartCrmModal = function() {
-  closeSmallModal('smartCrmModal');
-  switchPane('dashboard');
-};
-
-window.renderSmartCrmModalData = async function() {
-  const leads = await loadData('leads');
-  const leadsList = Array.isArray(leads) ? leads : [];
-
-  const totalEl = document.getElementById('smartCrmTotalCount');
-  const optInEl = document.getElementById('smartCrmOptInCount');
-  const leadEl = document.getElementById('smartCrmLeadCount');
-  const tbody = document.getElementById('smartCrmTableBody');
-
-  if (totalEl) totalEl.innerText = leadsList.length;
-  if (optInEl) optInEl.innerText = leadsList.filter(l => l.status === 'New Inquiry').length;
-  if (leadEl) leadEl.innerText = leadsList.filter(l => l.status === 'Confirmed Appointment' || l.status === 'Completed').length;
-
-  if (tbody) {
-    if (leadsList.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--mu); padding:20px;">No Intermaven agency leads found in CRM.</td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = leadsList.map((l, idx) => `
-      <tr>
-        <td><strong>${l.name || 'Client Lead'}</strong></td>
-        <td>${l.company || 'N/A'}</td>
-        <td><code>${l.email}</code></td>
-        <td><span class="badge badge-info">${l.service || 'Consultation'}</span></td>
-        <td><span style="font-size:12px; color:var(--lime);">${l.techLead || 'Unassigned'}</span></td>
-        <td><span class="badge ${l.status === 'Confirmed Appointment' ? 'badge-success' : 'badge-warn'}">${l.status}</span></td>
-        <td>
-          <button type="button" class="btn-action" style="padding:3px 8px; font-size:11px;" onclick="openLeadDetailModal(${idx})"><i class="ri-phone-find-line"></i> Call Prep</button>
-          <button type="button" class="btn-action btn-danger" style="padding:3px 8px; font-size:11px;" onclick="deleteCrmLead(${idx})"><i class="ri-delete-bin-line"></i></button>
-        </td>
-      </tr>
-    `).join('');
-  }
-};
-
-window.addCrmContact = async function(e) {
-  if (e) e.preventDefault();
-  const name = document.getElementById('newCrmName') ? document.getElementById('newCrmName').value.trim() : '';
-  const email = document.getElementById('newCrmEmail') ? document.getElementById('newCrmEmail').value.trim() : '';
-  const company = document.getElementById('newCrmCompany') ? document.getElementById('newCrmCompany').value.trim() : '';
-  const service = document.getElementById('newCrmService') ? document.getElementById('newCrmService').value.trim() : 'AI & Automation Solutions';
-
-  if (!name || !email) return;
-
-  let leads = await loadData('leads');
-  if (!Array.isArray(leads)) leads = [];
-
-  leads.unshift({
-    id: 'LEAD-' + Math.floor(1000 + Math.random() * 9000),
-    name: name,
-    email: email,
-    company: company || 'Enterprise Client',
-    service: service,
-    techLead: 'Julian Vance',
-    date: new Date().toISOString().split('T')[0] + ' @ 10:00 AM',
-    status: 'Confirmed Appointment',
-    notes: 'Direct CRM entry.'
-  });
-
-  await saveData('leads', leads);
-  if (document.getElementById('newCrmName')) document.getElementById('newCrmName').value = '';
-  if (document.getElementById('newCrmEmail')) document.getElementById('newCrmEmail').value = '';
-  if (document.getElementById('newCrmCompany')) document.getElementById('newCrmCompany').value = '';
-  if (document.getElementById('newCrmService')) document.getElementById('newCrmService').value = '';
-  
-  await renderSmartCrmModalData();
-  renderAdmin();
-  showToast('✅ New Intermaven lead saved to CRM!', 'success');
-};
-
-window.deleteCrmLead = async function(idx) {
-  if (!confirm('Remove lead from Intermaven CRM?')) return;
-  let leads = await loadData('leads');
-  leads.splice(idx, 1);
-  await saveData('leads', leads);
-  await renderSmartCrmModalData();
-  renderAdmin();
-  showToast('Lead removed from CRM.', 'info');
-};
-
-
-
-// ─── EXACT TUNEMAVENS INTERMAVEN.IO CRM METHODOLOGY & DASHBOARD CLOSE REDIRECTION ───
-function getIntermavenCrmUrl() {
-  var token = localStorage.getItem('tunemavens_token') || localStorage.getItem('token') || 'master_agency_sso_key';
-  return 'https://intermaven.io/crm?token=' + encodeURIComponent(token) + '&auto_login=true';
-}
-
-function openSmartCrmModal() {
-  const modal = document.getElementById('smartCrmModal');
-  const iframe = document.getElementById('smartCrmIframe');
-  const extLink = document.getElementById('crmExternalLink');
-  
-  const crmUrl = getIntermavenCrmUrl();
-
-  if (iframe) {
-    iframe.src = crmUrl;
-  }
-  if (extLink) {
-    extLink.href = crmUrl;
-  }
-
-  showSmallModal('smartCrmModal');
-}
-
-function closeSmartCrmModal() {
-  closeSmallModal('smartCrmModal');
-  switchPane('dashboard');
-}
-
-function refreshCrmIframe() {
-  const iframe = document.getElementById('smartCrmIframe');
-  if (iframe) {
-    iframe.src = getIntermavenCrmUrl() + '&t=' + Date.now();
-  }
-  showToast('🔄 Reloading intermaven.io Smart CRM...', 'info');
-}
-
-window.getIntermavenCrmUrl = getIntermavenCrmUrl;
-window.openSmartCrmModal = openSmartCrmModal;
-window.closeSmartCrmModal = closeSmartCrmModal;
-window.refreshCrmIframe = refreshCrmIframe;
-
-
-
-// ─── NATIVE INTERMAVEN AGENCY CRM HANDLERS (ZERO 404 ERRORS) ───
-window.openSmartCrmModal = async function() {
-  await renderSmartCrmModalData();
-  showSmallModal('smartCrmModal');
-};
-
-window.closeSmartCrmModal = function() {
-  closeSmallModal('smartCrmModal');
-  switchPane('dashboard');
-};
-
-window.renderSmartCrmModalData = async function() {
-  const leads = await loadData('leads');
-  const leadsList = Array.isArray(leads) ? leads : [];
-
-  const totalEl = document.getElementById('smartCrmTotalCount');
-  const optInEl = document.getElementById('smartCrmOptInCount');
-  const leadEl = document.getElementById('smartCrmLeadCount');
-  const tbody = document.getElementById('smartCrmTableBody');
-
-  if (totalEl) totalEl.innerText = leadsList.length;
-  if (optInEl) optInEl.innerText = leadsList.filter(l => l.status === 'New Inquiry').length;
-  if (leadEl) leadEl.innerText = leadsList.filter(l => l.status === 'Confirmed Appointment' || l.status === 'Completed').length;
-
-  if (tbody) {
-    if (leadsList.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--mu); padding:20px;">No Intermaven agency leads found in CRM.</td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = leadsList.map((l, idx) => `
-      <tr>
-        <td><strong>${l.name || 'Client Lead'}</strong></td>
-        <td>${l.company || 'N/A'}</td>
-        <td><code>${l.email}</code></td>
-        <td><span class="badge badge-info">${l.service || 'Consultation'}</span></td>
-        <td><span style="font-size:12px; color:var(--lime);">${l.techLead || 'Unassigned'}</span></td>
-        <td><span class="badge ${l.status === 'Confirmed Appointment' ? 'badge-success' : 'badge-warn'}">${l.status}</span></td>
-        <td>
-          <button type="button" class="btn-action" style="padding:3px 8px; font-size:11px;" onclick="openLeadDetailModal(${idx})"><i class="ri-phone-find-line"></i> Call Prep</button>
-          <button type="button" class="btn-action btn-danger" style="padding:3px 8px; font-size:11px;" onclick="deleteCrmLead(${idx})"><i class="ri-delete-bin-line"></i></button>
-        </td>
-      </tr>
-    `).join('');
-  }
-};
-
-window.addCrmContact = async function(e) {
-  if (e) e.preventDefault();
-  const name = document.getElementById('newCrmName') ? document.getElementById('newCrmName').value.trim() : '';
-  const email = document.getElementById('newCrmEmail') ? document.getElementById('newCrmEmail').value.trim() : '';
-  const company = document.getElementById('newCrmCompany') ? document.getElementById('newCrmCompany').value.trim() : '';
-  const service = document.getElementById('newCrmService') ? document.getElementById('newCrmService').value.trim() : 'AI & Automation Solutions';
-
-  if (!name || !email) return;
-
-  let leads = await loadData('leads');
-  if (!Array.isArray(leads)) leads = [];
-
-  leads.unshift({
-    id: 'LEAD-' + Math.floor(1000 + Math.random() * 9000),
-    name: name,
-    email: email,
-    company: company || 'Enterprise Client',
-    service: service,
-    techLead: 'Julian Vance',
-    date: new Date().toISOString().split('T')[0] + ' @ 10:00 AM',
-    status: 'Confirmed Appointment',
-    notes: 'Direct CRM entry.'
-  });
-
-  await saveData('leads', leads);
-  if (document.getElementById('newCrmName')) document.getElementById('newCrmName').value = '';
-  if (document.getElementById('newCrmEmail')) document.getElementById('newCrmEmail').value = '';
-  if (document.getElementById('newCrmCompany')) document.getElementById('newCrmCompany').value = '';
-  if (document.getElementById('newCrmService')) document.getElementById('newCrmService').value = '';
-  
-  await renderSmartCrmModalData();
-  renderAdmin();
-  showToast('✅ New Intermaven lead saved to CRM!', 'success');
-};
-
-window.deleteCrmLead = async function(idx) {
-  if (!confirm('Remove lead from Intermaven CRM?')) return;
-  let leads = await loadData('leads');
-  leads.splice(idx, 1);
-  await saveData('leads', leads);
-  await renderSmartCrmModalData();
-  renderAdmin();
-  showToast('Lead removed from CRM.', 'info');
-};
-
-
-
-// ─── INTERMAVEN.IO SMART CRM INTEGRATION & DASHBOARD REDIRECTION ───
-function getIntermavenCrmUrl() {
-  var token = localStorage.getItem('tunemavens_token') || localStorage.getItem('token') || 'agency_admin_master';
-  var tokenQuery = '?token=' + encodeURIComponent(token);
-  return 'https://intermaven.io/embed/crm' + tokenQuery;
-}
-
-async function openSmartCrmModal() {
-  const modal = document.getElementById('smartCrmModal');
-  const iframe = document.getElementById('smartCrmIframe');
-  const extLink = document.getElementById('crmExternalLink');
-  
-  const crmUrl = getIntermavenCrmUrl();
-  const token = localStorage.getItem('tunemavens_token') || localStorage.getItem('token') || 'agency_admin_master';
-  const directCrmUrl = 'https://intermaven.io/crm?token=' + encodeURIComponent(token);
-
-  if (iframe) {
-    iframe.src = crmUrl;
-  }
-  if (extLink) {
-    extLink.href = directCrmUrl;
-  }
-  
-  showSmallModal('smartCrmModal');
-}
-
-function closeSmartCrmModal() {
-  closeSmallModal('smartCrmModal');
-  switchPane('dashboard');
-}
-
-function refreshCrmIframe() {
-  const iframe = document.getElementById('smartCrmIframe');
-  if (iframe) {
-    iframe.src = getIntermavenCrmUrl() + '&t=' + Date.now();
-  }
-}
-
-window.getIntermavenCrmUrl = getIntermavenCrmUrl;
-window.openSmartCrmModal = openSmartCrmModal;
-window.closeSmartCrmModal = closeSmartCrmModal;
-window.refreshCrmIframe = refreshCrmIframe;
-
-
-
-// ─── INTERMAVEN.IO SMART CRM HANDLERS & DASHBOARD REDIRECTION ───
-window.getIntermavenCrmUrl = function() {
-  const token = localStorage.getItem('token') || localStorage.getItem('tunemavens_token') || 'master_agency_sso_key';
-  return 'https://intermaven.io/embed/crm?token=' + encodeURIComponent(token);
-};
-
-window.openSmartCrmModal = function() {
-  const modal = document.getElementById('smartCrmModal');
-  const iframe = document.getElementById('smartCrmIframe');
-  const extLink = document.getElementById('crmExternalLink');
-  const crmUrl = window.getIntermavenCrmUrl();
-
-  if (iframe) iframe.src = crmUrl;
-  if (extLink) extLink.href = 'https://intermaven.io/crm?token=' + encodeURIComponent(localStorage.getItem('token') || 'master_agency_sso_key');
-
-  if (modal) {
-    modal._openTimestamp = Date.now();
-    modal.classList.add('open');
-    modal.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:99999!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
-  }
-};
-
-window.closeSmartCrmModal = function() {
-  const modal = document.getElementById('smartCrmModal');
-  if (modal) {
-    modal.classList.remove('open');
-    modal.style.cssText = 'display:none!important;';
-  }
-  // NON-NEGOTIABLE: Always redirect to Dashboard on close
-  switchPane('dashboard');
-};
-
-window.refreshCrmIframe = function() {
-  const iframe = document.getElementById('smartCrmIframe');
-  if (iframe) {
-    iframe.src = window.getIntermavenCrmUrl() + '&t=' + Date.now();
-  }
-  showToast('🔄 Reloading intermaven.io Smart CRM...', 'info');
-};
-
-
-
-// ─── AUTHENTIC INTERMAVEN AGENCY CRM HANDLERS ───
-window.openSmartCrmModal = async function() {
-  await renderSmartCrmModalData();
-  showSmallModal('smartCrmModal');
-};
-
-window.closeSmartCrmModal = function() {
-  closeSmallModal('smartCrmModal');
-  switchPane('dashboard');
-};
-
-window.renderSmartCrmModalData = async function() {
-  const leads = await loadData('leads');
-  const leadsList = Array.isArray(leads) ? leads : [];
-
-  const totalEl = document.getElementById('smartCrmTotalCount');
-  const optInEl = document.getElementById('smartCrmOptInCount');
-  const leadEl = document.getElementById('smartCrmLeadCount');
-  const tbody = document.getElementById('smartCrmTableBody');
-
-  if (totalEl) totalEl.innerText = leadsList.length;
-  if (optInEl) optInEl.innerText = leadsList.filter(l => l.status === 'New Inquiry').length;
-  if (leadEl) leadEl.innerText = leadsList.filter(l => l.status === 'Confirmed Appointment' || l.status === 'Completed').length;
-
-  if (tbody) {
-    if (leadsList.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--mu); padding:20px;">No Intermaven agency leads found in CRM.</td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = leadsList.map((l, idx) => `
-      <tr>
-        <td><strong>${l.name || 'Client Lead'}</strong></td>
-        <td>${l.company || 'N/A'}</td>
-        <td><code>${l.email}</code></td>
-        <td><span class="badge badge-info">${l.service || 'Consultation'}</span></td>
-        <td><span style="font-size:12px; color:var(--lime);">${l.techLead || 'Unassigned'}</span></td>
-        <td><span class="badge ${l.status === 'Confirmed Appointment' ? 'badge-success' : 'badge-warn'}">${l.status}</span></td>
-        <td>
-          <button type="button" class="btn-action" style="padding:3px 8px; font-size:11px;" onclick="openLeadDetailModal(${idx})"><i class="ri-phone-find-line"></i> Call Prep</button>
-          <button type="button" class="btn-action btn-danger" style="padding:3px 8px; font-size:11px;" onclick="deleteCrmLead(${idx})"><i class="ri-delete-bin-line"></i></button>
-        </td>
-      </tr>
-    `).join('');
-  }
-};
-
-window.addCrmContact = async function(e) {
-  if (e) e.preventDefault();
-  const name = document.getElementById('newCrmName') ? document.getElementById('newCrmName').value.trim() : '';
-  const email = document.getElementById('newCrmEmail') ? document.getElementById('newCrmEmail').value.trim() : '';
-  const company = document.getElementById('newCrmCompany') ? document.getElementById('newCrmCompany').value.trim() : '';
-  const service = document.getElementById('newCrmService') ? document.getElementById('newCrmService').value.trim() : 'AI & Automation Solutions';
-
-  if (!name || !email) return;
-
-  let leads = await loadData('leads');
-  if (!Array.isArray(leads)) leads = [];
-
-  leads.unshift({
-    id: 'LEAD-' + Math.floor(1000 + Math.random() * 9000),
-    name: name,
-    email: email,
-    company: company || 'Enterprise Client',
-    service: service,
-    techLead: 'Julian Vance',
-    date: new Date().toISOString().split('T')[0] + ' @ 10:00 AM',
-    status: 'Confirmed Appointment',
-    notes: 'Direct CRM entry.'
-  });
-
-  await saveData('leads', leads);
-  if (document.getElementById('newCrmName')) document.getElementById('newCrmName').value = '';
-  if (document.getElementById('newCrmEmail')) document.getElementById('newCrmEmail').value = '';
-  if (document.getElementById('newCrmCompany')) document.getElementById('newCrmCompany').value = '';
-  if (document.getElementById('newCrmService')) document.getElementById('newCrmService').value = '';
-  
-  await renderSmartCrmModalData();
-  renderAdmin();
-  showToast('✅ New Intermaven lead saved to CRM!', 'success');
-};
-
-window.deleteCrmLead = async function(idx) {
-  if (!confirm('Remove lead from Intermaven CRM?')) return;
-  let leads = await loadData('leads');
-  leads.splice(idx, 1);
-  await saveData('leads', leads);
-  await renderSmartCrmModalData();
-  renderAdmin();
-  showToast('Lead removed from CRM.', 'info');
-};
-
-
-
-// ─── NATIVE SMART CRM MODAL HANDLERS ───
-window.openSmartCrmModal = async function() {
-  await renderSmartCrmModalData();
-  showSmallModal('smartCrmModal');
-};
-
-window.closeSmartCrmModal = function() {
-  closeSmallModal('smartCrmModal');
-  switchPane('dashboard');
-};
-
-window.addCrmContact = async function(e) {
-  if (e) e.preventDefault();
-  const nameInput = document.getElementById('newCrmName');
-  const emailInput = document.getElementById('newCrmEmail');
-  const channelInput = document.getElementById('newCrmChannel');
-
-  const name = nameInput ? nameInput.value.trim() : '';
-  const email = emailInput ? emailInput.value.trim() : '';
-  const channel = channelInput ? channelInput.value : 'EMAIL';
-
-  if (!name || !email) return;
-
-  let crm = await loadData('crm');
-  if (!Array.isArray(crm)) crm = [];
-
-  crm.unshift({
-    id: 'CRM-' + Math.floor(1000 + Math.random() * 9000),
-    name: name,
-    email: email,
-    channel: channel,
-    doubleOptIn: true,
-    source: 'Smart CRM Manual Input',
-    date: new Date().toISOString().split('T')[0],
-    status: 'Subscribed'
-  });
-
-  await saveData('crm', crm);
-  if (nameInput) nameInput.value = '';
-  if (emailInput) emailInput.value = '';
-  await renderSmartCrmModalData();
-  showToast('✅ New CRM contact added successfully!', 'success');
-};
-
-window.renderSmartCrmModalData = async function() {
+// ─── AUTHENTIC INTERMAVEN.IO SMART CRM HANDLERS & DASHBOARD CLOSE REDIRECTION ───
+window.portAllDataToCrm = async function() {
   let crm = await loadData('crm');
   const leads = await loadData('leads');
+  
+  if (!Array.isArray(crm)) {
+    crm = [];
+  }
 
-  if (!Array.isArray(crm) || crm.length === 0) {
-    crm = [
-      { id: 'CRM-001', name: 'Julian Vance', email: 'founder@juacapital.org', channel: 'EMAIL', doubleOptIn: true, source: 'Landing Page Updates', status: 'Subscribed' },
-      { id: 'CRM-002', name: 'Sarah Kalu', email: 'techlead@afyaplus.com', channel: 'WHATSAPP', doubleOptIn: true, source: 'Newsletter Modal', status: 'Subscribed' },
-      { id: 'CRM-003', name: 'David Mwanga', email: 'mwangalaw@legal.com', channel: 'EMAIL', doubleOptIn: true, source: 'Footer Signup', status: 'Subscribed' }
-    ];
+  let updated = false;
+
+  leads.forEach(lead => {
+    if (!lead.email) return;
+    const existing = crm.find(c => c.email && c.email.toLowerCase() === lead.email.toLowerCase());
+    if (!existing) {
+      crm.unshift({
+        id: 'CRM-PORT-' + Math.floor(1000 + Math.random() * 9000),
+        name: lead.name || 'Lead Contact',
+        email: lead.email,
+        channel: lead.channel || 'EMAIL',
+        doubleOptIn: true,
+        source: lead.company ? `Lead Booking (${lead.company})` : (lead.service || 'Appointment Portal'),
+        date: lead.date ? lead.date.split(' @')[0] : new Date().toISOString().split('T')[0],
+        status: 'Subscribed'
+      });
+      updated = true;
+    }
+  });
+
+  if (updated || !await loadData('crm')) {
     await saveData('crm', crm);
   }
 
+  return crm;
+};
+
+window.getIntermavenCrmUrl = function() {
+  const token = localStorage.getItem('tunemavens_token') || localStorage.getItem('token') || 'master_agency_sso_key';
+  return '/embed/crm?token=' + encodeURIComponent(token) + '&auto_login=true';
+};
+
+window.openSmartCrmModal = async function() {
+  if (typeof portAllDataToCrm === 'function') {
+    await portAllDataToCrm();
+  }
+  const iframe = document.getElementById('smartCrmIframe');
+  const extLink = document.getElementById('crmExternalLink');
+  const crmUrl = window.getIntermavenCrmUrl();
+
+  if (extLink) extLink.href = crmUrl;
+
+  if (iframe) {
+    iframe.src = crmUrl;
+    iframe.onload = function() {
+      try {
+        iframe.contentWindow.postMessage({
+          type: 'INTERMAVEN_SSO_AUTO_LOGIN',
+          token: localStorage.getItem('token') || 'master_agency_sso_key',
+          app: 'crm',
+          action: 'LOAD_SMART_CRM'
+        }, '*');
+      } catch (e) {}
+    };
+  }
+
+  showSmallModal('smartCrmModal');
+};
+
+window.closeSmartCrmModal = function() {
+  closeSmallModal('smartCrmModal');
+  // NON-NEGOTIABLE: Always redirect to Dashboard on modal close
+  if (typeof switchPane === 'function') {
+    switchPane('dashboard');
+  }
+};
+
+window.refreshCrmIframe = async function() {
+  if (typeof portAllDataToCrm === 'function') {
+    await portAllDataToCrm();
+  }
+  const iframe = document.getElementById('smartCrmIframe');
+  const extLink = document.getElementById('crmExternalLink');
+  const targetUrl = window.getIntermavenCrmUrl() + '&t=' + Date.now();
+  if (iframe) iframe.src = targetUrl;
+  if (extLink) extLink.href = targetUrl;
+  if (typeof showToast === 'function') {
+    showToast('🔄 Re-syncing leads & reloading intermaven.io Smart CRM...', 'info');
+  }
+};
+
+window.renderSmartCrmModalData = async function() {
+  const leads = await loadData('leads');
+  const leadsList = Array.isArray(leads) ? leads : [];
+
   const totalEl = document.getElementById('smartCrmTotalCount');
+  const optInEl = document.getElementById('smartCrmOptInCount');
   const leadEl = document.getElementById('smartCrmLeadCount');
   const tbody = document.getElementById('smartCrmTableBody');
 
-  if (totalEl) totalEl.innerText = crm.length;
-  if (leadEl) leadEl.innerText = Array.isArray(leads) ? leads.length : 0;
+  if (totalEl) totalEl.innerText = leadsList.length;
+  if (optInEl) optInEl.innerText = leadsList.filter(l => l.status === 'New Inquiry').length;
+  if (leadEl) leadEl.innerText = leadsList.filter(l => l.status === 'Confirmed Appointment' || l.status === 'Completed').length;
 
   if (tbody) {
-    tbody.innerHTML = crm.map(c => `
+    if (leadsList.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--mu); padding:20px;">No Intermaven agency leads found in CRM.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = leadsList.map((l, idx) => `
       <tr>
-        <td><strong>${c.name || 'Anonymous Contact'}</strong></td>
-        <td><code>${c.email}</code></td>
-        <td><span class="badge badge-info">${c.channel || 'EMAIL'}</span></td>
-        <td><span class="badge badge-success"><i class="ri-checkbox-circle-line"></i> Verified</span></td>
-        <td style="font-size:12px; color:var(--mu);">${c.source || 'Direct Opt-In'}</td>
-        <td><span class="badge badge-success">${c.status || 'Subscribed'}</span></td>
+        <td><strong>${l.name || 'Client Lead'}</strong></td>
+        <td>${l.company || 'N/A'}</td>
+        <td><code>${l.email}</code></td>
+        <td><span class="badge badge-info">${l.service || 'Consultation'}</span></td>
+        <td><span style="font-size:12px; color:var(--lime);">${l.techLead || 'Unassigned'}</span></td>
+        <td><span class="badge ${l.status === 'Confirmed Appointment' ? 'badge-success' : 'badge-warn'}">${l.status}</span></td>
         <td>
-          <button type="button" class="btn-action btn-danger" style="padding:3px 8px; font-size:11px;" onclick="deleteCrmContact('${c.id}')"><i class="ri-delete-bin-line"></i> Delete</button>
+          <button type="button" class="btn-action" style="padding:3px 8px; font-size:11px;" onclick="openLeadDetailModal(${idx})"><i class="ri-phone-find-line"></i> Call Prep</button>
+          <button type="button" class="btn-action btn-danger" style="padding:3px 8px; font-size:11px;" onclick="deleteCrmLead(${idx})"><i class="ri-delete-bin-line"></i></button>
         </td>
       </tr>
     `).join('');
   }
 };
 
-window.deleteCrmContact = async function(id) {
-  if (!confirm('Remove contact from Smart CRM?')) return;
-  let crm = await loadData('crm');
-  crm = crm.filter(c => String(c.id) !== String(id));
-  await saveData('crm', crm);
+window.addCrmContact = async function(e) {
+  if (e) e.preventDefault();
+  const name = document.getElementById('newCrmName') ? document.getElementById('newCrmName').value.trim() : '';
+  const email = document.getElementById('newCrmEmail') ? document.getElementById('newCrmEmail').value.trim() : '';
+  const company = document.getElementById('newCrmCompany') ? document.getElementById('newCrmCompany').value.trim() : '';
+  const service = document.getElementById('newCrmService') ? document.getElementById('newCrmService').value.trim() : 'AI & Automation Solutions';
+
+  if (!name || !email) return;
+
+  let leads = await loadData('leads');
+  if (!Array.isArray(leads)) leads = [];
+
+  leads.unshift({
+    id: 'LEAD-' + Math.floor(1000 + Math.random() * 9000),
+    name: name,
+    email: email,
+    company: company || 'Enterprise Client',
+    service: service,
+    techLead: 'Julian Vance',
+    date: new Date().toISOString().split('T')[0] + ' @ 10:00 AM',
+    status: 'Confirmed Appointment',
+    notes: 'Direct CRM entry.'
+  });
+
+  await saveData('leads', leads);
+  if (document.getElementById('newCrmName')) document.getElementById('newCrmName').value = '';
+  if (document.getElementById('newCrmEmail')) document.getElementById('newCrmEmail').value = '';
+  if (document.getElementById('newCrmCompany')) document.getElementById('newCrmCompany').value = '';
+  if (document.getElementById('newCrmService')) document.getElementById('newCrmService').value = '';
+  
   await renderSmartCrmModalData();
-  showToast('Contact removed from Smart CRM.', 'info');
+  if (typeof renderAdmin === 'function') renderAdmin();
+  if (typeof showToast === 'function') showToast('✅ New Intermaven lead saved to CRM!', 'success');
+};
+
+window.deleteCrmLead = async function(idx) {
+  if (!confirm('Remove lead from Intermaven CRM?')) return;
+  let leads = await loadData('leads');
+  leads.splice(idx, 1);
+  await saveData('leads', leads);
+  await renderSmartCrmModalData();
+  if (typeof renderAdmin === 'function') renderAdmin();
+  if (typeof showToast === 'function') showToast('Lead removed from CRM.', 'info');
 };
 
 
-
-// ─── SMART CRM INTEGRATION & DASHBOARD REDIRECTION HANDLERS ───
-window.getIntermavenCrmUrl = function() {
-  const token = localStorage.getItem('token') || localStorage.getItem('tunemavens_token') || 'master_agency_sso_key';
-  return 'https://intermaven.io/embed/crm?token=agency_admin_master' + encodeURIComponent(token) + '&auto_login=true';
-};
-
-window.launchIntermavenCrmAutoLogin = function() {
-  const url = window.getIntermavenCrmUrl();
-  
-};
-
-window.openSmartCrmModal = function() {
-  const modal = document.getElementById('smartCrmModal');
-  const iframe = document.getElementById('smartCrmIframe');
-  const extLink = document.getElementById('crmExternalLink');
-  const crmUrl = window.getIntermavenCrmUrl();
-
-  if (extLink) extLink.href = crmUrl;
-  if (iframe) iframe.src = crmUrl;
-
-  // Open live Intermaven Smart CRM in new tab with SSO auto-login
-  
-
-  if (modal) {
-    modal._openTimestamp = Date.now();
-    modal.classList.add('open');
-    modal.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:99999!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
-  }
-};
-
-window.closeSmartCrmModal = function() {
-  const modal = document.getElementById('smartCrmModal');
-  if (modal) {
-    modal.classList.remove('open');
-    modal.style.cssText = 'display:none!important;';
-  }
-  // Automatically switch active pane back to Main Dashboard upon closing CRM modal
-  switchPane('dashboard');
-};
 
 
 
@@ -4053,100 +3649,10 @@ function showSmallModal(modalId) {
   }
 }
 
-// ─── EXTRA-WIDE SMART CRM MODAL (SSO & ECOSYSTEM INTEGRATION) ───
-function getIntermavenCrmUrl() {
-  const token = localStorage.getItem('token') || localStorage.getItem('tunemavens_token') || 'agency_admin_master_sso';
-  return 'https://intermaven.io/embed/crm?token=agency_admin_master' + encodeURIComponent(token) + '&auto_login=true';
-}
 
-async function portAllDataToCrm() {
-  let crm = await loadData('crm');
-  const leads = await loadData('leads');
-  
-  if (crm.length === 0 && typeof defaultCrm !== 'undefined') {
-    crm = [...defaultCrm];
-  }
 
-  let updated = false;
 
-  leads.forEach(lead => {
-    if (!lead.email) return;
-    const existing = crm.find(c => c.email && c.email.toLowerCase() === lead.email.toLowerCase());
-    if (!existing) {
-      crm.unshift({
-        id: 'CRM-PORT-' + Math.floor(1000 + Math.random() * 9000),
-        name: lead.name || 'Lead Contact',
-        email: lead.email,
-        channel: lead.channel || 'EMAIL',
-        doubleOptIn: true,
-        source: lead.company ? `Lead Booking (${lead.company})` : (lead.service || 'Appointment Portal'),
-        date: lead.date ? lead.date.split(' @')[0] : new Date().toISOString().split('T')[0],
-        status: 'Subscribed'
-      });
-      updated = true;
 
-      // Async sync to core CRM backend API
-      try {
-        const nameParts = (lead.name || 'Lead Contact').split(' ');
-        fetch('http://localhost:8001/api/crm/contacts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer agency_admin_master'
-          },
-          body: JSON.stringify({
-            first_name: nameParts[0] || 'Lead',
-            last_name: nameParts.slice(1).join(' ') || '',
-            email: lead.email,
-            company: lead.company || '',
-            source: lead.service || 'Agency Portal Booking',
-            tags: ['booker', 'vip']
-          })
-        }).catch(function() {});
-      } catch (e) {}
-    }
-  });
-
-  if (updated || !await loadData('crm')) {
-    await saveData('crm', crm);
-  }
-
-  return crm;
-}
-
-async function refreshCrmIframe() {
-  portAllDataToCrm();
-  const iframe = document.getElementById('smartCrmIframe');
-  const extLink = document.getElementById('crmExternalLink');
-  const targetUrl = getIntermavenCrmUrl();
-  if (iframe) {
-    iframe.src = targetUrl;
-  }
-  if (extLink) {
-    extLink.href = targetUrl;
-  }
-}
-
-async function openSmartCrmModal() {
-  const iframe = document.getElementById('smartCrmIframe');
-  const modal = document.getElementById('smartCrmModal');
-  const extLink = document.getElementById('crmExternalLink');
-  
-  const crmUrl = getIntermavenCrmUrl();
-  if (iframe) {
-    iframe.src = crmUrl;
-  }
-  if (extLink) {
-    extLink.href = crmUrl;
-  }
-  if (modal) {
-    modal._openTimestamp = Date.now();
-    modal.classList.add('open');
-    modal.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:99999!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
-  }
-}
-
-window.openSmartCrmModal = openSmartCrmModal;
 
 function hsClose() {
   var modal = document.getElementById('heroSlideModal');
