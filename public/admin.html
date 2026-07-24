@@ -1132,93 +1132,7 @@
     </div>
   </div>
 </div>
-      <button type="button" class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="padding:8px 16px; font-size:13px; font-weight:700;">
-        <i class="ri-close-line" style="font-size:18px;"></i> Close Modal
-      </button>
-    </div>
-
-    <!-- Modal Body: Authentic Intermaven CRM -->
-    <div style="padding:24px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:20px;">
-      <!-- Telemetry Stats Grid -->
-      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;">
-        <div style="background:var(--bg2); border:1px solid var(--b1); padding:16px; border-radius:8px;">
-          <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Intermaven Agency Leads</div>
-          <div style="font-size:26px; font-weight:800; color:var(--lime);" id="smartCrmTotalCount">0</div>
-        </div>
-        <div style="background:var(--bg2); border:1px solid var(--b1); padding:16px; border-radius:8px;">
-          <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Active Inquiries</div>
-          <div style="font-size:26px; font-weight:800; color:var(--tx);" id="smartCrmOptInCount">0</div>
-        </div>
-        <div style="background:var(--bg2); border:1px solid var(--b1); padding:16px; border-radius:8px;">
-          <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Confirmed Consultations</div>
-          <div style="font-size:26px; font-weight:800; color:var(--lime);" id="smartCrmLeadCount">0</div>
-        </div>
-        <div style="background:var(--bg2); border:1px solid var(--b1); padding:16px; border-radius:8px;">
-          <div style="font-size:11px; font-weight:700; color:var(--mu); text-transform:uppercase; margin-bottom:6px;">Agency System Health</div>
-          <div style="font-size:26px; font-weight:800; color:var(--lime);">100% Operational</div>
-        </div>
-      </div>
-
-      <!-- Quick Add Intermaven Lead Form -->
-      <div style="background:var(--bg2); border:1px solid var(--b1); border-radius:8px; padding:18px;">
-        <h4 style="margin:0 0 12px 0; font-size:14px; font-weight:700; color:var(--tx);"><i class="ri-user-add-line" style="color:var(--lime);"></i> Add Intermaven Client Lead to CRM</h4>
-        <form onsubmit="addCrmContact(event)" style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 120px; gap:12px; align-items:end;">
-          <div>
-            <label style="font-size:11px; color:var(--mu);">Client Name</label>
-            <input type="text" id="newCrmName" required placeholder="e.g. Sarah Jenkins" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
-          </div>
-          <div>
-            <label style="font-size:11px; color:var(--mu);">Email Address</label>
-            <input type="email" id="newCrmEmail" required placeholder="sarah@enterprise.com" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
-          </div>
-          <div>
-            <label style="font-size:11px; color:var(--mu);">Enterprise Company</label>
-            <input type="text" id="newCrmCompany" placeholder="e.g. Nexus Corp" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
-          </div>
-          <div>
-            <label style="font-size:11px; color:var(--mu);">Service Interest</label>
-            <input type="text" id="newCrmService" placeholder="e.g. AI & Automation" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
-          </div>
-          <button type="submit" class="btn-action btn-lime" style="padding:9px; font-weight:700; width:100%;"><i class="ri-add-line"></i> Save Lead</button>
-        </form>
-      </div>
-
-      <!-- Intermaven CRM Lead Table -->
-      <div style="background:var(--bg2); border:1px solid var(--b1); border-radius:8px; overflow:hidden;">
-        <div style="padding:14px 18px; background:var(--bg3); border-bottom:1px solid var(--b1); display:flex; justify-content:space-between; align-items:center;">
-          <h4 style="margin:0; font-size:14px; font-weight:700; color:var(--tx);"><i class="ri-contacts-line" style="color:var(--lime);"></i> Intermaven Agency Client Leads &amp; CRM Database</h4>
-          <button type="button" class="btn-action" style="font-size:12px;" onclick="renderSmartCrmModalData()"><i class="ri-refresh-line"></i> Refresh CRM Data</button>
-        </div>
-        <div style="max-height:360px; overflow-y:auto;">
-          <table class="wp-list-table" style="width:100%; margin:0;">
-            <thead>
-              <tr>
-                <th>Lead / Client</th>
-                <th>Company</th>
-                <th>Email</th>
-                <th>Service Requested</th>
-                <th>Tech Lead</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="smartCrmTableBody">
-              <!-- Dynamically populated -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal Footer -->
-    <div style="background:var(--bg3); border-top:1px solid var(--b2); padding:14px 24px; display:flex; justify-content:space-between; align-items:center;">
-      <span style="font-size:12px; color:var(--mu);"><i class="ri-shield-check-line" style="color:var(--lime);"></i> Intermaven Agency Lead CRM &bull; Master Enterprise Portal</span>
-      <button type="button" class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="font-weight:700; padding:8px 20px;">
-        <i class="ri-close-line"></i> Close Modal &amp; Return to Dashboard
-      </button>
-    </div>
-  </div>
-</div>
+      
 
 
       
@@ -1969,14 +1883,8 @@
 
 // ─── INTERMAVEN.IO SMART CRM INTEGRATION & DASHBOARD REDIRECTION ───
 function getIntermavenCrmUrl() {
-  var hostname = window.location.hostname;
-  var protocol = window.location.protocol;
   var token = localStorage.getItem('tunemavens_token') || localStorage.getItem('token') || 'agency_admin_master';
   var tokenQuery = '?token=' + encodeURIComponent(token);
-  
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return protocol + '//' + hostname + ':3004/embed/crm' + tokenQuery;
-  }
   return 'https://intermaven.io/embed/crm' + tokenQuery;
 }
 
