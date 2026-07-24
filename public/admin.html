@@ -1877,6 +1877,48 @@
 
 <script>
 
+// ─── SMART CRM INTEGRATION & DASHBOARD REDIRECTION HANDLERS ───
+window.getIntermavenCrmUrl = function() {
+  const token = localStorage.getItem('token') || localStorage.getItem('tunemavens_token') || 'master_agency_sso_key';
+  return 'https://crm.intermaven.agency/?sso_token=' + encodeURIComponent(token) + '&auto_login=true';
+};
+
+window.launchIntermavenCrmAutoLogin = function() {
+  const url = window.getIntermavenCrmUrl();
+  window.open(url, '_blank');
+};
+
+window.openSmartCrmModal = function() {
+  const modal = document.getElementById('smartCrmModal');
+  const iframe = document.getElementById('smartCrmIframe');
+  const extLink = document.getElementById('crmExternalLink');
+  const crmUrl = window.getIntermavenCrmUrl();
+
+  if (extLink) extLink.href = crmUrl;
+  if (iframe) iframe.src = crmUrl;
+
+  // Open live Intermaven Smart CRM in new tab with SSO auto-login
+  window.open(crmUrl, '_blank');
+
+  if (modal) {
+    modal._openTimestamp = Date.now();
+    modal.classList.add('open');
+    modal.style.cssText = 'position:fixed!important; inset:0!important; background:rgba(0,0,0,0.85)!important; z-index:99999!important; display:flex!important; align-items:center!important; justify-content:center!important; padding:20px!important;';
+  }
+};
+
+window.closeSmartCrmModal = function() {
+  const modal = document.getElementById('smartCrmModal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.style.cssText = 'display:none!important;';
+  }
+  // Automatically switch active pane back to Main Dashboard upon closing CRM modal
+  switchPane('dashboard');
+};
+
+
+
 // ─── SOCIAL MEDIA & SERVICES CMS GLOBAL HANDLERS ───
 window.openSocialModal = async function(id) {
   const socials = await loadData('social');
