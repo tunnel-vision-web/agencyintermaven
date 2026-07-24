@@ -1208,66 +1208,7 @@
   </div>
 </div>
 
-      <!-- Quick Action Add Contact Form -->
-      <div style="background:var(--bg2); border:1px solid var(--b1); border-radius:8px; padding:18px;">
-        <h4 style="margin:0 0 12px 0; font-size:14px; font-weight:700; color:var(--tx);"><i class="ri-user-add-line" style="color:var(--lime);"></i> Quick Add CRM Opt-In Contact</h4>
-        <form onsubmit="addCrmContact(event)" style="display:grid; grid-template-columns: 1fr 1fr 1fr 120px; gap:12px; align-items:end;">
-          <div>
-            <label style="font-size:11px; color:var(--mu);">Full Name</label>
-            <input type="text" id="newCrmName" required placeholder="e.g. Sarah Jenkins" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
-          </div>
-          <div>
-            <label style="font-size:11px; color:var(--mu);">Email Address</label>
-            <input type="email" id="newCrmEmail" required placeholder="sarah@enterprise.com" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
-          </div>
-          <div>
-            <label style="font-size:11px; color:var(--mu);">Channel</label>
-            <select id="newCrmChannel" style="width:100%; padding:8px 12px; background:var(--bg3); border:1px solid var(--b1); border-radius:4px; color:var(--tx);">
-              <option value="EMAIL">EMAIL</option>
-              <option value="WHATSAPP">WHATSAPP</option>
-              <option value="WEB_PORTAL">WEB PORTAL</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-action btn-lime" style="padding:9px; font-weight:700; width:100%;"><i class="ri-add-line"></i> Add Lead</button>
-        </form>
-      </div>
 
-      <!-- CRM Contacts Table -->
-      <div style="background:var(--bg2); border:1px solid var(--b1); border-radius:8px; overflow:hidden;">
-        <div style="padding:14px 18px; background:var(--bg3); border-bottom:1px solid var(--b1); display:flex; justify-content:space-between; align-items:center;">
-          <h4 style="margin:0; font-size:14px; font-weight:700; color:var(--tx);"><i class="ri-contacts-line" style="color:var(--lime);"></i> Active Smart CRM Contacts &amp; Subscribers</h4>
-          <button type="button" class="btn-action" style="font-size:12px;" onclick="portAllDataToCrm()"><i class="ri-refresh-line"></i> Sync Lead Inquiries</button>
-        </div>
-        <div style="max-height:340px; overflow-y:auto;">
-          <table class="wp-list-table" style="width:100%; margin:0;">
-            <thead>
-              <tr>
-                <th>Contact Name</th>
-                <th>Email</th>
-                <th>Channel</th>
-                <th>Double Opt-In</th>
-                <th>Source</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="smartCrmTableBody">
-              <!-- Dynamically populated -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal Footer -->
-    <div style="background:var(--bg3); border-top:1px solid var(--b2); padding:14px 24px; display:flex; justify-content:space-between; align-items:center;">
-      <span style="font-size:12px; color:var(--mu);"><i class="ri-shield-check-line" style="color:var(--lime);"></i> Intermaven Smart CRM Telemetry Active</span>
-      <button type="button" class="btn-action btn-danger" onclick="closeSmartCrmModal()" style="font-weight:700; padding:8px 20px;">
-        <i class="ri-close-line"></i> Close Modal &amp; Return to Dashboard
-      </button>
-    </div>
-  </div>
-</div>
       
 
 <!-- ═══════════════════════════════════════════════════════════════
