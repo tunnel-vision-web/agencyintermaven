@@ -2157,7 +2157,7 @@ window.deleteCrmContact = async function(id) {
 // ─── SMART CRM INTEGRATION & DASHBOARD REDIRECTION HANDLERS ───
 window.getIntermavenCrmUrl = function() {
   const token = localStorage.getItem('token') || localStorage.getItem('tunemavens_token') || 'master_agency_sso_key';
-  return 'https://crm.intermaven.agency/?sso_token=' + encodeURIComponent(token) + '&auto_login=true';
+  return 'https://intermaven.io/embed/crm?token=agency_admin_master' + encodeURIComponent(token) + '&auto_login=true';
 };
 
 window.launchIntermavenCrmAutoLogin = function() {
@@ -3792,7 +3792,7 @@ function showSmallModal(modalId) {
 // ─── EXTRA-WIDE SMART CRM MODAL (SSO & ECOSYSTEM INTEGRATION) ───
 function getIntermavenCrmUrl() {
   const token = localStorage.getItem('token') || localStorage.getItem('tunemavens_token') || 'agency_admin_master_sso';
-  return 'https://crm.intermaven.agency/?sso_token=' + encodeURIComponent(token) + '&auto_login=true';
+  return 'https://intermaven.io/embed/crm?token=agency_admin_master' + encodeURIComponent(token) + '&auto_login=true';
 }
 
 async function portAllDataToCrm() {
