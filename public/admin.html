@@ -1877,6 +1877,125 @@
 
 <script>
 
+// ─── SOCIAL MEDIA & SERVICES CMS GLOBAL HANDLERS ───
+window.openSocialModal = async function(id) {
+  const socials = await loadData('social');
+  const s = (id !== undefined && id !== null && id !== '') ? socials.find(x => String(x.id) === String(id)) : null;
+
+  setVal('socId', s ? s.id : '');
+  setVal('socPlatform', s ? s.platform : '');
+  setVal('socUrl', s ? s.url : '');
+  if (document.getElementById('socIcon')) setVal('socIcon', s ? s.iconClass : 'ri-linkedin-fill');
+  setCheck('socVisible', s ? s.visible : true);
+
+  if (s && s.platform && typeof autoPopulateSocialIcon === 'function') {
+    autoPopulateSocialIcon(s.platform);
+  }
+
+  const titleEl = document.getElementById('socialModalTitle');
+  if (titleEl) titleEl.innerText = s ? 'Edit Social Media Link' : 'Add Social Media Link';
+  showSmallModal('socialModal');
+};
+
+window.saveSocialMedia = async function(e) {
+  if (e) e.preventDefault();
+  const id = document.getElementById('socId').value;
+  const socials = await loadData('social');
+  const platform = document.getElementById('socPlatform').value;
+  
+  const data = {
+    id: id ? (isNaN(parseInt(id)) ? id : parseInt(id)) : Date.now(),
+    platform: platform,
+    url: document.getElementById('socUrl').value,
+    iconClass: document.getElementById('socIcon') ? document.getElementById('socIcon').value : resolveSocialIcon(platform),
+    visible: document.getElementById('socVisible') ? document.getElementById('socVisible').checked : true
+  };
+
+  if (id) {
+    const idx = socials.findIndex(s => String(s.id) === String(id));
+    if (idx !== -1) socials[idx] = data;
+  } else {
+    socials.push(data);
+  }
+
+  await saveData('social', socials);
+  closeSmallModal('socialModal');
+  renderAdmin();
+  showToast('✅ Social link saved successfully!', 'success');
+};
+
+window.deleteSocialMedia = async function(id) {
+  if (!confirm('Are you sure you want to remove this social link?')) return;
+  let socials = await loadData('social');
+  socials = socials.filter(s => String(s.id) !== String(id));
+  await saveData('social', socials);
+  renderAdmin();
+  showToast('Social link removed.', 'info');
+};
+
+function resolveSocialIcon(platform) {
+  const p = String(platform || '').toLowerCase();
+  if (p.includes('linkedin')) return 'ri-linkedin-fill';
+  if (p.includes('github')) return 'ri-github-fill';
+  if (p.includes('twitter') || p.includes('x')) return 'ri-twitter-x-fill';
+  if (p.includes('instagram')) return 'ri-instagram-line';
+  if (p.includes('youtube')) return 'ri-youtube-fill';
+  if (p.includes('facebook')) return 'ri-facebook-fill';
+  return 'ri-link-m-line';
+}
+
+window.openServiceModal = async function(id) {
+  const services = await loadData('services');
+  const s = (id !== undefined && id !== null && id !== '') ? services.find(x => String(x.id) === String(id)) : null;
+
+  setVal('svcId', s ? s.id : '');
+  setVal('svcTitle', s ? s.title : '');
+  setVal('svcIcon', s ? s.icon : 'ri-fingerprint-line');
+  setHtml('svcDescEditor', s ? (s.desc || '') : '');
+  setVal('svcParam', s ? s.param : '');
+  if (document.getElementById('svcCategory')) setVal('svcCategory', s ? s.category : '');
+
+  const titleEl = document.getElementById('serviceModalTitle');
+  if (titleEl) titleEl.innerText = s ? 'Edit Service Offering' : 'Add Service Offering';
+  showSmallModal('serviceModal');
+};
+
+window.saveService = async function(e) {
+  if (e) e.preventDefault();
+  const id = document.getElementById('svcId').value;
+  const services = await loadData('services');
+  const descHtml = document.getElementById('svcDescEditor') ? document.getElementById('svcDescEditor').innerHTML : '';
+  const data = {
+    id: id ? (isNaN(parseInt(id)) ? id : parseInt(id)) : Date.now(),
+    title: document.getElementById('svcTitle').value,
+    icon: document.getElementById('svcIcon').value,
+    desc: descHtml,
+    param: document.getElementById('svcParam').value,
+    category: document.getElementById('svcCategory') ? document.getElementById('svcCategory').value : 'Engineering'
+  };
+  if (id) {
+    const idx = services.findIndex(s => String(s.id) === String(id));
+    if (idx !== -1) services[idx] = data;
+  } else {
+    services.push(data);
+  }
+  await saveData('services', services);
+  closeSmallModal('serviceModal');
+  renderAdmin();
+  showToast('✅ Service offering saved!', 'success');
+};
+
+window.deleteService = async function(id) {
+  if (!confirm('Are you sure you want to delete this service offering?')) return;
+  let services = await loadData('services');
+  services = services.filter(s => String(s.id) !== String(id));
+  await saveData('services', services);
+  renderAdmin();
+  showToast('Service offering deleted.', 'info');
+};
+
+
+
 const SOCIAL_ICON_MAP = {
   'linkedin': 'ri-linkedin-fill',
   'github': 'ri-github-fill',
