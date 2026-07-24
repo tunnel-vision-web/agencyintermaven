@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Invoice &amp; Workplan — Intermaven Agency</title>
+  <link rel="icon" href="assets/favicon/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <script src="api.js"></script>
+
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --bg2: #12151a;
+      --bg3: #1a1e26;
+      --b1: rgba(255, 255, 255, 0.08);
+      --b2: rgba(255, 255, 255, 0.16);
+      --lime: #D7DF23;
+      --tx: #f3f4f6;
+      --mu: #9ca3af;
+      --card: #14171d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--tx);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .invoice-wrapper {
+      max-width: 860px;
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--b2);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .inv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--b1);
+      padding-bottom: 24px;
+      margin-bottom: 30px;
+    }
+
+    .inv-brand img {
+      height: 36px;
+      margin-bottom: 8px;
+    }
+
+    .inv-brand-sub {
+      font-size: 13px;
+      color: var(--mu);
+    }
+
+    .inv-meta {
+      text-align: right;
+    }
+
+    .inv-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    .status-badge.sent { background: rgba(0, 229, 255, 0.15); color: #00E5FF; border: 1px solid #00E5FF; }
+    .status-badge.paid { background: rgba(215, 223, 35, 0.15); color: var(--lime); border: 1px solid var(--lime); }
+    .status-badge.overdue { background: rgba(255, 74, 74, 0.15); color: #FF4A4A; border: 1px solid #FF4A4A; }
+    .status-badge.draft { background: rgba(156, 163, 175, 0.15); color: var(--mu); border: 1px solid var(--mu); }
+
+    .inv-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 30px;
+      background: var(--bg2);
+      border: 1px solid var(--b1);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .inv-col h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--mu);
+      margin-bottom: 8px;
+    }
+
+    .inv-col p {
+      font-size: 14.5px;
+      color: var(--tx);
+      line-height: 1.5;
+    }
+
+    .inv-col strong {
+      color: #fff;
+    }
+
+    .table-box {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    .table-box th {
+      background: var(--bg3);
+      color: var(--mu);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--b1);
+    }
+
+    .table-box td {
+      padding: 16px;
+      border-bottom: 1px solid var(--b1);
+      font-size: 14px;
+      color: var(--tx);
+    }
+
+    .table-box td.num {
+      text-align: right;
+    }
+
+    .inv-summary-box {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 30px;
+    }
+
+    .summary-card {
+      width: 320px;
+      background: var(--bg2);
+      border: 1px solid var(--b1);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 6px 0;
+      color: var(--mu);
+    }
+
+    .summary-row.total {
+      border-top: 1px solid var(--b2);
+      margin-top: 6px;
+      padding-top: 12px;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--lime);
+    }
+
+    .workplan-notes {
+      background: rgba(215, 223, 35, 0.05);
+      border: 1px solid rgba(215, 223, 35, 0.2);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-bottom: 30px;
+    }
+
+    .workplan-notes h4 {
+      color: var(--lime);
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .workplan-notes p {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.5;
+    }
+
+    .actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--b1);
+      padding-top: 24px;
+    }
+
+    .btn-pay {
+      background: var(--lime);
+      color: #000;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px 32px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 18px rgba(215, 223, 35, 0.35);
+    }
+
+    .btn-pay:hover {
+      background: #e5eb44;
+      transform: translateY(-1px);
+    }
+
+    .btn-print {
+      background: var(--bg3);
+      color: var(--tx);
+      border: 1px solid var(--b2);
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      .invoice-wrapper { border: none; box-shadow: none; max-width: 100%; padding: 0; }
+      .actions-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="invoice-wrapper" id="invoiceCard">
+    <div id="invoiceContent">
+      <p style="text-align:center; padding:40px; color:var(--mu);">Loading Invoice &amp; Workplan data...</p>
+    </div>
+  </div>
+
+  <script>
+    async function loadInvoice() {
+      const params = new URLSearchParams(window.location.search);
+      const invId = params.get('id') || 'INV-2026-001';
+
+      try {
+        const invoices = await loadData('invoices');
+        const inv = (Array.isArray(invoices) ? invoices : []).find(i => String(i.id) === String(invId) || String(i.invoiceNumber) === String(invId)) || invoices[0];
+
+        if (!inv) {
+          document.getElementById('invoiceContent').innerHTML = '<h3 style="text-align:center; color:#FF4A4A;">Invoice Not Found</h3>';
+          return;
+        }
+
+        const isPaid = (inv.status || '').toLowerCase() === 'paid';
+        const lineItemsHtml = (inv.lineItems || []).map(item => `
+          <tr>
+            <td><strong>${item.description}</strong></td>
+            <td class="num">${item.qty || 1}</td>
+            <td class="num">$${Number(item.unitPrice || 0).toLocaleString()}</td>
+            <td class="num"><strong>$${Number(item.amount || (item.qty * item.unitPrice)).toLocaleString()}</strong></td>
+          </tr>
+        `).join('');
+
+        document.getElementById('invoiceContent').innerHTML = `
+          <div class="inv-header">
+            <div class="inv-brand">
+              <img src="assets/intermaven-agency-logo-web.png" alt="Intermaven Agency">
+              <div class="inv-brand-sub">Software Systems &amp; Brand Infrastructure</div>
+            </div>
+            <div class="inv-meta">
+              <div class="inv-num">${inv.invoiceNumber || inv.id}</div>
+              <span class="status-badge ${inv.status || 'sent'}">${inv.status || 'Sent'}</span>
+            </div>
+          </div>
+
+          <div class="inv-grid">
+            <div class="inv-col">
+              <h4>Billed To (Client Partner)</h4>
+              <p><strong>${inv.clientName || 'Client Enterprise'}</strong></p>
+              <p>${inv.clientEmail || 'billing@client.com'}</p>
+              <p>Project: <strong>${inv.projectName || 'Workplan Engagement'}</strong></p>
+            </div>
+            <div class="inv-col" style="text-align:right;">
+              <h4>Payment &amp; Terms</h4>
+              <p>Type: <strong>${inv.type === 'recurring' ? 'Recurring Retainer' : 'One-Time Project'}</strong></p>
+              <p>Frequency: <strong>${(inv.billingCycle || 'One-Time').toUpperCase()}</strong></p>
+              <p>Issue Date: <strong>${inv.issueDate || '2026-07-20'}</strong></p>
+              <p>Due Date: <strong>${inv.dueDate || '2026-08-05'}</strong></p>
+            </div>
+          </div>
+
+          <table class="table-box">
+            <thead>
+              <tr>
+                <th>Scope Description / Milestone</th>
+                <th style="text-align:right;">Qty</th>
+                <th style="text-align:right;">Rate</th>
+                <th style="text-align:right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${lineItemsHtml}
+            </tbody>
+          </table>
+
+          <div class="inv-summary-box">
+            <div class="summary-card">
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <span>$${Number(inv.subtotal || inv.total || 0).toLocaleString()}</span>
+              </div>
+              <div class="summary-row">
+                <span>Estimated Tax (0%)</span>
+                <span>$0.00</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total Due</span>
+                <span>$${Number(inv.total || 0).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+
+          ${inv.workplanNotes ? `
+            <div class="workplan-notes">
+              <h4><i class="ri-node-tree"></i> Workplan Consultation Scope Notes</h4>
+              <p>${inv.workplanNotes}</p>
+            </div>
+          ` : ''}
+
+          <div class="actions-bar">
+            <button type="button" class="btn-print" onclick="window.print()"><i class="ri-printer-line"></i> Print / Save PDF</button>
+            ${isPaid ? `
+              <div style="color:var(--lime); font-weight:800; font-size:16px; display:flex; align-items:center; gap:6px;">
+                <i class="ri-checkbox-circle-fill" style="font-size:22px;"></i> INVOICE PAID &amp; CONFIRMED
+              </div>
+            ` : `
+              <button type="button" class="btn-pay" onclick="processStripeCheckout('${inv.id}', ${inv.total || 0})">
+                <i class="ri-shield-check-fill"></i> Pay Invoice via Stripe ($${Number(inv.total || 0).toLocaleString()})
+              </button>
+            `}
+          </div>
+        `;
+      } catch(e) {
+        console.error('Invoice load failed:', e);
+      }
+    }
+
+    async function processStripeCheckout(invId, amount) {
+      if (!confirm(`Confirm checkout payment of $${Number(amount).toLocaleString()} for Invoice ${invId}?`)) return;
+
+      try {
+        const invoices = await loadData('invoices');
+        const idx = invoices.findIndex(i => String(i.id) === String(invId) || String(i.invoiceNumber) === String(invId));
+        if (idx !== -1) {
+          invoices[idx].status = 'paid';
+          invoices[idx].paidDate = new Date().toISOString().split('T')[0];
+          await saveData('invoices', invoices);
+          showToast(`Invoice ${invId} paid successfully! Confirmation receipt generated.`, 'success');
+          setTimeout(() => loadInvoice(), 800);
+        }
+      } catch(e) {
+        showToast('Payment processing error: ' + e.message, 'error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadInvoice);
+  </script>
+</body>
+</html>

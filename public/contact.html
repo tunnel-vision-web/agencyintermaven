@@ -273,5 +273,33 @@ async function handleContactSubmit(e) {
 }
 </script>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    const cms = await loadData('contact_cms');
+    if (cms) {
+      const eyeEl = document.querySelector('.hero-tagline');
+      const titleEl = document.querySelector('.hero-content h1');
+      const subEl = document.querySelector('.hero-sub');
+
+      if (eyeEl && cms.eyebrow) eyeEl.innerText = cms.eyebrow;
+      if (titleEl && cms.title) titleEl.innerText = cms.title;
+      if (subEl && cms.sub) subEl.innerText = cms.sub;
+
+      const addrEl = document.querySelector('#contactAddress, .contact-addr');
+      const phoneEl = document.querySelector('#contactPhone, .contact-phone');
+      const emailEl = document.querySelector('#contactEmail, .contact-email');
+      const hoursEl = document.querySelector('#contactHours, .contact-hours');
+
+      if (addrEl && cms.address) addrEl.innerText = cms.address;
+      if (phoneEl && cms.phone) phoneEl.innerText = cms.phone;
+      if (emailEl && cms.email) emailEl.innerText = cms.email;
+      if (hoursEl && cms.hours) hoursEl.innerText = cms.hours;
+    }
+  } catch(e) { console.warn('Hydrate Contact CMS error:', e); }
+});
+</script>
+
 </body>
 </html>

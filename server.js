@@ -37,7 +37,7 @@ const upload = multer({ storage: storage });
 // Database helper
 const readDB = () => {
   if (!fs.existsSync(DB_FILE)) {
-    const defaultDb = { users: [], projects: [], project_categories: [], leads: [], media: [], settings: {}, team: [], services: [], testimonials: [], social: [], faq: [], crm: [], hero_slides: [] };
+    const defaultDb = { users: [], projects: [], project_categories: [], team_specialties: [], invoices: [], profile_cms: {}, landing_cms: {}, leads: [], media: [], settings: {}, team: [], services: [], testimonials: [], social: [], faq: [], crm: [], hero_slides: [] };
     fs.writeFileSync(DB_FILE, JSON.stringify(defaultDb, null, 2));
     return defaultDb;
   }

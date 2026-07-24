@@ -243,9 +243,78 @@
   </div>
 </footer>
 
+
 <script>
+async function initProfileCMS() {
+  try {
+    const cms = await loadData('profile_cms');
+    if (cms) {
+      if (cms.eyebrow) {
+        const eb = document.querySelector('.grid-2 .eyebrow');
+        if (eb) eb.innerText = cms.eyebrow;
+      }
+      if (cms.tagline) {
+        const p = document.querySelector('.page-hero-content p');
+        if (p) p.innerText = cms.tagline;
+      }
+      if (cms.bio) {
+        const bioP = document.querySelector('.grid-2 p');
+        if (bioP) bioP.innerText = cms.bio;
+      }
+      if (Array.isArray(cms.stats) && cms.stats.length > 0) {
+        const statsGrid = document.querySelector('.stats-grid');
+        if (statsGrid) {
+          statsGrid.innerHTML = cms.stats.map(s => `
+            <div class="stat-card">
+              <div class="stat-num">${s.number || s.value || '20+'}</div>
+              <div class="stat-label">${s.label}</div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+  } catch(e) {
+    console.warn('Profile CMS hydration fallback:', e);
+  }
+}
+document.addEventListener('DOMContentLoaded', initProfileCMS);
 window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 50);
+});
+</script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    const cms = await loadData('profile_cms');
+    if (cms) {
+      const nameEl = document.querySelector('.hero-content h1, .profile-name');
+      const titleEl = document.querySelector('.profile-title, .hero-tagline');
+      const taglineEl = document.querySelector('.profile-tagline, .hero-sub');
+      const bioEl = document.querySelector('.profile-bio, #profileBioContent');
+      const philEl = document.querySelector('.profile-philosophy, #profilePhilosophyContent');
+
+      if (nameEl && cms.name) nameEl.innerText = cms.name;
+      if (titleEl && cms.title) titleEl.innerText = cms.title;
+      if (taglineEl && cms.tagline) taglineEl.innerText = cms.tagline;
+      if (bioEl && cms.bio) bioEl.innerHTML = cms.bio;
+      if (philEl && cms.philosophy) philEl.innerHTML = cms.philosophy;
+
+      if (Array.isArray(cms.stats)) {
+        const statEls = document.querySelectorAll('.stat-item, .metric-card');
+        cms.stats.forEach((st, i) => {
+          if (statEls[i]) {
+            const valEl = statEls[i].querySelector('.stat-num, .stat-val, h3, div:first-child');
+            const lblEl = statEls[i].querySelector('.stat-lbl, .stat-label, p, span');
+            if (valEl && st.value) valEl.innerText = st.value;
+            if (lblEl && st.label) lblEl.innerText = st.label;
+          }
+        });
+      }
+    }
+  } catch(e) { console.warn('Hydrate Profile CMS error:', e); }
 });
 </script>
 

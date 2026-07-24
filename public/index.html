@@ -1916,6 +1916,36 @@ async function initIndexProjects() {
     const projects = await loadData('projects');
     const categories = await loadData('project_categories');
 
+    // Hydrate Landing Page Content from landing_cms
+    try {
+      const landingCms = await loadData('landing_cms');
+      if (landingCms) {
+        if (landingCms.heroEyebrow) {
+          const eb = document.querySelector('.hero-eyebrow') || document.querySelector('.hero-content .eyebrow');
+          if (eb) eb.innerText = landingCms.heroEyebrow;
+        }
+        if (landingCms.heroTitle) {
+          const h1 = document.querySelector('.hero-content h1');
+          if (h1) h1.innerText = landingCms.heroTitle;
+        }
+        if (landingCms.heroSub) {
+          const sub = document.querySelector('.hero-sub');
+          if (sub) sub.innerText = landingCms.heroSub;
+        }
+        if (landingCms.kickerText) {
+          const kicker = document.querySelector('.section-kicker');
+          if (kicker) kicker.innerText = landingCms.kickerText;
+        }
+        if (landingCms.kickerSub) {
+          const kickerSub = document.querySelector('.section-sub');
+          if (kickerSub) kickerSub.innerText = landingCms.kickerSub;
+        }
+      }
+    } catch(e) {
+      console.warn('Landing CMS hydration fallback:', e);
+    }
+
+
     // 1. Hydrate Category Pills Bar with CMS Categories
     const filterBar = document.getElementById('filterBar');
     if (filterBar && Array.isArray(categories) && categories.length > 0) {
@@ -1990,6 +2020,44 @@ function applyCombinedIndexFilter() {
 
 document.addEventListener('DOMContentLoaded', initIndexProjects);
 initIndexProjects();
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    const cms = await loadData('landing_cms');
+    if (cms) {
+      const heroTag = document.querySelector('.hero-tagline');
+      const heroH1 = document.querySelector('.hero-content h1');
+      const heroSub = document.querySelector('.hero-sub');
+      const kickerH2 = document.querySelector('.selected-work-header h2');
+      const kickerSub = document.querySelector('.selected-work-header p');
+      const ctaH2 = document.querySelector('.cta-banner h2, .footer-cta h2');
+      const ctaP = document.querySelector('.cta-banner p, .footer-cta p');
+
+      if (heroTag && cms.heroEyebrow) heroTag.innerText = cms.heroEyebrow;
+      if (heroH1 && cms.heroTitle) heroH1.innerText = cms.heroTitle;
+      if (heroSub && cms.heroSub) heroSub.innerHTML = cms.heroSub;
+      if (kickerH2 && cms.kickerText) kickerH2.innerText = cms.kickerText;
+      if (kickerSub && cms.kickerSub) kickerSub.innerText = cms.kickerSub;
+      if (ctaH2 && cms.ctaTitle) ctaH2.innerText = cms.ctaTitle;
+      if (ctaP && cms.ctaSub) ctaP.innerText = cms.ctaSub;
+
+      if (Array.isArray(cms.stats)) {
+        const statEls = document.querySelectorAll('.stat-item, .metric-card');
+        cms.stats.forEach((st, i) => {
+          if (statEls[i]) {
+            const valEl = statEls[i].querySelector('.stat-num, .stat-val, h3, div:first-child');
+            const lblEl = statEls[i].querySelector('.stat-lbl, .stat-label, p, span');
+            if (valEl && st.value) valEl.innerText = st.value;
+            if (lblEl && st.label) lblEl.innerText = st.label;
+          }
+        });
+      }
+    }
+  } catch(e) { console.warn('Hydrate Landing CMS error:', e); }
+});
 </script>
 
 </body>

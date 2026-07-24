@@ -252,38 +252,51 @@
     },
     {
       "id": 5,
-      "title": "Mwanga Law",
+      "title": "The Modern Dad Society",
       "category": "Branding",
-      "badge": "client",
-      "thumb": "assets/mwanga_law.png",
-      "client": "Mwanga Law Group",
-      "budget": "$28,000",
-      "roi": "150% Inquiries Growth",
-      "projectUrl": "https://intermaven.io",
-      "btnText": "View Legal Portfolio",
-      "desc": "Distinguished legal wordmark and digital presence.",
-      "fullDesc": "<h3>Executive Summary</h3><p>Distinguished legal brand identity, stationary suite, and client consultation web portal.</p>",
-      "images": [
-        {
-          "url": "assets/mwanga_law.png",
-          "caption": "Wordmark & Stationery"
-        }
-      ],
       "categories": [
         "Branding"
+      ],
+      "badge": "client",
+      "client": "The Modern Dad Society",
+      "budget": "$200",
+      "roi": "150% Inquiries Growth",
+      "projectUrl": "",
+      "thumb": "assets/uploads/1784902208000-787141612.png",
+      "desc": "Distinguished  brand and digital presence.",
+      "fullDesc": "<h3>Executive Summary</h3><p>Distinguished&nbsp; brand identity, stationary suite, andbrand guidelines.</p>",
+      "images": [
+        {
+          "url": "assets/uploads/1784907055839-143432341.png",
+          "caption": "The Modern Dad Society — Screenshot"
+        },
+        {
+          "url": "assets/uploads/1784907055822-253331339.png",
+          "caption": "The Modern Dad Society — Screenshot"
+        },
+        {
+          "url": "assets/uploads/1784902208000-787141612.png",
+          "caption": "The Modern Dad Society — Screenshot"
+        }
       ]
     },
     {
       "id": 6,
-      "title": "Afya Plus Clinics",
-      "category": "Branding",
+      "title": "Synergy ERP Interfaces and Branding",
+      "category": "Branding, Software & Systems, Branding & Web, AI & Automation, Interactive Design",
+      "categories": [
+        "Branding",
+        "Software & Systems",
+        "Branding & Web",
+        "AI & Automation",
+        "Interactive Design"
+      ],
       "badge": "client",
+      "client": "Synergy Software LTD",
+      "budget": "$20,000+",
+      "roi": "100+ new subscribers",
+      "projectUrl": "",
       "thumb": "assets/afya_plus.png",
-      "client": "Afya Plus Healthcare",
-      "budget": "$40,000",
-      "roi": "+4,000 Registered Patients",
-      "projectUrl": "https://intermaven.io",
-      "btnText": "Explore Clinic Portal",
       "desc": "Healthcare brand identity and patient portal design.",
       "fullDesc": "<h3>Executive Summary</h3><p>Comprehensive patient portal UX and healthcare brand system built for multi-location clinics.</p>",
       "images": [
@@ -291,9 +304,6 @@
           "url": "assets/afya_plus.png",
           "caption": "Patient Portal Design"
         }
-      ],
-      "categories": [
-        "Branding"
       ]
     }
   ],
@@ -344,6 +354,24 @@
     }
   ],
   "media": [
+    {
+      "id": "1784907055842",
+      "url": "assets/uploads/1784907055839-143432341.png",
+      "name": "TDMS-logo-seal.png",
+      "date": "2026-07-24T15:30:55.842Z"
+    },
+    {
+      "id": "1784907055825",
+      "url": "assets/uploads/1784907055822-253331339.png",
+      "name": "TDMS-horizontal-logo.png",
+      "date": "2026-07-24T15:30:55.825Z"
+    },
+    {
+      "id": "1784902208008",
+      "url": "assets/uploads/1784902208000-787141612.png",
+      "name": "work-5.png",
+      "date": "2026-07-24T14:10:08.008Z"
+    },
     {
       "id": 1,
       "name": "Hero Slide 1 — Studio Overview",
@@ -499,7 +527,7 @@
   ],
   "settings": {
     "agencyName": "Intermaven Agency",
-    "phone": "+1 (404) 555-0199",
+    "phone": "+1 (770) 374-3203",
     "email": "hello@intermaven.agency",
     "address": "Peachtree St NW, Atlanta GA 30309",
     "tagline": "Brand identity, interactive design, and software ecosystems — built with two decades of craft."
@@ -792,5 +820,167 @@
       "id": "cat_7",
       "name": "Interactive Design"
     }
-  ]
+  ],
+  "team_specialties": [
+    {
+      "id": 1,
+      "name": "Lead Software Architect"
+    },
+    {
+      "id": 2,
+      "name": "Brand Identity Specialist"
+    },
+    {
+      "id": 3,
+      "name": "AI & Automation Lead"
+    },
+    {
+      "id": 4,
+      "name": "Campaign Strategist"
+    },
+    {
+      "id": 5,
+      "name": "UI/UX & Product Designer"
+    },
+    {
+      "id": 6,
+      "name": "Full-Stack Engineer"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "INV-2026-001",
+      "invoiceNumber": "INV-2026-001",
+      "clientName": "Walker for NABIP Campaign Committee",
+      "clientEmail": "campaign@keepwalkingwithwalker.com",
+      "projectName": "Walker for NABIP VP Digital Campaign",
+      "type": "one_time",
+      "billingCycle": "one_time",
+      "status": "sent",
+      "issueDate": "2026-07-20",
+      "dueDate": "2026-08-05",
+      "lineItems": [
+        {
+          "description": "Brand Identity & Presidential Campaign Asset Package",
+          "qty": 1,
+          "unitPrice": 8500,
+          "amount": 8500
+        },
+        {
+          "description": "Interactive Member Policy Hub & Endorsement System",
+          "qty": 1,
+          "unitPrice": 11500,
+          "amount": 11500
+        },
+        {
+          "description": "High-Performance Cloud Hosting & Voter Data Security",
+          "qty": 1,
+          "unitPrice": 5000,
+          "amount": 5000
+        }
+      ],
+      "subtotal": 25000,
+      "tax": 0,
+      "total": 25000,
+      "workplanNotes": "Scope derived from Executive Consultation #WALK-2026. Deliverables include brand identity, live pledge engine, and voter analytics dashboard."
+    },
+    {
+      "id": "INV-2026-002",
+      "invoiceNumber": "INV-2026-002",
+      "clientName": "Atlanta TV Mount PRO",
+      "clientEmail": "billing@atlantatvmount.com",
+      "projectName": "Enterprise Retainer & Booking API System",
+      "type": "recurring",
+      "billingCycle": "monthly",
+      "status": "paid",
+      "issueDate": "2026-07-01",
+      "dueDate": "2026-07-15",
+      "lineItems": [
+        {
+          "description": "Monthly API Infrastructure Maintenance & Optimization",
+          "qty": 1,
+          "unitPrice": 2800,
+          "amount": 2800
+        },
+        {
+          "description": "Continuous SMS/Email Customer Dispatch Automation",
+          "qty": 1,
+          "unitPrice": 1200,
+          "amount": 1200
+        }
+      ],
+      "subtotal": 4000,
+      "tax": 0,
+      "total": 4000,
+      "workplanNotes": "Monthly recurring workplan retainer for dispatch API maintenance, customer SMS webhooks, and local SEO booking optimization."
+    }
+  ],
+  "profile_cms": {
+    "name": "Marcus Sterling",
+    "title": "Founder & Executive Technology Partner",
+    "tagline": "Architecting high-trust software ecosystems, resilient cloud infrastructure, and proprietary venture platforms.",
+    "bio": "<p>Marcus Sterling is a veteran software architect and technology entrepreneur with over two decades of technical leadership experience. He specializes in designing enterprise-grade software systems, scalable cloud microservices, and AI-driven automation workflows.</p>",
+    "philosophy": "<p>We believe in high-trust digital craftsmanship — building software that scales reliably without technical debt or unnecessary complexity.</p>",
+    "email": "marcus@intermaven.io",
+    "phone": "+1 (404) 890-5521",
+    "location": "Atlanta, GA / Remote",
+    "stats": [
+      {
+        "value": "20+",
+        "label": "Years Technical Leadership"
+      },
+      {
+        "value": "140+",
+        "label": "Platforms Delivered"
+      },
+      {
+        "value": "99.9%",
+        "label": "Uptime SLA Guarantee"
+      }
+    ]
+  },
+  "landing_cms": {
+    "heroEyebrow": "Full-Stack Agency & Venture Studio",
+    "heroTitle": "We Design Brands. We Build Software. We Launch Ventures.",
+    "heroSub": "<p>\"The Intermaven approach pairs high-trust digital craftsmanship with scalable software architecture. From bespoke client platforms to in-house SaaS ventures....\" Focus on custom AI agent development, workflow automation, and enterprise efficiency. — Crafted with precision for enterprise scalability and high trust.</p>",
+    "heroPrimaryBtnText": "Schedule Workplan Consultation",
+    "heroPrimaryBtnUrl": "appointment.html",
+    "heroSecondaryBtnText": "Explore Showcase Work",
+    "heroSecondaryBtnUrl": "showcase.html",
+    "kickerText": "Brands we've launched. Systems we've built. Some of them, we built for ourselves.",
+    "kickerSub": "Filter by category to see the kind of work that's closest to what you need.",
+    "ctaTitle": "Ready to Architect Your Next Venture?",
+    "ctaSub": "Schedule a 30-minute executive workplan consultation with our principal technical team.",
+    "ctaBtnText": "Book Executive Workplan Session",
+    "ctaBtnUrl": "appointment.html",
+    "stats": [
+      {
+        "value": "$120M+",
+        "label": "Client Value Generated"
+      },
+      {
+        "value": "140+",
+        "label": "Platforms Delivered"
+      },
+      {
+        "value": "99.9%",
+        "label": "Uptime SLA Guarantee"
+      },
+      {
+        "value": "20+",
+        "label": "Years Combined Experience"
+      }
+    ]
+  },
+  "contact_cms": {
+    "eyebrow": "Executive Inquiries & Workplan Consultations",
+    "title": "Let's Architect Your Next Technical Venture",
+    "sub": "Whether you need high-trust enterprise software engineering, brand identity, or a consultation on your roadmap — our principal team is ready.",
+    "address": "Buckhead Executive Tower, 3344 Peachtree Rd NE, Atlanta, GA 30326",
+    "phone": "+1 (770) 374-3203",
+    "email": "hello@intermaven.io",
+    "hours": "Monday – Friday: 9:00 AM – 6:00 PM EST",
+    "bookingTitle": "Prefer a One on One Consultation?",
+    "bookingSub": "Book a 30-minute workplan session directly on our principal team calendar."
+  }
 }
